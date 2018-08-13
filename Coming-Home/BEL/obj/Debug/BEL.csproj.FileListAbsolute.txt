@@ -1,0 +1,6 @@
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BEL\bin\Debug\BEL.dll
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BEL\bin\Debug\BEL.pdb
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BEL\obj\Debug\BEL.csproj.CoreCompileInputs.cache
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BEL\obj\Debug\BEL.dll
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BEL\obj\Debug\BEL.pdb
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BEL\obj\Debug\BEL.csprojResolveAssemblyReference.cache

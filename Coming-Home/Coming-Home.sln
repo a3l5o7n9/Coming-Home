@@ -1,0 +1,76 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Coming-Home", "Coming-Home\", "{8BCF27A9-24E1-42D7-921A-5E0AFAC5A924}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		ProjectReferences = "{c22646e2-8752-43a3-9c09-2a8fe9dae9e4}|BEL.dll;{5c57c28c-1c63-431e-84c2-807c7f7f66c1}|DAL.dll;{164b0d1d-41aa-46c9-9278-7beb424806d5}|BAL.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_51020"
+		Debug.AspNetCompiler.PhysicalPath = "Coming-Home\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_51020\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_51020"
+		Release.AspNetCompiler.PhysicalPath = "Coming-Home\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_51020\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "51020"
+		SlnRelativePath = "Coming-Home\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+		{164B0D1D-41AA-46C9-9278-7BEB424806D5} = {164B0D1D-41AA-46C9-9278-7BEB424806D5}
+		{5C57C28C-1C63-431E-84C2-807C7F7F66C1} = {5C57C28C-1C63-431E-84C2-807C7F7F66C1}
+		{C22646E2-8752-43A3-9C09-2A8FE9DAE9E4} = {C22646E2-8752-43A3-9C09-2A8FE9DAE9E4}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{5C57C28C-1C63-431E-84C2-807C7F7F66C1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C22646E2-8752-43A3-9C09-2A8FE9DAE9E4} = {C22646E2-8752-43A3-9C09-2A8FE9DAE9E4}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAL", "BAL\BAL.csproj", "{164B0D1D-41AA-46C9-9278-7BEB424806D5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5C57C28C-1C63-431E-84C2-807C7F7F66C1} = {5C57C28C-1C63-431E-84C2-807C7F7F66C1}
+		{C22646E2-8752-43A3-9C09-2A8FE9DAE9E4} = {C22646E2-8752-43A3-9C09-2A8FE9DAE9E4}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BEL", "BEL\BEL.csproj", "{C22646E2-8752-43A3-9C09-2A8FE9DAE9E4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8BCF27A9-24E1-42D7-921A-5E0AFAC5A924}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BCF27A9-24E1-42D7-921A-5E0AFAC5A924}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BCF27A9-24E1-42D7-921A-5E0AFAC5A924}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BCF27A9-24E1-42D7-921A-5E0AFAC5A924}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{5C57C28C-1C63-431E-84C2-807C7F7F66C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C57C28C-1C63-431E-84C2-807C7F7F66C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C57C28C-1C63-431E-84C2-807C7F7F66C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C57C28C-1C63-431E-84C2-807C7F7F66C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{164B0D1D-41AA-46C9-9278-7BEB424806D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{164B0D1D-41AA-46C9-9278-7BEB424806D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{164B0D1D-41AA-46C9-9278-7BEB424806D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{164B0D1D-41AA-46C9-9278-7BEB424806D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C22646E2-8752-43A3-9C09-2A8FE9DAE9E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C22646E2-8752-43A3-9C09-2A8FE9DAE9E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C22646E2-8752-43A3-9C09-2A8FE9DAE9E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C22646E2-8752-43A3-9C09-2A8FE9DAE9E4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E046ECCA-B3EF-4803-9433-197AE2556398}
+	EndGlobalSection
+EndGlobal
