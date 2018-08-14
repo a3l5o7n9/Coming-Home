@@ -29,9 +29,9 @@ public class ComingHomeWS : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public int Register(string userName, string userPassword, string homeName, string cityName, string streetName, int homeNo, string postalCode, string userTypeName)
+    public int Register(string userName, string userPassword, string firstName, string lastName)
     {
-        return BLService.Register(userName, userPassword, homeName, cityName, streetName, homeNo, postalCode, userTypeName);
+        return BLService.Register(userName, userPassword, firstName, lastName);
     }
 
     [WebMethod]

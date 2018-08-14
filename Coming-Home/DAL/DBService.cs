@@ -16,7 +16,7 @@ namespace DAL
         static SqlCommand com = new SqlCommand();
         static SqlDataReader sdr = null;
 
-        static public int Register(string userName, string userPassword, string homeName, string cityName, string streetName, int homeNo, string postalCode, string userTypeName)
+        static public int Register(string userName, string userPassword, string firstName, string lastName)
         {
             int userId = -1;
             com = new SqlCommand("New_User", con);
@@ -26,12 +26,8 @@ namespace DAL
 
             com.Parameters.Add(new SqlParameter("@UserName", userName));
             com.Parameters.Add(new SqlParameter("@UserPassword", userPassword));
-            com.Parameters.Add(new SqlParameter("@HomeName", homeName));
-            com.Parameters.Add(new SqlParameter("@CityName", cityName));
-            com.Parameters.Add(new SqlParameter("@StreetName", streetName));
-            com.Parameters.Add(new SqlParameter("@HomeNO", homeNo));
-            com.Parameters.Add(new SqlParameter("@PostalCode", postalCode));
-            com.Parameters.Add(new SqlParameter("@UserTypeName", userTypeName));
+            com.Parameters.Add(new SqlParameter("@FirstName", firstName));
+            com.Parameters.Add(new SqlParameter("@LastName", lastName));
 
             try
             {
@@ -80,7 +76,7 @@ namespace DAL
 
                 if (sdr.Read())
                 {
-                    u = new User(int.Parse(sdr["User_Id"].ToString()), userName, userPassword, sdr["Home_Name"].ToString(), sdr["User_Type_Name"].ToString());
+                    u = new User(int.Parse(sdr["User_Id"].ToString()), userName, userPassword, sdr["First_Name"].ToString(), sdr["Last_Name"].ToString());
                 }
 
                 return u;

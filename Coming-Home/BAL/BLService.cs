@@ -10,9 +10,9 @@ namespace BAL
 {
     static public class BLService
     {
-        static public int Register(string userName, string userPassword, string homeName, string cityName, string streetName, int homeNo, string postalCode, string userTypeName)
+        static public int Register(string userName, string userPassword, string firstName, string lastName)
         {
-            return DBService.Register(userName, userPassword, homeName, cityName, streetName, homeNo, postalCode, userTypeName);
+            return DBService.Register(userName, userPassword, firstName, lastName);
         }
 
         static public User Login(string userName, string userPassword)
