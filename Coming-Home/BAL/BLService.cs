@@ -15,9 +15,14 @@ namespace BAL
             return DBService.Register(userName, userPassword, firstName, lastName);
         }
 
-        static public User Login(string userName, string userPassword)
+        static public JsonData Login(string userName, string userPassword)
         {
             return DBService.Login(userName, userPassword);
+        }
+
+        static public JsonData CreateHome(int userId, string homeName, string address)
+        {
+            return DBService.CreateHome(userId, homeName, address);
         }
 
         static public int UpdateTokenForUserId(string token, int userId)

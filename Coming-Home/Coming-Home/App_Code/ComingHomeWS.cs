@@ -37,9 +37,15 @@ public class ComingHomeWS : System.Web.Services.WebService
     [WebMethod]
     public string Login(string userName, string userPassword)
     {
-        User u = BLService.Login(userName, userPassword);
+        JsonData jd = BLService.Login(userName, userPassword);
 
-        return js.Serialize(u);
+        return js.Serialize(jd);
+    }
+
+    [WebMethod]
+    public string CreateHome (string userId, string homeName, string address)
+    {
+        return js.Serialize(BLService.CreateHome(int.Parse(userId), homeName, address));
     }
 
     [WebMethod]
