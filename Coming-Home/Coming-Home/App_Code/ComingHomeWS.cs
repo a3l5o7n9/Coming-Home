@@ -43,9 +43,22 @@ public class ComingHomeWS : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string CreateHome (string userId, string homeName, string address)
+    public string CreateHome(string userId, string homeName, string address)
     {
         return js.Serialize(BLService.CreateHome(int.Parse(userId), homeName, address));
+    }
+
+    [WebMethod]
+    public string JoinHome(string userId, string homeName, string address)
+    {
+        JsonData jd = BLService.JoinHome(int.Parse(userId), homeName, address);
+
+        if (jd == null)
+        {
+            return "Home Not Found";
+        }
+
+        return js.Serialize(jd);
     }
 
     [WebMethod]

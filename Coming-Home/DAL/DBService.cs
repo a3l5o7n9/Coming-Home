@@ -138,6 +138,50 @@ namespace DAL
             return jd;
         }
 
+        static public JsonData JoinHome(int userId, string homeName, string address)
+        {
+            JsonData jd = null;
+            com = new SqlCommand("Join_Existing_Home", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+            com.Parameters.Add(new SqlParameter("@HomeName", homeName));
+            com.Parameters.Add(new SqlParameter("@Address", address));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                if (sdr.Read())
+                {
+                    jd = new JsonData(new Home(int.Parse(sdr["Home_Id"].ToString()), homeName, int.Parse(sdr["Number_Of_Users"].ToString()), address));
+                }
+                else
+                {
+                    return null;
+                }
+
+                return jd;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                   "ERROR in class:DBServices function:Register() - message=" + e.Message +
+                   ", on the" + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return jd;
+        }
+
         static public int UpdateTokenForUserId(string token, int userId)
         {
             int res = -1;
