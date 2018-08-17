@@ -9,6 +9,6 @@ namespace DAL
     static class Globals
     {
         public static string strCon = @"Data Source=185.60.170.14;Integrated Security=False;User ID=Site14;Password=Mqv@2n18;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        public static string LogFileName = "C://Users/Alon/Documents/GitHub/Coming-Home/Coming-Home/Errors/Errors_Log.txt";
+        public static string LogFileName = "./Errors/Errors_Log.txt";
     }
 }
