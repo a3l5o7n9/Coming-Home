@@ -20,5 +20,12 @@ namespace BEL
             NumOfUsers = numOfUsers;
             Address = address;
         }
+
+        public Home(string homeName, int numOfUsers, string address)
+        {
+            HomeName = homeName;
+            NumOfUsers = numOfUsers;
+            Address = address;
+        }
     }
 }
