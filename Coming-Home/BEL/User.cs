@@ -13,7 +13,6 @@ namespace BEL
         public string UserPassword { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string HomeName { get; set; }
         public string UserTypeName { get; set; }
         public string Token { get; set; }
 
@@ -26,25 +25,23 @@ namespace BEL
             LastName = lastName;
         }
 
-        public User(int userId, string userName, string userPassword, string firstName, string lastName, string homeName, string userTypeName)
+        public User(int userId, string userName, string userPassword, string firstName, string lastName, string userTypeName)
         {
             UserId = userId;
             UserName = userName;
             UserPassword = userPassword;
             FirstName = firstName;
             LastName = lastName;
-            HomeName = homeName;
             UserTypeName = userTypeName;
         }
 
-        public User(int userId, string userName, string userPassword, string firstName, string lastName, string homeName, string userTypeName, string token)
+        public User(int userId, string userName, string userPassword, string firstName, string lastName, string userTypeName, string token)
         {
             UserId = userId;
             UserName = userName;
             UserPassword = userPassword;
             FirstName = firstName;
             LastName = lastName;
-            HomeName = homeName;
             UserTypeName = userTypeName;
             Token = token;
         }
