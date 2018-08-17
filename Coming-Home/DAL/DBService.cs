@@ -45,8 +45,8 @@ namespace DAL
             {
                 userId = -2;
                 File.AppendAllText(Globals.LogFileName,
-                   "ERROR in class:DBServices function:Register() - message=" + e.Message +
-                   ", on the" + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                   "ERROR in class:DBService function:Register() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
             }
             finally
             {
@@ -76,7 +76,7 @@ namespace DAL
 
                 if (sdr.Read())
                 {
-                    if (sdr["Home_Id"].ToString() == null)
+                    if (sdr["Home_Id"].ToString() == "")
                     {
                         jd = new JsonData(new User(int.Parse(sdr["User_Id"].ToString()), userName, userPassword, sdr["First_Name"].ToString(), sdr["Last_Name"].ToString()));
                         return jd;
@@ -90,8 +90,8 @@ namespace DAL
             catch (Exception e)
             {
                 File.AppendAllText(Globals.LogFileName,
-                   "ERROR in class:DBServices function:Register() - message=" + e.Message +
-                   ", on the" + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                   "ERROR in class:DBService function:Login() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
             }
             finally
             {
@@ -130,8 +130,8 @@ namespace DAL
             catch (Exception e)
             {
                 File.AppendAllText(Globals.LogFileName,
-                   "ERROR in class:DBServices function:Register() - message=" + e.Message +
-                   ", on the" + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                   "ERROR in class:DBService function:CreateHome() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
             }
             finally
             {
@@ -174,8 +174,8 @@ namespace DAL
             catch (Exception e)
             {
                 File.AppendAllText(Globals.LogFileName,
-                   "ERROR in class:DBServices function:Register() - message=" + e.Message +
-                   ", on the" + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                   "ERROR in class:DBService function:JoinHome() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
             }
             finally
             {
@@ -214,8 +214,8 @@ namespace DAL
             catch (Exception e)
             {
                 File.AppendAllText(Globals.LogFileName,
-                   "ERROR in class:DBServices function:Register() - message=" + e.Message +
-                   ", on the" + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                   "ERROR in class:DBService function:UpdateTokenForUserId() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
             }
             finally
             {
