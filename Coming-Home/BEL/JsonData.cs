@@ -8,47 +8,47 @@ namespace BEL
 {
     public class JsonData
     {
-        public User U { get; set; }
-        public Home H { get; set; }
-        public Room R { get; set; }
-        public Device D { get; set; }
+        public List<User> LU { get; set; }
+        public List<Home> LH { get; set; }
+        public List<Room> LR { get; set; }
+        public List<Device> LD { get; set; }
 
-        public JsonData(User u, Home h)
+        public JsonData(List<User> lu, List<Home> lh)
         {
-            U = u;
-            H = h;
+            LU = lu;
+            LH = lh;
         }
 
-        public JsonData(User u)
+        public JsonData(List<User> lu)
         {
-            U = u;
+            LU = lu;
         }
 
-        public JsonData(Home h)
+        public JsonData(List<Home> lh)
         {
-            H = h;
+            LH = lh;
         }
 
-        public JsonData(User u, Home h, Room r)
+        public JsonData(List<User> lu, List<Home> lh, List<Room> lr)
         {
-            U = u;
-            H = h;
-            R = r;
+            LU = lu;
+            LH = lh;
+            LR = lr;
         }
 
-        public JsonData(User u, Home h, Device d)
+        public JsonData(List<User> lu, List<Home> lh, List<Device> ld)
         {
-            U = u;
-            H = h;
-            D = d;
+            LU = lu;
+            LH = lh;
+            LD = ld;
         }
 
-        public JsonData(User u, Home h, Room r, Device d)
+        public JsonData(List<User> lu, List<Home> lh, List<Room> lr, List<Device> ld)
         {
-            U = u;
-            H = h;
-            R = r;
-            D = d;
+            LU = lu;
+            LH = lh;
+            LR = lr;
+            LD = ld;
         }
     }
 }

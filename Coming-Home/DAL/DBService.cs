@@ -74,16 +74,23 @@ namespace DAL
                 com.Connection.Open();
                 sdr = com.ExecuteReader();
 
-                if (sdr.Read())
+                List<User> lu = new List<User>();
+                List<Home> lh = new List<Home>();
+
+                while (sdr.Read())
                 {
                     if (sdr["Home_Id"].ToString() == "")
                     {
-                        jd = new JsonData(new User(int.Parse(sdr["User_Id"].ToString()), userName, userPassword, sdr["First_Name"].ToString(), sdr["Last_Name"].ToString()));
+                        lu.Add(new User(int.Parse(sdr["User_Id"].ToString()), userName, userPassword, sdr["First_Name"].ToString(), sdr["Last_Name"].ToString()));
+                        jd = new JsonData(lu);
                         return jd;
                     }
 
-                    jd = new JsonData(new User(int.Parse(sdr["User_Id"].ToString()), userName, userPassword, sdr["First_Name"].ToString(), sdr["Last_Name"].ToString(), sdr["User_Type_Name"].ToString(), sdr["Token"].ToString()), new Home(int.Parse(sdr["Home_Id"].ToString()),sdr["Home_Name"].ToString(), int.Parse(sdr["Number_Of_Users"].ToString()), sdr["Address"].ToString()));
+                    lu.Add(new User(int.Parse(sdr["User_Id"].ToString()), userName, userPassword, sdr["First_Name"].ToString(), sdr["Last_Name"].ToString(), sdr["User_Type_Name"].ToString(), sdr["Token"].ToString()));
+                    lh.Add(new Home(int.Parse(sdr["Home_Id"].ToString()), sdr["Home_Name"].ToString(), int.Parse(sdr["Number_Of_Users"].ToString()), sdr["Address"].ToString()));
                 }
+
+                jd = new JsonData(lu, lh);
 
                 return jd;
             }
@@ -120,9 +127,12 @@ namespace DAL
                 com.Connection.Open();
                 sdr = com.ExecuteReader();
 
+                List<Home> lh = new List<Home>();
+
                 if (sdr.Read())
                 {
-                    jd = new JsonData(new Home(int.Parse(sdr[0].ToString()), homeName, 1, address));
+                    lh.Add(new Home(int.Parse(sdr[0].ToString()), homeName, 1, address));
+                    jd = new JsonData(lh);
                 }
 
                 return jd;
@@ -160,9 +170,12 @@ namespace DAL
                 com.Connection.Open();
                 sdr = com.ExecuteReader();
 
+                List<Home> lh = new List<Home>();
+
                 if (sdr.Read())
                 {
-                    jd = new JsonData(new Home(int.Parse(sdr["Home_Id"].ToString()), homeName, int.Parse(sdr["Number_Of_Users"].ToString()), address));
+                    lh.Add(new Home(int.Parse(sdr["Home_Id"].ToString()), homeName, int.Parse(sdr["Number_Of_Users"].ToString()), address));
+                    jd = new JsonData(lh);
                 }
                 else
                 {
