@@ -76,6 +76,12 @@ namespace DAL
 
                 if (sdr.Read())
                 {
+                    if (sdr["Home_Name"] == null)
+                    {
+                        jd = new JsonData(new User(int.Parse(sdr["User_Id"].ToString()), userName, userPassword, sdr["First_Name"].ToString(), sdr["Last_Name"].ToString()));
+                        return jd;
+                    }
+
                     jd = new JsonData(new User(int.Parse(sdr["User_Id"].ToString()), userName, userPassword, sdr["First_Name"].ToString(), sdr["Last_Name"].ToString()), new Home(int.Parse(sdr["Home_Id"].ToString()), sdr["Home_Name"].ToString(), int.Parse(sdr["Number_Of_Users"].ToString()), sdr["Address"].ToString()));
                 }
 

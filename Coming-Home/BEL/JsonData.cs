@@ -19,6 +19,11 @@ namespace BEL
             H = h;
         }
 
+        public JsonData(User u)
+        {
+            U = u;
+        }
+
         public JsonData(Home h)
         {
             H = h;
