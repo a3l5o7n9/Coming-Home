@@ -26,6 +26,7 @@ public class ComingHomeWS : System.Web.Services.WebService
 
         //Uncomment the following line if using designed components 
         //InitializeComponent(); 
+        BLService.InitErrorLogPath(Server.MapPath("~"));
     }
 
     [WebMethod]
@@ -37,6 +38,7 @@ public class ComingHomeWS : System.Web.Services.WebService
     [WebMethod]
     public string Login(string userName, string userPassword)
     {
+        Server.MapPath("~");
         JsonData jd = BLService.Login(userName, userPassword);
 
         return js.Serialize(jd);
@@ -68,8 +70,11 @@ public class ComingHomeWS : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string SendPushNotification()
+    public string SendPushNotification(/*JsonData jd*/)
     {
+        //if (jd != null ) {
+
+        //}
         // Create a request using a URL that can receive a post.   
         WebRequest request = WebRequest.Create("https://exp.host/--/api/v2/push/send");
         // Set the Method property of the request to POST.  
@@ -77,11 +82,11 @@ public class ComingHomeWS : System.Web.Services.WebService
         // Create POST data and convert it to a byte array.  
         var objectToSend = new
         {
-            to = "ExponentPushToken[" + "]",
+            to = "ExponentPushToken[cUsRAzE11M_PB7v9MQIMhj]",
             title = "my title",
             body = "body from WSC#",
-            badge = 3,
-            data = new { name = "avi", grade = 100 }
+            badge = 1,
+            data = new { name = "alon", grade = 80 }
         };
 
         string postData = new JavaScriptSerializer().Serialize(objectToSend);

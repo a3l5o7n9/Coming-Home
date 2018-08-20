@@ -59,6 +59,11 @@ namespace DAL
             return userId;
         }
 
+        public static void InitErrorLogPath(string v)
+        {
+            Globals.LogFileName = v + "\\Errors_Log.txt";
+        }
+
         static public JsonData Login(string userName, string userPassword)
         {
             JsonData jd = null;

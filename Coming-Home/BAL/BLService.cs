@@ -30,6 +30,11 @@ namespace BAL
             return DBService.JoinHome(userId, homeName, address);
         }
 
+        public static void InitErrorLogPath(string v)
+        {
+            DBService.InitErrorLogPath(v);
+        }
+
         static public int UpdateTokenForUserId(string token, int userId)
         {
             return DBService.UpdateTokenForUserId(token, userId);
