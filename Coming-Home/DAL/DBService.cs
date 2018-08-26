@@ -46,7 +46,7 @@ namespace DAL
                 userId = -2;
                 File.AppendAllText(Globals.LogFileName,
                    "ERROR in class:DBService function:Register() - message=" + e.Message +
-                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
             }
             finally
             {
@@ -103,7 +103,7 @@ namespace DAL
             {
                 File.AppendAllText(Globals.LogFileName,
                    "ERROR in class:DBService function:Login() - message=" + e.Message +
-                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
             }
             finally
             {
@@ -146,7 +146,7 @@ namespace DAL
             {
                 File.AppendAllText(Globals.LogFileName,
                    "ERROR in class:DBService function:CreateHome() - message=" + e.Message +
-                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
             }
             finally
             {
@@ -193,7 +193,7 @@ namespace DAL
             {
                 File.AppendAllText(Globals.LogFileName,
                    "ERROR in class:DBService function:JoinHome() - message=" + e.Message +
-                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
             }
             finally
             {
@@ -236,7 +236,7 @@ namespace DAL
             {
                 File.AppendAllText(Globals.LogFileName,
                    "ERROR in class:DBService function:CreateRoom() - message=" + e.Message +
-                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
             }
             finally
             {
@@ -281,7 +281,7 @@ namespace DAL
             {
                 File.AppendAllText(Globals.LogFileName,
                    "ERROR in class:DBService function:CreateDevice() - message=" + e.Message +
-                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
             }
             finally
             {
@@ -321,7 +321,7 @@ namespace DAL
             {
                 File.AppendAllText(Globals.LogFileName,
                    "ERROR in class:DBService function:UpdateTokenForUserId() - message=" + e.Message +
-                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
             }
             finally
             {

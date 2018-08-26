@@ -54,7 +54,6 @@ public class ComingHomeWS : System.Web.Services.WebService
     [WebMethod]
     public string Login(string userName, string userPassword)
     {
-        Server.MapPath("~");
         JsonData jd = BLService.Login(userName, userPassword);
 
         return js.Serialize(jd);

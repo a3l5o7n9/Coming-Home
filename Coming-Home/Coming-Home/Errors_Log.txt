@@ -1,1 +1,2 @@
-ERROR in class:DBService function:Register() - message=User_Id, on the 26/08/2018 12:48ERROR in class:DBService function:Register() - message=User_Id, on the 26/08/2018 12:50
+ERROR in class:DBService function:CreateDevice() - message=Column name or number of supplied values does not match table definition.
+Transaction count after EXECUTE indicates a mismatching number of BEGIN and COMMIT statements. Previous count = 0, current count = 1., on the 26/08/2018 13:18
