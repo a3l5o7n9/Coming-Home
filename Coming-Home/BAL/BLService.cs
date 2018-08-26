@@ -30,6 +30,16 @@ namespace BAL
             return DBService.JoinHome(userId, homeName, address);
         }
 
+        static public JsonData CreateRoom(string roomName, int homeId, string roomTypeName)
+        {
+            return DBService.CreateRoom(roomName, homeId, roomTypeName);
+        }
+
+        static public JsonData CreateDevice(string deviceName, int homeId, string deviceTypeName, int userId, int roomId)
+        {
+            return DBService.CreateDevice(deviceName, homeId, deviceTypeName, userId, roomId);
+        }
+
         public static void InitErrorLogPath(string v)
         {
             DBService.InitErrorLogPath(v);

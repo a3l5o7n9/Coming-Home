@@ -64,6 +64,32 @@ public class ComingHomeWS : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string CreateRoom(string roomName, string homeId, string roomTypeName)
+    {
+        JsonData jd = BLService.CreateRoom(roomName, int.Parse(homeId), roomTypeName);
+
+        if (jd == null)
+        {
+            return "Room could not be created";
+        }
+
+        return js.Serialize(jd);
+    }
+
+    [WebMethod]
+    public string CreateDevice(string deviceName, string homeId, string deviceTypeName, string userId, string roomId)
+    {
+        JsonData jd = BLService.CreateDevice(deviceName, int.Parse(homeId), deviceTypeName, int.Parse(userId), int.Parse(roomId));
+
+        if (jd == null)
+        {
+            return "Device could not be created";
+        }
+
+        return js.Serialize(jd);
+    }
+
+    [WebMethod]
     public int UpdateTokenForUserId(string token, string userId)
     {
         return BLService.UpdateTokenForUserId(token, int.Parse(userId));

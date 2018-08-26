@@ -206,6 +206,94 @@ namespace DAL
             return jd;
         }
 
+        static public JsonData CreateRoom(string roomName, int homeId, string roomTypeName)
+        {
+            JsonData jd = null;
+            com = new SqlCommand("New_Room", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@RoomName", roomName));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+            com.Parameters.Add(new SqlParameter("@RoomTypeName", roomTypeName));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                List<Room> lr = new List<Room>();
+
+                if (sdr.Read())
+                {
+                    lr.Add(new Room(int.Parse(sdr[0].ToString()), roomName, roomTypeName, homeId, 0));
+                    jd = new JsonData(null, null, lr);
+                }
+
+                return jd;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                   "ERROR in class:DBService function:CreateRoom() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return jd;
+        }
+
+        static public JsonData CreateDevice(string deviceName, int homeId, string deviceTypeName, int userId, int roomId)
+        {
+            JsonData jd = null;
+            com = new SqlCommand("New_Device", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@DeviceName", deviceName));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+            com.Parameters.Add(new SqlParameter("@DeviceTypeName", deviceTypeName));
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+            com.Parameters.Add(new SqlParameter("@RoomId", roomId));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                List<Device> ld = new List<Device>();
+
+                if (sdr.Read())
+                {
+                    ld.Add(new Device(int.Parse(sdr[0].ToString()), deviceName, deviceTypeName, homeId));
+                    jd = new JsonData(null, null, ld);
+                }
+
+                return jd;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                   "ERROR in class:DBService function:CreateDevice() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return jd;
+        }
+
         static public int UpdateTokenForUserId(string token, int userId)
         {
             int res = -1;
