@@ -30,9 +30,25 @@ public class ComingHomeWS : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public int Register(string userName, string userPassword, string firstName, string lastName)
+    public string Register(string userName, string userPassword, string firstName, string lastName)
     {
-        return BLService.Register(userName, userPassword, firstName, lastName);
+        string res = "";
+
+        int userId = BLService.Register(userName, userPassword, firstName, lastName);
+
+        if (userId == -2)
+        {
+            res = "Error! User could not be created";
+            return res;
+        }
+
+        if (userId == -1)
+        {
+            res = "There is already a user with that UserName";
+            return res;
+        }
+
+        return js.Serialize(userId);
     }
 
     [WebMethod]
@@ -47,7 +63,19 @@ public class ComingHomeWS : System.Web.Services.WebService
     [WebMethod]
     public string CreateHome(string userId, string homeName, string address)
     {
-        return js.Serialize(BLService.CreateHome(int.Parse(userId), homeName, address));
+        JsonData jd = BLService.CreateHome(int.Parse(userId), homeName, address);
+
+        if (jd == null)
+        {
+            return "Error! Home could not be created";
+        }
+
+        if (jd.LH[0].HomeId == -1)
+        {
+            return "There is already a home with those details";
+        }
+
+        return js.Serialize(jd);
     }
 
     [WebMethod]
@@ -70,7 +98,12 @@ public class ComingHomeWS : System.Web.Services.WebService
 
         if (jd == null)
         {
-            return "Room could not be created";
+            return "Error! Room could not be created";
+        }
+
+        if (jd.LR[0].RoomId == -1)
+        {
+            return "There is already a room with those details";
         }
 
         return js.Serialize(jd);
@@ -84,6 +117,11 @@ public class ComingHomeWS : System.Web.Services.WebService
         if (jd == null)
         {
             return "Device could not be created";
+        }
+
+        if (jd.LD[0].DeviceId == -1)
+        {
+            return "There is already a device with those details";
         }
 
         return js.Serialize(jd);

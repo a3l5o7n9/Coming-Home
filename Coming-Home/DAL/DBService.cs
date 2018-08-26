@@ -36,7 +36,7 @@ namespace DAL
 
                 if (sdr.Read())
                 {
-                    userId = int.Parse(sdr["User_Id"].ToString());
+                    userId = int.Parse(sdr[0].ToString());
                 }
 
                 return userId;
