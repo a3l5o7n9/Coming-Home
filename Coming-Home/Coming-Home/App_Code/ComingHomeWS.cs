@@ -186,4 +186,28 @@ public class ComingHomeWS : System.Web.Services.WebService
         return "success:) --- " + responseFromServer + ", " + returnStatus;
     }
 
+    [WebMethod]
+    public string BindDeviceToRoom(string roomId, string deviceId, string userId)
+    {
+        int res = BLService.BindDeviceToRoom(int.Parse(roomId), int.Parse(deviceId), int.Parse(userId));
+        string resultMessage = "";
+
+        if (res == 0)
+        {
+            resultMessage = "This device is already bound to this room";
+        }
+
+        if (res == -1)
+        {
+            resultMessage = "You do not have permission to bind this device to this room";
+        }
+
+        if (res > 0)
+        {
+            resultMessage = "Device successfully bound to room";
+        }
+
+        return resultMessage;
+    }
+
 }

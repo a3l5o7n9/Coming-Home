@@ -49,6 +49,11 @@ namespace BAL
         {
             return DBService.UpdateTokenForUserId(token, userId);
         }
+
+        static public int BindDeviceToRoom(int roomId, int deviceId, int userId)
+        {
+            return DBService.BindDeviceToRoom(roomId, deviceId, userId);
+        }
     }
 
     

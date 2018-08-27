@@ -1,2 +1,3 @@
 ERROR in class:DBService function:CreateDevice() - message=Column name or number of supplied values does not match table definition.
-Transaction count after EXECUTE indicates a mismatching number of BEGIN and COMMIT statements. Previous count = 0, current count = 1., on the 26/08/2018 13:18
+Transaction count after EXECUTE indicates a mismatching number of BEGIN and COMMIT statements. Previous count = 0, current count = 1., on the 26/08/2018 13:18ERROR in class:DBService function:BindDeviceToRoom() - message=Column name or number of supplied values does not match table definition.
+Transaction count after EXECUTE indicates a mismatching number of BEGIN and COMMIT statements. Previous count = 0, current count = 1., on the 27/08/2018 11:25
