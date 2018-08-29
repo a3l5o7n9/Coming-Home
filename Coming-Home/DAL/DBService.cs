@@ -80,7 +80,7 @@ namespace DAL
                 sdr = com.ExecuteReader();
                 bool isFirstLine = true;
 
-                int userId = -1;
+                User u = null;
                 List<User> lu = new List<User>();
                 List<Home> lh = new List<Home>();
 
@@ -88,17 +88,16 @@ namespace DAL
                 {
                     if (sdr["Home_Id"].ToString() == "")
                     {
-                        lu.Add(new User(int.Parse(sdr["User_Id"].ToString()), userName, userPassword, sdr["First_Name"].ToString(), sdr["Last_Name"].ToString()));
+                        u = new User(int.Parse(sdr["User_Id"].ToString()), userName, userPassword, sdr["First_Name"].ToString(), sdr["Last_Name"].ToString());
+                        lu.Add(u);
 
-                        userId = int.Parse(sdr["User_Id"].ToString());
-
-                        jd = new JsonData(userId, lu);
+                        jd = new JsonData(u, lu);
                         return jd;
                     }
 
                     if (isFirstLine == true)
                     {
-                        userId = int.Parse(sdr["User_Id"].ToString());
+                        u = new User(int.Parse(sdr["User_Id"].ToString()), userName, userPassword, sdr["First_Name"].ToString(), sdr["Last_Name"].ToString(), sdr["User_Type_Name"].ToString(), sdr["Token"].ToString());
                         isFirstLine = false;
                     }
 
@@ -106,7 +105,7 @@ namespace DAL
                     lh.Add(new Home(int.Parse(sdr["Home_Id"].ToString()), sdr["Home_Name"].ToString(), int.Parse(sdr["Number_Of_Users"].ToString()), sdr["Address"].ToString()));
                 }
 
-                jd = new JsonData(userId, lu, lh);
+                jd = new JsonData(u, lu, lh);
 
                 return jd;
             }
@@ -130,6 +129,7 @@ namespace DAL
         static public JsonData CreateHome(int userId, string homeName, string address)
         {
             JsonData jd = null;
+            User u = null;
             com = new SqlCommand("New_Home", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -148,7 +148,7 @@ namespace DAL
                 if (sdr.Read())
                 {
                     lh.Add(new Home(int.Parse(sdr[0].ToString()), homeName, 1, address));
-                    jd = new JsonData(userId, lh);
+                    jd = new JsonData(u, lh);
                 }
 
                 return jd;
@@ -173,6 +173,7 @@ namespace DAL
         static public JsonData JoinHome(int userId, string homeName, string address)
         {
             JsonData jd = null;
+            User u = null;
             com = new SqlCommand("Join_Existing_Home", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -191,7 +192,7 @@ namespace DAL
                 if (sdr.Read())
                 {
                     lh.Add(new Home(int.Parse(sdr["Home_Id"].ToString()), homeName, int.Parse(sdr["Number_Of_Users"].ToString()), address));
-                    jd = new JsonData(userId, lh);
+                    jd = new JsonData(u, lh);
                 }
                 else
                 {
@@ -238,7 +239,7 @@ namespace DAL
                 if (sdr.Read())
                 {
                     lr.Add(new Room(int.Parse(sdr[0].ToString()), roomName, roomTypeName, homeId, 0));
-                    jd = new JsonData(0, null, null, lr);
+                    jd = new JsonData(null, null, null, lr);
                 }
 
                 return jd;
@@ -283,7 +284,7 @@ namespace DAL
                 if (sdr.Read())
                 {
                     ld.Add(new Device(int.Parse(sdr[0].ToString()), deviceName, deviceTypeName, homeId));
-                    jd = new JsonData(userId, null, null, ld);
+                    jd = new JsonData(null, null, null, ld);
                 }
 
                 return jd;

@@ -8,50 +8,50 @@ namespace BEL
 {
     public class JsonData
     {
-        public int UserId { get; set; }
+        public User U { get; set; }
         public List<User> LU { get; set; }
         public List<Home> LH { get; set; }
         public List<Room> LR { get; set; }
         public List<Device> LD { get; set; }
 
-        public JsonData(int userId, List<User> lu, List<Home> lh)
+        public JsonData(User u, List<User> lu, List<Home> lh)
         {
-            UserId = userId;
+            U= u;
             LU = lu;
             LH = lh;
         }
 
-        public JsonData(int userId, List<User> lu)
+        public JsonData(User u, List<User> lu)
         {
-            UserId = userId;
+            U = u;
             LU = lu;
         }
 
-        public JsonData(int userId, List<Home> lh)
+        public JsonData(User u, List<Home> lh)
         {
-            UserId = userId;
+            U = u;
             LH = lh;
         }
 
-        public JsonData(int userId, List<User> lu, List<Home> lh, List<Room> lr)
+        public JsonData(User u, List<User> lu, List<Home> lh, List<Room> lr)
         {
-            UserId = userId;
+            U = u;
             LU = lu;
             LH = lh;
             LR = lr;
         }
 
-        public JsonData(int userId, List<User> lu, List<Home> lh, List<Device> ld)
+        public JsonData(User u, List<User> lu, List<Home> lh, List<Device> ld)
         {
-            UserId = userId;
+            U = u;
             LU = lu;
             LH = lh;
             LD = ld;
         }
 
-        public JsonData(int userId, List<User> lu, List<Home> lh, List<Room> lr, List<Device> ld)
+        public JsonData(User u, List<User> lu, List<Home> lh, List<Room> lr, List<Device> ld)
         {
-            UserId = userId;
+            U = u;
             LU = lu;
             LH = lh;
             LR = lr;
