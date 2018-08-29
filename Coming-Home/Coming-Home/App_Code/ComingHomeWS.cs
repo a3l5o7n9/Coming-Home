@@ -32,21 +32,7 @@ public class ComingHomeWS : System.Web.Services.WebService
     [WebMethod]
     public string Register(string userName, string userPassword, string firstName, string lastName)
     {
-        string res = "";
-
         int userId = BLService.Register(userName, userPassword, firstName, lastName);
-
-        if (userId == -2)
-        {
-            res = "Error! User could not be created";
-            return res;
-        }
-
-        if (userId == -1)
-        {
-            res = "There is already a user with that UserName";
-            return res;
-        }
 
         return js.Serialize(userId);
     }
