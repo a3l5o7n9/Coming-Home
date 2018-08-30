@@ -126,10 +126,9 @@ namespace DAL
             return jd;
         }
 
-        static public JsonData CreateHome(int userId, string homeName, string address)
+        static public int CreateHome(int userId, string homeName, string address)
         {
-            JsonData jd = null;
-            User u = null;
+            int homeId = -1;
             com = new SqlCommand("New_Home", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -143,15 +142,13 @@ namespace DAL
                 com.Connection.Open();
                 sdr = com.ExecuteReader();
 
-                List<Home> lh = new List<Home>();
 
                 if (sdr.Read())
                 {
-                    lh.Add(new Home(int.Parse(sdr[0].ToString()), homeName, 1, address));
-                    jd = new JsonData(u, lh, "Data");
+                    homeId = int.Parse(sdr[0].ToString());
                 }
 
-                return jd;
+                return homeId;
             }
             catch (Exception e)
             {
@@ -167,13 +164,14 @@ namespace DAL
                 }
             }
 
-            return jd;
+            return homeId;
         }
 
         static public JsonData JoinHome(int userId, string homeName, string address)
         {
             JsonData jd = null;
             User u = null;
+            Home h = null;
             com = new SqlCommand("Join_Existing_Home", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -187,12 +185,10 @@ namespace DAL
                 com.Connection.Open();
                 sdr = com.ExecuteReader();
 
-                List<Home> lh = new List<Home>();
-
                 if (sdr.Read())
                 {
-                    lh.Add(new Home(int.Parse(sdr["Home_Id"].ToString()), homeName, int.Parse(sdr["Number_Of_Users"].ToString()), address));
-                    jd = new JsonData(u, lh, "Data");
+                    h = new Home(int.Parse(sdr["Home_Id"].ToString()), homeName, int.Parse(sdr["Number_Of_Users"].ToString()), address);
+                    jd = new JsonData(u, h, "Data");
                 }
                 else
                 {
@@ -218,9 +214,9 @@ namespace DAL
             return jd;
         }
 
-        static public JsonData CreateRoom(string roomName, int homeId, string roomTypeName)
+        static public int CreateRoom(string roomName, int homeId, string roomTypeName)
         {
-            JsonData jd = null;
+            int roomId = -1;
             com = new SqlCommand("New_Room", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -234,15 +230,12 @@ namespace DAL
                 com.Connection.Open();
                 sdr = com.ExecuteReader();
 
-                List<Room> lr = new List<Room>();
-
                 if (sdr.Read())
                 {
-                    lr.Add(new Room(int.Parse(sdr[0].ToString()), roomName, roomTypeName, homeId, 0));
-                    jd = new JsonData(null, null, null, lr, "Data");
+                    roomId = int.Parse(sdr[0].ToString());
                 }
 
-                return jd;
+                return roomId;
             }
             catch (Exception e)
             {
@@ -258,12 +251,12 @@ namespace DAL
                 }
             }
 
-            return jd;
+            return roomId;
         }
 
-        static public JsonData CreateDevice(string deviceName, int homeId, string deviceTypeName, int userId, int roomId)
+        static public int CreateDevice(string deviceName, int homeId, string deviceTypeName, int userId, int roomId)
         {
-            JsonData jd = null;
+            int deviceId = -1;
             com = new SqlCommand("New_Device", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -279,15 +272,12 @@ namespace DAL
                 com.Connection.Open();
                 sdr = com.ExecuteReader();
 
-                List<Device> ld = new List<Device>();
-
                 if (sdr.Read())
                 {
-                    ld.Add(new Device(int.Parse(sdr[0].ToString()), deviceName, deviceTypeName, homeId));
-                    jd = new JsonData(null, null, null, ld, "Data");
+                    deviceId = int.Parse(sdr[0].ToString());
                 }
 
-                return jd;
+                return deviceId;
             }
             catch (Exception e)
             {
@@ -303,7 +293,7 @@ namespace DAL
                 }
             }
 
-            return jd;
+            return deviceId;
         }
 
         static public int UpdateTokenForUserId(string token, int userId)

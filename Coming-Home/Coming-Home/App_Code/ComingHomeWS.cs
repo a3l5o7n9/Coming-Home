@@ -42,7 +42,7 @@ public class ComingHomeWS : System.Web.Services.WebService
     {
         JsonData jd = BLService.Login(userName, userPassword);
 
-        if (jd == null)
+        if (jd.U == null)
         {
             jd = new JsonData("No Data");
         }
@@ -53,14 +53,9 @@ public class ComingHomeWS : System.Web.Services.WebService
     [WebMethod]
     public string CreateHome(string userId, string homeName, string address)
     {
-        JsonData jd = BLService.CreateHome(int.Parse(userId), homeName, address);
+        int homeId = BLService.CreateHome(int.Parse(userId), homeName, address);
 
-        if (jd == null)
-        {
-            jd = new JsonData("No Data");
-        }
-
-        return js.Serialize(jd);
+        return js.Serialize(homeId);
     }
 
     [WebMethod]
@@ -79,27 +74,17 @@ public class ComingHomeWS : System.Web.Services.WebService
     [WebMethod]
     public string CreateRoom(string roomName, string homeId, string roomTypeName)
     {
-        JsonData jd = BLService.CreateRoom(roomName, int.Parse(homeId), roomTypeName);
+        int roomId = BLService.CreateRoom(roomName, int.Parse(homeId), roomTypeName);
 
-        if (jd == null)
-        {
-            jd = new JsonData("No Data");
-        }
-
-        return js.Serialize(jd);
+        return js.Serialize(roomId);
     }
 
     [WebMethod]
     public string CreateDevice(string deviceName, string homeId, string deviceTypeName, string userId, string roomId)
     {
-        JsonData jd = BLService.CreateDevice(deviceName, int.Parse(homeId), deviceTypeName, int.Parse(userId), int.Parse(roomId));
+        int deviceId = BLService.CreateDevice(deviceName, int.Parse(homeId), deviceTypeName, int.Parse(userId), int.Parse(roomId));
 
-        if (jd == null)
-        {
-            jd = new JsonData("No Data");
-        }
-
-        return js.Serialize(jd);
+        return js.Serialize(deviceId);
     }
 
     [WebMethod]

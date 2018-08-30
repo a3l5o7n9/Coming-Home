@@ -20,7 +20,7 @@ namespace BAL
             return DBService.Login(userName, userPassword);
         }
 
-        static public JsonData CreateHome(int userId, string homeName, string address)
+        static public int CreateHome(int userId, string homeName, string address)
         {
             return DBService.CreateHome(userId, homeName, address);
         }
@@ -30,12 +30,12 @@ namespace BAL
             return DBService.JoinHome(userId, homeName, address);
         }
 
-        static public JsonData CreateRoom(string roomName, int homeId, string roomTypeName)
+        static public int CreateRoom(string roomName, int homeId, string roomTypeName)
         {
             return DBService.CreateRoom(roomName, homeId, roomTypeName);
         }
 
-        static public JsonData CreateDevice(string deviceName, int homeId, string deviceTypeName, int userId, int roomId)
+        static public int CreateDevice(string deviceName, int homeId, string deviceTypeName, int userId, int roomId)
         {
             return DBService.CreateDevice(deviceName, homeId, deviceTypeName, userId, roomId);
         }
