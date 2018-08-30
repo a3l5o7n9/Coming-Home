@@ -42,6 +42,11 @@ public class ComingHomeWS : System.Web.Services.WebService
     {
         JsonData jd = BLService.Login(userName, userPassword);
 
+        if (jd == null)
+        {
+            jd = new JsonData("No Data");
+        }
+
         return js.Serialize(jd);
     }
 
@@ -52,12 +57,7 @@ public class ComingHomeWS : System.Web.Services.WebService
 
         if (jd == null)
         {
-            return "Error! Home could not be created";
-        }
-
-        if (jd.LH[0].HomeId == -1)
-        {
-            return "There is already a home with those details";
+            jd = new JsonData("No Data");
         }
 
         return js.Serialize(jd);
@@ -70,7 +70,7 @@ public class ComingHomeWS : System.Web.Services.WebService
 
         if (jd == null)
         {
-            return "Home Not Found";
+            jd = new JsonData("No Data");
         }
 
         return js.Serialize(jd);
@@ -83,12 +83,7 @@ public class ComingHomeWS : System.Web.Services.WebService
 
         if (jd == null)
         {
-            return "Error! Room could not be created";
-        }
-
-        if (jd.LR[0].RoomId == -1)
-        {
-            return "There is already a room with those details";
+            jd = new JsonData("No Data");
         }
 
         return js.Serialize(jd);
@@ -101,12 +96,7 @@ public class ComingHomeWS : System.Web.Services.WebService
 
         if (jd == null)
         {
-            return "Device could not be created";
-        }
-
-        if (jd.LD[0].DeviceId == -1)
-        {
-            return "There is already a device with those details";
+            jd = new JsonData("No Data");
         }
 
         return js.Serialize(jd);
@@ -176,24 +166,8 @@ public class ComingHomeWS : System.Web.Services.WebService
     public string BindDeviceToRoom(string roomId, string deviceId, string userId)
     {
         int res = BLService.BindDeviceToRoom(int.Parse(roomId), int.Parse(deviceId), int.Parse(userId));
-        string resultMessage = "";
 
-        if (res == 0)
-        {
-            resultMessage = "This device is already bound to this room";
-        }
-
-        if (res == -1)
-        {
-            resultMessage = "You do not have permission to bind this device to this room";
-        }
-
-        if (res > 0)
-        {
-            resultMessage = "Device successfully bound to room";
-        }
-
-        return resultMessage;
+        return js.Serialize(res);
     }
 
 }

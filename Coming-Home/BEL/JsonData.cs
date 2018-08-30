@@ -13,49 +13,61 @@ namespace BEL
         public List<Home> LH { get; set; }
         public List<Room> LR { get; set; }
         public List<Device> LD { get; set; }
+        public string ResultMessage { get; set; }
 
-        public JsonData(User u, List<User> lu, List<Home> lh)
+        public JsonData(User u, List<User> lu, List<Home> lh, string resMes)
         {
             U= u;
             LU = lu;
             LH = lh;
+            ResultMessage = resMes;
         }
 
-        public JsonData(User u, List<User> lu)
+        public JsonData(User u, List<User> lu, string resMes)
         {
             U = u;
             LU = lu;
+            ResultMessage = resMes;
         }
 
-        public JsonData(User u, List<Home> lh)
+        public JsonData(User u, List<Home> lh, string resMes)
         {
             U = u;
             LH = lh;
+            ResultMessage = resMes;
         }
 
-        public JsonData(User u, List<User> lu, List<Home> lh, List<Room> lr)
-        {
-            U = u;
-            LU = lu;
-            LH = lh;
-            LR = lr;
-        }
-
-        public JsonData(User u, List<User> lu, List<Home> lh, List<Device> ld)
-        {
-            U = u;
-            LU = lu;
-            LH = lh;
-            LD = ld;
-        }
-
-        public JsonData(User u, List<User> lu, List<Home> lh, List<Room> lr, List<Device> ld)
+        public JsonData(User u, List<User> lu, List<Home> lh, List<Room> lr, string resMes)
         {
             U = u;
             LU = lu;
             LH = lh;
             LR = lr;
+            ResultMessage = resMes;
+        }
+
+        public JsonData(User u, List<User> lu, List<Home> lh, List<Device> ld, string resMes)
+        {
+            U = u;
+            LU = lu;
+            LH = lh;
             LD = ld;
+            ResultMessage = resMes;
+        }
+
+        public JsonData(User u, List<User> lu, List<Home> lh, List<Room> lr, List<Device> ld, string resMes)
+        {
+            U = u;
+            LU = lu;
+            LH = lh;
+            LR = lr;
+            LD = ld;
+            ResultMessage = resMes;
+        }
+
+        public JsonData(string resMes)
+        {
+            ResultMessage = resMes;
         }
     }
 }

@@ -91,7 +91,7 @@ namespace DAL
                         u = new User(int.Parse(sdr["User_Id"].ToString()), userName, userPassword, sdr["First_Name"].ToString(), sdr["Last_Name"].ToString());
                         lu.Add(u);
 
-                        jd = new JsonData(u, lu);
+                        jd = new JsonData(u, lu, "Data");
                         return jd;
                     }
 
@@ -105,7 +105,7 @@ namespace DAL
                     lh.Add(new Home(int.Parse(sdr["Home_Id"].ToString()), sdr["Home_Name"].ToString(), int.Parse(sdr["Number_Of_Users"].ToString()), sdr["Address"].ToString()));
                 }
 
-                jd = new JsonData(u, lu, lh);
+                jd = new JsonData(u, lu, lh, "Data");
 
                 return jd;
             }
@@ -148,7 +148,7 @@ namespace DAL
                 if (sdr.Read())
                 {
                     lh.Add(new Home(int.Parse(sdr[0].ToString()), homeName, 1, address));
-                    jd = new JsonData(u, lh);
+                    jd = new JsonData(u, lh, "Data");
                 }
 
                 return jd;
@@ -192,7 +192,7 @@ namespace DAL
                 if (sdr.Read())
                 {
                     lh.Add(new Home(int.Parse(sdr["Home_Id"].ToString()), homeName, int.Parse(sdr["Number_Of_Users"].ToString()), address));
-                    jd = new JsonData(u, lh);
+                    jd = new JsonData(u, lh, "Data");
                 }
                 else
                 {
@@ -239,7 +239,7 @@ namespace DAL
                 if (sdr.Read())
                 {
                     lr.Add(new Room(int.Parse(sdr[0].ToString()), roomName, roomTypeName, homeId, 0));
-                    jd = new JsonData(null, null, null, lr);
+                    jd = new JsonData(null, null, null, lr, "Data");
                 }
 
                 return jd;
@@ -284,7 +284,7 @@ namespace DAL
                 if (sdr.Read())
                 {
                     ld.Add(new Device(int.Parse(sdr[0].ToString()), deviceName, deviceTypeName, homeId));
-                    jd = new JsonData(null, null, null, ld);
+                    jd = new JsonData(null, null, null, ld, "Data");
                 }
 
                 return jd;
