@@ -37,10 +37,17 @@ public class ComingHomeWS : System.Web.Services.WebService
         return js.Serialize(userId);
     }
 
-    [WebMethod]
     public string Login(string userName, string userPassword)
     {
-        JsonData jd = BLService.Login(userName, userPassword);
+        int userId = BLService.Login(userName, userPassword);
+
+        return js.Serialize(userId);
+    }
+
+    [WebMethod]
+    public string GetUserDetails(string userId)
+    {
+        JsonData jd = BLService.GetUserDetails(int.Parse(userId));
 
         if (jd.U == null)
         {
