@@ -37,6 +37,7 @@ public class ComingHomeWS : System.Web.Services.WebService
         return js.Serialize(userId);
     }
 
+    [WebMethod]
     public string Login(string userName, string userPassword)
     {
         int userId = BLService.Login(userName, userPassword);
