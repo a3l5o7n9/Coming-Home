@@ -40,23 +40,23 @@ public class ComingHomeWS : System.Web.Services.WebService
     [WebMethod]
     public string Login(string userName, string userPassword)
     {
-        int userId = BLService.Login(userName, userPassword);
-
-        return js.Serialize(userId);
-    }
-
-    [WebMethod]
-    public string GetUserDetails(string userId)
-    {
-        JsonData jd = BLService.GetUserDetails(int.Parse(userId));
-
-        if (jd.U == null)
-        {
-            jd = new JsonData("No Data");
-        }
+        JsonData jd = BLService.Login(userName, userPassword);
 
         return js.Serialize(jd);
     }
+
+    //[WebMethod]
+    //public string GetUserDetails(string userId)
+    //{
+    //    JsonData jd = BLService.GetUserDetails(int.Parse(userId));
+
+    //    if (jd.U == null)
+    //    {
+    //        jd = new JsonData("No Data");
+    //    }
+
+    //    return js.Serialize(jd);
+    //}
 
     [WebMethod]
     public string CreateHome(string userId, string homeName, string address)
