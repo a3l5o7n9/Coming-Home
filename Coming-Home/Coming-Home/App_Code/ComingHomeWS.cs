@@ -42,7 +42,7 @@ public class ComingHomeWS : System.Web.Services.WebService
     {
         JsonData jd = BLService.Login(userName, userPassword);
 
-        if (jd.U == null)
+        if (jd.AU == null)
         {
             jd = new JsonData("No Data");
         }

@@ -8,6 +8,7 @@ namespace BEL
 {
     public class JsonData
     {
+        public AppUser AU {get; set;}
         public User U { get; set; }
         public List<User> LU { get; set; }
         public Home H { get; set; }
@@ -18,49 +19,50 @@ namespace BEL
         public List<Device> LD { get; set; }
         public string ResultMessage { get; set; }
 
-        public JsonData(User u, List<User> lu, List<Home> lh, string resMes)
+        public JsonData(AppUser au, List<User> lu, List<Home> lh, string resMes)
         {
-            U= u;
+
+            AU = au;
             LU = lu;
             LH = lh;
             ResultMessage = resMes;
         }
 
-        public JsonData(User u, List<User> lu, string resMes)
+        public JsonData(AppUser au, List<User> lu, string resMes)
         {
-            U = u;
+            AU = au;
             LU = lu;
             ResultMessage = resMes;
         }
 
-        public JsonData(User u, List<Home> lh, string resMes)
+        public JsonData(AppUser au, List<Home> lh, string resMes)
         {
-            U = u;
+            AU = au;
             LH = lh;
             ResultMessage = resMes;
         }
 
-        public JsonData(User u, List<User> lu, List<Home> lh, List<Room> lr, string resMes)
+        public JsonData(AppUser au, List<User> lu, List<Home> lh, List<Room> lr, string resMes)
         {
-            U = u;
+            AU = au;
             LU = lu;
             LH = lh;
             LR = lr;
             ResultMessage = resMes;
         }
 
-        public JsonData(User u, List<User> lu, List<Home> lh, List<Device> ld, string resMes)
+        public JsonData(AppUser au, List<User> lu, List<Home> lh, List<Device> ld, string resMes)
         {
-            U = u;
+            AU = au;
             LU = lu;
             LH = lh;
             LD = ld;
             ResultMessage = resMes;
         }
 
-        public JsonData(User u, List<User> lu, List<Home> lh, List<Room> lr, List<Device> ld, string resMes)
+        public JsonData(AppUser au, List<User> lu, List<Home> lh, List<Room> lr, List<Device> ld, string resMes)
         {
-            U = u;
+            AU = au;
             LU = lu;
             LH = lh;
             LR = lr;
@@ -73,44 +75,49 @@ namespace BEL
             ResultMessage = resMes;
         }
 
-        public JsonData(User u, Home h, string resMes)
+        public JsonData(AppUser au, User u, Home h, string resMes)
         {
+            AU = au;
             U = u;
             H = h;
             ResultMessage = resMes;
         }
 
-        public JsonData(User u, string resMes)
+        public JsonData(AppUser au, string resMes)
         {
-            U = u;
+            AU = au;
             ResultMessage = resMes;
         }
 
-        public JsonData(User u, Home h, Room r, string resMes)
+        public JsonData(AppUser au, User u, Home h, Room r, string resMes)
         {
+            AU = au;
             U = u;
             H = h;
             R = r;
             ResultMessage = resMes;
         }
 
-        public JsonData(User u, Room r, string resMes)
+        public JsonData(AppUser au, User u, Room r, string resMes)
         {
+            AU = au;
             U = u;
             R = r;
             ResultMessage = resMes;
         }
 
-        public JsonData(User u, Home h, Device d, string resMes)
+        public JsonData(AppUser au, User u, Home h, Device d, string resMes)
         {
+            AU = au;
             U = u;
             H = h;
             D = d;
             ResultMessage = resMes;
         }
 
-        public JsonData(User u, Device d, string resMes)
+        public JsonData(AppUser au, User u, Device d, string resMes)
         {
+            AU = au;
             U = u;
             D = d;
             ResultMessage = resMes;
