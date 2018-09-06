@@ -35,14 +35,14 @@ namespace BAL
             return DBService.JoinHome(userId, homeName, address);
         }
 
-        static public int CreateRoom(string roomName, int homeId, string roomTypeName)
+        static public int CreateRoom(string roomName, int homeId, string roomTypeName, bool isShared, int userId)
         {
-            return DBService.CreateRoom(roomName, homeId, roomTypeName);
+            return DBService.CreateRoom(roomName, homeId, roomTypeName, isShared, userId);
         }
 
-        static public int CreateDevice(string deviceName, int homeId, string deviceTypeName, int userId, int roomId)
+        static public int CreateDevice(string deviceName, int homeId, string deviceTypeName, bool isDividedIntoRooms, int userId, int roomId)
         {
-            return DBService.CreateDevice(deviceName, homeId, deviceTypeName, userId, roomId);
+            return DBService.CreateDevice(deviceName, homeId, deviceTypeName, isDividedIntoRooms, userId, roomId);
         }
 
         public static void InitErrorLogPath(string v)

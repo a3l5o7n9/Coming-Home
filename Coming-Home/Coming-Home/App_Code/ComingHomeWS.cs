@@ -85,17 +85,17 @@ public class ComingHomeWS : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string CreateRoom(string roomName, string homeId, string roomTypeName)
+    public string CreateRoom(string roomName, string homeId, string roomTypeName, string isShared, string userId)
     {
-        int roomId = BLService.CreateRoom(roomName, int.Parse(homeId), roomTypeName);
+        int roomId = BLService.CreateRoom(roomName, int.Parse(homeId), roomTypeName, bool.Parse(isShared), int.Parse(userId));
 
         return js.Serialize(roomId);
     }
 
     [WebMethod]
-    public string CreateDevice(string deviceName, string homeId, string deviceTypeName, string userId, string roomId)
+    public string CreateDevice(string deviceName, string homeId, string deviceTypeName, string isDividedIntoRooms, string userId, string roomId)
     {
-        int deviceId = BLService.CreateDevice(deviceName, int.Parse(homeId), deviceTypeName, int.Parse(userId), int.Parse(roomId));
+        int deviceId = BLService.CreateDevice(deviceName, int.Parse(homeId), deviceTypeName, bool.Parse(isDividedIntoRooms), int.Parse(userId), int.Parse(roomId));
 
         return js.Serialize(deviceId);
     }
