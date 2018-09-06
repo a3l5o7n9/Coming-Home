@@ -122,5 +122,29 @@ namespace BEL
             D = d;
             ResultMessage = resMes;
         }
+
+        public JsonData(User u, string resMes)
+        {
+            U = u;
+            ResultMessage = resMes;
+        }
+
+        public JsonData(Home h, string resMes)
+        {
+            H = h;
+            ResultMessage = resMes;
+        }
+
+        public JsonData(Room r, string resMes)
+        {
+            R = r;
+            ResultMessage = resMes;
+        }
+
+        public JsonData(Device d, string resMes)
+        {
+            D = d;
+            ResultMessage = resMes;
+        }
     }
 }

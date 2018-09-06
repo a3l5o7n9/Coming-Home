@@ -81,7 +81,6 @@ namespace DAL
                 bool isFirstLine = true;
 
                 AppUser au = null;
-                User u = null;
                 List<User> lu = new List<User>();
                 List<Home> lh = new List<Home>();
 
@@ -90,8 +89,10 @@ namespace DAL
                     if (sdr["Home_Id"].ToString() == "")
                     {
                         au = new AppUser(int.Parse(sdr["User_Id"].ToString()), userName, userPassword, sdr["First_Name"].ToString(), sdr["Last_Name"].ToString());
-                  
-                        jd = new JsonData(au, "Data");
+                        lu = null;
+                        lh = null;
+
+                        jd = new JsonData(au, lu, lh, "Data");
                         return jd;
                     }
 
@@ -277,7 +278,7 @@ namespace DAL
             return jd;
         }
 
-        static public int CreateRoom(string roomName, int homeId, string roomTypeName)
+        static public int CreateRoom(string roomName, int homeId, string roomTypeName, bool isShared, int userId)
         {
             int roomId = -1;
             com = new SqlCommand("New_Room", con);
@@ -287,6 +288,8 @@ namespace DAL
             com.Parameters.Add(new SqlParameter("@RoomName", roomName));
             com.Parameters.Add(new SqlParameter("@HomeId", homeId));
             com.Parameters.Add(new SqlParameter("@RoomTypeName", roomTypeName));
+            com.Parameters.Add(new SqlParameter("@IsShared", isShared));
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
 
             try
             {
@@ -317,7 +320,7 @@ namespace DAL
             return roomId;
         }
 
-        static public int CreateDevice(string deviceName, int homeId, string deviceTypeName, int userId, int roomId)
+        static public int CreateDevice(string deviceName, int homeId, string deviceTypeName, bool isDividedIntoRooms, int userId, int roomId)
         {
             int deviceId = -1;
             com = new SqlCommand("New_Device", con);
@@ -327,6 +330,7 @@ namespace DAL
             com.Parameters.Add(new SqlParameter("@DeviceName", deviceName));
             com.Parameters.Add(new SqlParameter("@HomeId", homeId));
             com.Parameters.Add(new SqlParameter("@DeviceTypeName", deviceTypeName));
+            com.Parameters.Add(new SqlParameter("@IsDividedIntoRooms", isDividedIntoRooms));
             com.Parameters.Add(new SqlParameter("@UserId", userId));
             com.Parameters.Add(new SqlParameter("@RoomId", roomId));
 
