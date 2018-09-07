@@ -19,6 +19,12 @@ namespace BEL
         public List<Device> LD { get; set; }
         public string ResultMessage { get; set; }
 
+        public JsonData(AppUser au, string resMes)
+        {
+            AU = au;
+            ResultMessage = resMes;
+        }
+
         public JsonData(AppUser au, List<User> lu, List<Home> lh, string resMes)
         {
 
@@ -39,6 +45,30 @@ namespace BEL
         {
             AU = au;
             LH = lh;
+            ResultMessage = resMes;
+        }
+
+        public JsonData(List<User> lu, string resMes)
+        {
+            LU = lu;
+            ResultMessage = resMes;
+        }
+
+        public JsonData(List<Home> lh, string resMes)
+        {
+            LH = lh;
+            ResultMessage = resMes;
+        }
+
+        public JsonData(List<Room> lr, string resMes)
+        {
+            LR = lr;
+            ResultMessage = resMes;
+        }
+
+        public JsonData(List<Device> ld, string resMes)
+        {
+            LD = ld;
             ResultMessage = resMes;
         }
 
@@ -80,12 +110,6 @@ namespace BEL
             AU = au;
             U = u;
             H = h;
-            ResultMessage = resMes;
-        }
-
-        public JsonData(AppUser au, string resMes)
-        {
-            AU = au;
             ResultMessage = resMes;
         }
 

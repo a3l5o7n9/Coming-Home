@@ -127,68 +127,6 @@ namespace DAL
             return jd;
         }
 
-        //static public JsonData GetUserDetails(int userId)
-        //{
-        //    JsonData jd = null;
-
-        //    com = new SqlCommand("Get_User_Details", con);
-        //    com.CommandType = CommandType.StoredProcedure;
-
-        //    com.Parameters.Clear();
-        //    com.Parameters.Add(new SqlParameter("@UserId", userId));
-
-        //    try
-        //    {
-        //        com.Connection.Open();
-        //        sdr = com.ExecuteReader();
-        //        bool isFirstLine = true;
-
-        //        User u = null;
-        //        List<User> lu = new List<User>();
-        //        List<Home> lh = new List<Home>();
-
-        //        while (sdr.Read())
-        //        {
-        //            if (sdr["Home_Id"].ToString() == "")
-        //            {
-        //                u = new User(int.Parse(sdr["User_Id"].ToString()), sdr["User_Name"].ToString(), sdr["User_Password"].ToString(), sdr["First_Name"].ToString(), sdr["Last_Name"].ToString());
-        //                lu.Add(u);
-
-        //                jd = new JsonData(u, lu, "Data");
-        //                return jd;
-        //            }
-
-        //            if (isFirstLine == true)
-        //            {
-        //                u = new User(int.Parse(sdr["User_Id"].ToString()), sdr["User_Name"].ToString(), sdr["User_Password"].ToString(), sdr["First_Name"].ToString(), sdr["Last_Name"].ToString(), sdr["User_Type_Name"].ToString(), sdr["Token"].ToString());
-        //                isFirstLine = false;
-        //            }
-
-        //            lu.Add(new User(int.Parse(sdr["User_Id"].ToString()), sdr["User_Name"].ToString(), sdr["User_Password"].ToString(), sdr["First_Name"].ToString(), sdr["Last_Name"].ToString(), sdr["User_Type_Name"].ToString(), sdr["Token"].ToString()));
-        //            lh.Add(new Home(int.Parse(sdr["Home_Id"].ToString()), sdr["Home_Name"].ToString(), int.Parse(sdr["Number_Of_Users"].ToString()), sdr["Address"].ToString()));
-        //        }
-
-        //        jd = new JsonData(u, lu, lh, "Data");
-
-        //        return jd;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        File.AppendAllText(Globals.LogFileName,
-        //           "ERROR in class:DBService function:GetUserDetails() - message=" + e.Message +
-        //           ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
-        //    }
-        //    finally
-        //    {
-        //        if (com.Connection.State == ConnectionState.Open)
-        //        {
-        //            com.Connection.Close();
-        //        }
-        //    }
-
-        //    return jd;
-        //}
-
         static public int CreateHome(int userId, string homeName, string address)
         {
             int homeId = -1;
@@ -230,12 +168,9 @@ namespace DAL
             return homeId;
         }
 
-        static public JsonData JoinHome(int userId, string homeName, string address)
+        static public int JoinHome(int userId, string homeName, string address)
         {
-            JsonData jd = null;
-            AppUser au = null;
-            User u = null;
-            Home h = null;
+            int homeId = -1;
             com = new SqlCommand("Join_Existing_Home", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -251,15 +186,11 @@ namespace DAL
 
                 if (sdr.Read())
                 {
-                    h = new Home(int.Parse(sdr["Home_Id"].ToString()), homeName, int.Parse(sdr["Number_Of_Users"].ToString()), address);
-                    jd = new JsonData(au, u, h, "Data");
-                }
-                else
-                {
-                    return null;
+                    homeId = int.Parse(sdr[0].ToString());
+                    return homeId;
                 }
 
-                return jd;
+                return homeId;
             }
             catch (Exception e)
             {
@@ -275,7 +206,7 @@ namespace DAL
                 }
             }
 
-            return jd;
+            return homeId;
         }
 
         static public int CreateRoom(string roomName, int homeId, string roomTypeName, bool isShared, int userId)
@@ -432,6 +363,141 @@ namespace DAL
                 File.AppendAllText(Globals.LogFileName,
                    "ERROR in class:DBService function:BindDeviceToRoom() - message=" + e.Message +
                    ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return res;
+        }
+
+        static public int UpdateUserTypeInHome(int appUserId, int userToUpdateId, int homeId, string appUserTypeName, string currentUserTypeName, string updatedUserTypeName)
+        {
+            int res = -1;
+
+            com = new SqlCommand("Update_User_Type_In_Home", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@AppUserId", appUserId));
+            com.Parameters.Add(new SqlParameter("@UserIdToUpdate", userToUpdateId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+            com.Parameters.Add(new SqlParameter("@AppUserTypeName", appUserTypeName));
+            com.Parameters.Add(new SqlParameter("@CurrentUserTypeName", currentUserTypeName));
+            com.Parameters.Add(new SqlParameter("@UpdatedUserTypeName", updatedUserTypeName));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                if (sdr.Read())
+                {
+                    res = int.Parse(sdr[0].ToString());
+                }
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                  "ERROR in class:DBService function:UpdateUserTypeInHome() - message=" + e.Message +
+                  ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return res;
+        }
+
+        static public int UpdateUserDevicePermissions(int appUserId, int userToUpdateId, int homeId, string appUserTypeName, string userToUpdateTypeName, int deviceId, int roomId, bool hasPermission)
+        {
+            int res = -1;
+
+            com = new SqlCommand("Update_User_Device_Permissions", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@AppUserId", appUserId));
+            com.Parameters.Add(new SqlParameter("@UserIdToUpdate", userToUpdateId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+            com.Parameters.Add(new SqlParameter("@AppUserTypeName", appUserTypeName));
+            com.Parameters.Add(new SqlParameter("@UserToUpdateTypeName", userToUpdateTypeName));
+            com.Parameters.Add(new SqlParameter("@DeviceId", deviceId));
+            com.Parameters.Add(new SqlParameter("@RoomId", roomId));
+            com.Parameters.Add(new SqlParameter("@HasPermission", hasPermission));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                if (sdr.Read())
+                {
+                    res = int.Parse(sdr[0].ToString());
+                }
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                  "ERROR in class:DBService function:UpdateUserDevicePermissions() - message=" + e.Message +
+                  ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return res;
+        }
+
+        static public int UpdateUserRoomPermissions(int appUserId, int userToUpdateId, int homeId, string appUserTypeName, string userToUpdateTypeName, int roomId, bool hasAccess)
+        {
+            int res = -1;
+
+            com = new SqlCommand("Update_User_Room_Permissions", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@AppUserId", appUserId));
+            com.Parameters.Add(new SqlParameter("@UserIdToUpdate", userToUpdateId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+            com.Parameters.Add(new SqlParameter("@AppUserTypeName", appUserTypeName));
+            com.Parameters.Add(new SqlParameter("@UserToUpdateTypeName", userToUpdateTypeName));
+            com.Parameters.Add(new SqlParameter("@RoomId", roomId));
+            com.Parameters.Add(new SqlParameter("@HasAccess", hasAccess));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                if (sdr.Read())
+                {
+                    res = int.Parse(sdr[0].ToString());
+                }
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                  "ERROR in class:DBService function:UpdateUserRoomPermissions() - message=" + e.Message +
+                  ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
             }
             finally
             {

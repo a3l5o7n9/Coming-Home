@@ -13,14 +13,16 @@ namespace BEL
         public string DeviceTypeName { get; set; }
         public int HomeId { get; set; }
         public bool IsDividedIntoRooms { get; set; }
+        public int RoomId { get; set; }
 
-        public Device(int deviceId, string deviceName, string deviceTypeName, int homeId, bool isDividedIntoRooms)
+        public Device(int deviceId, string deviceName, string deviceTypeName, int homeId, bool isDividedIntoRooms, int roomId)
         {
             DeviceId = deviceId;
             DeviceName = deviceName;
             DeviceTypeName = deviceTypeName;
             HomeId = homeId;
             IsDividedIntoRooms = isDividedIntoRooms;
+            RoomId = roomId;
         }
     }
 }
