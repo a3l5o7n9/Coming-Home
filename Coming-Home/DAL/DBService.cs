@@ -509,5 +509,168 @@ namespace DAL
 
             return res;
         }
+
+        static public JsonData GetUser(int userId, int homeId)
+        {
+            JsonData jd = null;
+
+            com = new SqlCommand("Get_User", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+                User u = null;
+
+                if(sdr.Read())
+                {
+                    u = new User(userId, sdr["User_Name"].ToString(), sdr["User_Password"].ToString(), sdr["First_Name"].ToString(), sdr["Last_Name"].ToString(), int.Parse(sdr["Home_Id"].ToString()), sdr["User_Type_Name"].ToString(), sdr["Token"].ToString());
+                    jd = new JsonData(u, "Data");
+                }
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                 "ERROR in class:DBService function:GetUser() - message=" + e.Message +
+                 ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return jd;
+        }
+
+        static public JsonData GetHome(int userId, int homeId)
+        {
+            JsonData jd = null;
+
+            com = new SqlCommand("Get_Home", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+                Home h = null;
+
+                if (sdr.Read())
+                {
+                    h = new Home(homeId, sdr["Home_Name"].ToString(), int.Parse(sdr["Number_Of_Users"].ToString()), sdr["Address"].ToString());
+                    jd = new JsonData(h, "Data");
+                }
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                 "ERROR in class:DBService function:GetHome() - message=" + e.Message +
+                 ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return jd;
+        }
+
+        static public JsonData GetDevice(int userId, int homeId, int deviceId, int roomId)
+        {
+            JsonData jd = null;
+
+            com = new SqlCommand("Get_Device", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+            com.Parameters.Add(new SqlParameter("@DeviceId", deviceId));
+            com.Parameters.Add(new SqlParameter("@RoomId", roomId));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+                Device d = null;
+
+                if (sdr.Read())
+                {
+                    d = new Device(deviceId, sdr["Device_Name"].ToString(), sdr["Device_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Divided_Into_Rooms"].ToString()), roomId);
+                    jd = new JsonData(d, "Data");
+                }
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                 "ERROR in class:DBService function:GetDevice() - message=" + e.Message +
+                 ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return jd;
+        }
+
+        static public JsonData GetRoom(int userId, int homeId, int roomId)
+        {
+            JsonData jd = null;
+
+            com = new SqlCommand("Get_Device", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+            com.Parameters.Add(new SqlParameter("@RoomId", roomId));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+                Room r = null;
+
+                if (sdr.Read())
+                {
+                    r = new Room(roomId, sdr["Room_Name"].ToString(), sdr["Room_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Shared"].ToString()), int.Parse(sdr["Number_Of_Users"].ToString()));
+                    jd = new JsonData(r, "Data");
+                }
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                 "ERROR in class:DBService function:GetRoom() - message=" + e.Message +
+                 ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return jd;
+        }
     }
 }

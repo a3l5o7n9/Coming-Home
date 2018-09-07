@@ -69,7 +69,25 @@ namespace BAL
         {
             return DBService.UpdateUserRoomPermissions(appUserId, userToUpdateId, homeId, appUserTypeName, userToUpdateTypeName, roomId, hasAccess);
         }
-    }
 
-    
+        static public JsonData GetUser(int userId, int homeId)
+        {
+            return DBService.GetUser(userId, homeId);
+        }
+
+        static public JsonData GetHome(int userId, int homeId)
+        {
+            return DBService.GetHome(userId, homeId);
+        }
+
+        static public JsonData GetDevice(int userId, int homeId, int deviceId, int roomId)
+        {
+            return DBService.GetDevice(userId, homeId, deviceId, roomId);
+        }
+
+        static public JsonData GetRoom(int userId, int homeId, int roomId)
+        {
+            return DBService.GetRoom(userId, homeId, roomId);
+        }
+    }
 }

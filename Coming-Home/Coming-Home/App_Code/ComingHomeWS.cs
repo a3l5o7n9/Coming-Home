@@ -173,4 +173,56 @@ public class ComingHomeWS : System.Web.Services.WebService
 
         return js.Serialize(res);
     }
+
+    [WebMethod]
+    public string GetUser(string userId, string homeId)
+    {
+        JsonData jd = BLService.GetUser(int.Parse(userId), int.Parse(homeId));
+
+        if (jd.U == null)
+        {
+            jd = new JsonData("No Data");
+        }
+
+        return js.Serialize(jd);
+    }
+
+    [WebMethod]
+    public string GetHome(string homeId, string userId)
+    {
+        JsonData jd = BLService.GetHome(int.Parse(homeId), int.Parse(userId));
+
+        if (jd.H == null)
+        {
+            jd = new JsonData("No Data");
+        }
+
+        return js.Serialize(jd);
+    }
+
+    [WebMethod]
+    public string GetDevice(string userId, string homeId, string deviceId, string roomId)
+    {
+        JsonData jd = BLService.GetDevice(int.Parse(userId), int.Parse(homeId), int.Parse(deviceId), int.Parse(roomId));
+
+        if(jd.D == null)
+        {
+            jd = new JsonData("No Data");
+        }
+
+        return js.Serialize(jd);
+    }
+
+    [WebMethod]
+    public string GetRoom(string userId, string homeId, string roomId)
+    {
+        JsonData jd = BLService.GetRoom(int.Parse(userId), int.Parse(homeId), int.Parse(roomId));
+
+        if (jd.R == null)
+        {
+            jd = new JsonData("No Data");
+        }
+
+        return js.Serialize(jd);
+    }
 }
