@@ -188,9 +188,9 @@ public class ComingHomeWS : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string GetHome(string homeId, string userId)
+    public string GetHome(string userId, string homeId)
     {
-        JsonData jd = BLService.GetHome(int.Parse(homeId), int.Parse(userId));
+        JsonData jd = BLService.GetHome(int.Parse(userId), int.Parse(homeId));
 
         if (jd.H == null)
         {
