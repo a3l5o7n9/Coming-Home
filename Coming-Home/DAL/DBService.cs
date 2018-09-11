@@ -672,5 +672,125 @@ namespace DAL
 
             return jd;
         }
+
+        static public JsonData GetUsersInHome(int userId, int homeId)
+        {
+            JsonData jd = null;
+
+            com = new SqlCommand("Get_Users_In_Home", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+                List<User> lu = new List<User>();
+
+                while (sdr.Read())
+                {
+                    lu.Add(new User(userId, sdr["User_Name"].ToString(), sdr["User_Password"].ToString(), sdr["First_Name"].ToString(), sdr["Last_Name"].ToString(), int.Parse(sdr["Home_Id"].ToString()), sdr["User_Type_Name"].ToString(), sdr["Token"].ToString()));
+                    jd = new JsonData(lu, "Data");
+                }
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                 "ERROR in class:DBService function:GetUsersInHome() - message=" + e.Message +
+                 ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return jd;
+        }
+
+        static public JsonData GetUserRoomsInHome(int userId, int homeId)
+        {
+            JsonData jd = null;
+
+            com = new SqlCommand("Get_User_Rooms_In_Home", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+                List<Room> lr = new List<Room>();
+
+                while (sdr.Read())
+                {
+                    lr.Add(new Room(int.Parse(sdr["Room_Id"].ToString()), sdr["Room_Name"].ToString(), sdr["Room_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Shared"].ToString()), int.Parse(sdr["Number_Of_Devices"].ToString())));
+                    jd = new JsonData(lr, "Data");
+                }
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                 "ERROR in class:DBService function:GetUserRoomsInHome() - message=" + e.Message +
+                 ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return jd;
+        }
+
+        static public JsonData GetUserDevicesInHome(int userId, int homeId)
+        {
+            JsonData jd = null;
+
+            com = new SqlCommand("Get_User_Devices_In_Home", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+                List<Device> ld = new List<Device>();
+
+                while (sdr.Read())
+                {
+                    ld.Add(new Device(int.Parse(sdr["Device_Id"].ToString()), sdr["Device_Name"].ToString(), sdr["Device_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Divided_Into_Rooms"].ToString()), int.Parse(sdr["Room_Id"].ToString())));
+                    jd = new JsonData(ld, "Data");
+                }
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                 "ERROR in class:DBService function:GetUserDevicesInHome() - message=" + e.Message +
+                 ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return jd;
+        }
     }
 }

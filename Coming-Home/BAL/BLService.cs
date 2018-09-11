@@ -89,5 +89,20 @@ namespace BAL
         {
             return DBService.GetRoom(userId, homeId, roomId);
         }
+
+        static public JsonData GetUsersInHome(int userId, int homeId)
+        {
+            return DBService.GetUsersInHome(userId, homeId);
+        }
+
+        static public JsonData GetUserRoomsInHome(int userId, int homeId)
+        {
+            return DBService.GetUserRoomsInHome(userId, homeId);
+        }
+
+        static public JsonData GetUserDevicesInHome(int userId, int homeId)
+        {
+            return DBService.GetUserDevicesInHome(userId, homeId);
+        }
     }
 }
