@@ -48,5 +48,10 @@ namespace BEL
             UserTypeName = userTypeName;
             Token = token;
         }
+
+        public User(int userId)
+        {
+            UserId = userId;
+        }
     }
 }

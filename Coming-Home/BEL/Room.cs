@@ -24,5 +24,10 @@ namespace BEL
             IsShared = isShared;
             NumOfDevices = numOfDevices;
         }
+
+        public Room(int roomId)
+        {
+            RoomId = roomId;
+        }
     }
 }

@@ -24,5 +24,10 @@ namespace BEL
             IsDividedIntoRooms = isDividedIntoRooms;
             RoomId = roomId;
         }
+
+        public Device(int deviceId)
+        {
+            DeviceId = deviceId;
+        }
     }
 }

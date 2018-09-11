@@ -513,6 +513,8 @@ namespace DAL
         static public JsonData GetUser(int userId, int homeId)
         {
             JsonData jd = null;
+            string resMes = "No Data";
+            int uId = 0;
 
             com = new SqlCommand("Get_User", con);
             com.CommandType = CommandType.StoredProcedure;
@@ -529,8 +531,34 @@ namespace DAL
 
                 if(sdr.Read())
                 {
-                    u = new User(userId, sdr["User_Name"].ToString(), sdr["User_Password"].ToString(), sdr["First_Name"].ToString(), sdr["Last_Name"].ToString(), int.Parse(sdr["Home_Id"].ToString()), sdr["User_Type_Name"].ToString(), sdr["Token"].ToString());
-                    jd = new JsonData(u, "Data");
+                    uId = int.Parse(sdr["User_Id"].ToString());
+
+                    switch(uId)
+                    {
+                        case -3:
+                            {
+                                resMes = "Error! You are not registered as a member of this home, and so, cannot see its users";
+                                break;
+                            }
+                        case -2:
+                            {
+                                resMes = "Error! Home not found";
+                                break;
+                            }
+                        case -1:
+                            {
+                                resMes = "Error! User not found";
+                                break;
+                            }
+                        default:
+                            {
+                                u = new User(userId, sdr["User_Name"].ToString(), sdr["User_Password"].ToString(), sdr["First_Name"].ToString(), sdr["Last_Name"].ToString(), int.Parse(sdr["Home_Id"].ToString()), sdr["User_Type_Name"].ToString(), sdr["Token"].ToString());
+                                resMes = "Data";
+                                break;
+                            }
+                    }
+
+                    jd = new JsonData(u, resMes);
                 }
             }
             catch (Exception e)
@@ -553,6 +581,8 @@ namespace DAL
         static public JsonData GetHome(int userId, int homeId)
         {
             JsonData jd = null;
+            string resMes = "No Data";
+            int hId = 0;
 
             com = new SqlCommand("Get_Home", con);
             com.CommandType = CommandType.StoredProcedure;
@@ -569,8 +599,34 @@ namespace DAL
 
                 if (sdr.Read())
                 {
-                    h = new Home(homeId, sdr["Home_Name"].ToString(), int.Parse(sdr["Number_Of_Users"].ToString()), sdr["Address"].ToString());
-                    jd = new JsonData(h, "Data");
+                    hId = int.Parse(sdr["Home_Id"].ToString());
+
+                    switch(hId)
+                    {
+                        case -3:
+                            {
+                                resMes = "Error! You are not registered as a member of this home";
+                                break;
+                            }
+                        case -2:
+                            {
+                                resMes = "Error! Home not found";
+                                break;
+                            }
+                        case -1:
+                            {
+                                resMes = "Error! User not found";
+                                break;
+                            }
+                        default:
+                            {
+                                h = new Home(homeId, sdr["Home_Name"].ToString(), int.Parse(sdr["Number_Of_Users"].ToString()), sdr["Address"].ToString());
+                                resMes = "Data";
+                                break;
+                            }
+                    }
+
+                    jd = new JsonData(h, resMes);
                 }
             }
             catch (Exception e)
@@ -593,6 +649,8 @@ namespace DAL
         static public JsonData GetDevice(int userId, int homeId, int deviceId, int roomId)
         {
             JsonData jd = null;
+            string resMes = "No Data";
+            int dId = 0;
 
             com = new SqlCommand("Get_Device", con);
             com.CommandType = CommandType.StoredProcedure;
@@ -611,8 +669,48 @@ namespace DAL
 
                 if (sdr.Read())
                 {
-                    d = new Device(deviceId, sdr["Device_Name"].ToString(), sdr["Device_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Divided_Into_Rooms"].ToString()), roomId);
-                    jd = new JsonData(d, "Data");
+                    dId = int.Parse(sdr["Device_Id"].ToString());
+                    switch(dId)
+                    {
+                        case -6:
+                            {
+                                resMes = "Error! You do not have permission to access this device";
+                                break;
+                            }
+                        case -5:
+                            {
+                                resMes = "Error! Device not found";
+                                break;
+                            }
+                        case -4:
+                            {
+                                resMes = "Error! Room not found";
+                                break;
+                            }
+                        case -3:
+                            {
+                                resMes = "Error! You are not registered as a member of this home";
+                                break;
+                            }
+                        case -2:
+                            {
+                                resMes = "Error! Home not found";
+                                break;
+                            }
+                        case -1:
+                            {
+                                resMes = "Error! User not found";
+                                break;
+                            }
+                        default:
+                            {
+                                d = new Device(deviceId, sdr["Device_Name"].ToString(), sdr["Device_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Divided_Into_Rooms"].ToString()), roomId);
+                                resMes = "Data";
+                                break;
+                            }
+                    }
+
+                    jd = new JsonData(d, resMes);
                 }
             }
             catch (Exception e)
@@ -635,6 +733,8 @@ namespace DAL
         static public JsonData GetRoom(int userId, int homeId, int roomId)
         {
             JsonData jd = null;
+            string resMes = "No Data";
+            int rId = 0;
 
             com = new SqlCommand("Get_Room", con);
             com.CommandType = CommandType.StoredProcedure;
@@ -652,8 +752,43 @@ namespace DAL
 
                 if (sdr.Read())
                 {
-                    r = new Room(roomId, sdr["Room_Name"].ToString(), sdr["Room_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Shared"].ToString()), int.Parse(sdr["Number_Of_Devices"].ToString()));
-                    jd = new JsonData(r, "Data");
+                    rId = int.Parse(sdr["Room_Id"].ToString());
+                    switch(rId)
+                    {
+                        case -5:
+                            {
+                                resMes = "Error! You do not have access to this room";
+                                break;
+                            }
+                        case -4:
+                            {
+                                resMes = "Error! Room not found";
+                                break;
+                            }
+                        case -3:
+                            {
+                                resMes = "Error! You are not registered as a member of this home";
+                                break;
+                            }
+                        case -2:
+                            {
+                                resMes = "Error! Home not found";
+                                break;
+                            }
+                        case -1:
+                            {
+                                resMes = "Error! User not found";
+                                break;
+                            }
+                        default:
+                            {
+                                r = new Room(roomId, sdr["Room_Name"].ToString(), sdr["Room_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Shared"].ToString()), int.Parse(sdr["Number_Of_Devices"].ToString()));
+                                resMes = "Data";
+                                break;
+                            }
+                    }
+                   
+                    jd = new JsonData(r, resMes);
                 }
             }
             catch (Exception e)
@@ -676,6 +811,7 @@ namespace DAL
         static public JsonData GetUsersInHome(int userId, int homeId)
         {
             JsonData jd = null;
+            string resMes = "No Data";
 
             com = new SqlCommand("Get_Users_In_Home", con);
             com.CommandType = CommandType.StoredProcedure;
@@ -689,11 +825,38 @@ namespace DAL
                 com.Connection.Open();
                 sdr = com.ExecuteReader();
                 List<User> lu = new List<User>();
+                int uId = 0;
 
                 while (sdr.Read())
                 {
-                    lu.Add(new User(int.Parse(sdr["User_Id"].ToString()), sdr["User_Name"].ToString(), sdr["User_Password"].ToString(), sdr["First_Name"].ToString(), sdr["Last_Name"].ToString(), int.Parse(sdr["Home_Id"].ToString()), sdr["User_Type_Name"].ToString(), sdr["Token"].ToString()));
-                    jd = new JsonData(lu, "Data");
+                    uId = int.Parse(sdr["User_Id"].ToString());
+
+                    switch(uId)
+                    {
+                        case -3:
+                            {
+                                resMes = "Error! You are not registered as a member of this home";
+                                break;
+                            }
+                        case -2:
+                            {
+                                resMes = "Error! Home not found";
+                                break;
+                            }
+                        case -1:
+                            {
+                                resMes = "Error! User not found";
+                                break;
+                            }
+                        default:
+                            {
+                                lu.Add(new User(int.Parse(sdr["User_Id"].ToString()), sdr["User_Name"].ToString(), sdr["User_Password"].ToString(), sdr["First_Name"].ToString(), sdr["Last_Name"].ToString(), int.Parse(sdr["Home_Id"].ToString()), sdr["User_Type_Name"].ToString(), sdr["Token"].ToString()));
+                                resMes = "Data";
+                                break;
+                            }
+                    }
+
+                    jd = new JsonData(lu, resMes);
                 }
             }
             catch (Exception e)
@@ -716,6 +879,8 @@ namespace DAL
         static public JsonData GetUserRoomsInHome(int userId, int homeId)
         {
             JsonData jd = null;
+            string resMes = "No Data";
+            int rId = 0;
 
             com = new SqlCommand("Get_User_Rooms_In_Home", con);
             com.CommandType = CommandType.StoredProcedure;
@@ -732,8 +897,34 @@ namespace DAL
 
                 while (sdr.Read())
                 {
-                    lr.Add(new Room(int.Parse(sdr["Room_Id"].ToString()), sdr["Room_Name"].ToString(), sdr["Room_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Shared"].ToString()), int.Parse(sdr["Number_Of_Devices"].ToString())));
-                    jd = new JsonData(lr, "Data");
+                    rId = int.Parse(sdr["Room_Id"].ToString());
+
+                    switch(rId)
+                    {
+                        case -3:
+                            {
+                                resMes = "Error! You are not registered as a member of this home";
+                                break;
+                            }
+                        case -2:
+                            {
+                                resMes = "Error! Home not found";
+                                break;
+                            }
+                        case -1:
+                            {
+                                resMes = "Error! User not found";
+                                break;
+                            }
+                        default:
+                            {
+                                lr.Add(new Room(int.Parse(sdr["Room_Id"].ToString()), sdr["Room_Name"].ToString(), sdr["Room_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Shared"].ToString()), int.Parse(sdr["Number_Of_Devices"].ToString())));
+                                resMes = "Data";
+                                break;
+                            }
+                    }
+                   
+                    jd = new JsonData(lr, resMes);
                 }
             }
             catch (Exception e)
@@ -756,6 +947,8 @@ namespace DAL
         static public JsonData GetUserDevicesInHome(int userId, int homeId)
         {
             JsonData jd = null;
+            string resMes = "No Data";
+            int dId = 0;
 
             com = new SqlCommand("Get_User_Devices_In_Home", con);
             com.CommandType = CommandType.StoredProcedure;
@@ -772,8 +965,34 @@ namespace DAL
 
                 while (sdr.Read())
                 {
-                    ld.Add(new Device(int.Parse(sdr["Device_Id"].ToString()), sdr["Device_Name"].ToString(), sdr["Device_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Divided_Into_Rooms"].ToString()), int.Parse(sdr["Room_Id"].ToString())));
-                    jd = new JsonData(ld, "Data");
+                    dId = int.Parse(sdr["Device_Id"].ToString());
+
+                    switch(dId)
+                    {
+                        case -3:
+                            {
+                                resMes = "Error! You are not registered as a member of this home";
+                                break;
+                            }
+                        case -2:
+                            {
+                                resMes = "Error! Home not found";
+                                break;
+                            }
+                        case -1:
+                            {
+                                resMes = "Error! User not found";
+                                break;
+                            }
+                        default:
+                            {
+                                ld.Add(new Device(int.Parse(sdr["Device_Id"].ToString()), sdr["Device_Name"].ToString(), sdr["Device_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Divided_Into_Rooms"].ToString()), int.Parse(sdr["Room_Id"].ToString())));
+                                resMes = "Data";
+                                break;
+                            }
+                    }
+                    
+                    jd = new JsonData(ld, resMes);
                 }
             }
             catch (Exception e)

@@ -27,5 +27,10 @@ namespace BEL
             NumOfUsers = numOfUsers;
             Address = address;
         }
+
+        public Home(int homeId)
+        {
+            HomeId = homeId;
+        }
     }
 }

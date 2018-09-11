@@ -179,11 +179,6 @@ public class ComingHomeWS : System.Web.Services.WebService
     {
         JsonData jd = BLService.GetUser(int.Parse(userId), int.Parse(homeId));
 
-        if (jd.U == null)
-        {
-            jd = new JsonData("No Data");
-        }
-
         return js.Serialize(jd);
     }
 
@@ -191,11 +186,6 @@ public class ComingHomeWS : System.Web.Services.WebService
     public string GetHome(string userId, string homeId)
     {
         JsonData jd = BLService.GetHome(int.Parse(userId), int.Parse(homeId));
-
-        if (jd.H == null)
-        {
-            jd = new JsonData("No Data");
-        }
 
         return js.Serialize(jd);
     }
@@ -205,11 +195,6 @@ public class ComingHomeWS : System.Web.Services.WebService
     {
         JsonData jd = BLService.GetDevice(int.Parse(userId), int.Parse(homeId), int.Parse(deviceId), int.Parse(roomId));
 
-        if(jd.D == null)
-        {
-            jd = new JsonData("No Data");
-        }
-
         return js.Serialize(jd);
     }
 
@@ -217,11 +202,6 @@ public class ComingHomeWS : System.Web.Services.WebService
     public string GetRoom(string userId, string homeId, string roomId)
     {
         JsonData jd = BLService.GetRoom(int.Parse(userId), int.Parse(homeId), int.Parse(roomId));
-
-        if (jd.R == null)
-        {
-            jd = new JsonData("No Data");
-        }
 
         return js.Serialize(jd);
     }
@@ -231,11 +211,6 @@ public class ComingHomeWS : System.Web.Services.WebService
     {
         JsonData jd = BLService.GetUsersInHome(int.Parse(userId), int.Parse(homeId));
 
-        if (jd.LU.Count() == 0)
-        {
-            jd = new JsonData("No Data");
-        }
-
         return js.Serialize(jd);
     }
 
@@ -244,11 +219,6 @@ public class ComingHomeWS : System.Web.Services.WebService
     {
         JsonData jd = BLService.GetUserRoomsInHome(int.Parse(userId), int.Parse(homeId));
 
-        if (jd.LR.Count() == 0)
-        {
-            jd = new JsonData("No Data");
-        }
-
         return js.Serialize(jd);
     }
 
@@ -256,11 +226,6 @@ public class ComingHomeWS : System.Web.Services.WebService
     public string GetUserDevicesInHome(string userId, string homeId)
     {
         JsonData jd = BLService.GetUserDevicesInHome(int.Parse(userId), int.Parse(homeId));
-
-        if (jd.LD.Count() == 0)
-        {
-            jd = new JsonData("No Data");
-        }
 
         return js.Serialize(jd);
     }
