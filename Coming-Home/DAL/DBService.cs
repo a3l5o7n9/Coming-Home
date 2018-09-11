@@ -636,7 +636,7 @@ namespace DAL
         {
             JsonData jd = null;
 
-            com = new SqlCommand("Get_Device", con);
+            com = new SqlCommand("Get_Room", con);
             com.CommandType = CommandType.StoredProcedure;
 
             com.Parameters.Clear();
@@ -652,7 +652,7 @@ namespace DAL
 
                 if (sdr.Read())
                 {
-                    r = new Room(roomId, sdr["Room_Name"].ToString(), sdr["Room_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Shared"].ToString()), int.Parse(sdr["Number_Of_Users"].ToString()));
+                    r = new Room(roomId, sdr["Room_Name"].ToString(), sdr["Room_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Shared"].ToString()), int.Parse(sdr["Number_Of_Devices"].ToString()));
                     jd = new JsonData(r, "Data");
                 }
             }
