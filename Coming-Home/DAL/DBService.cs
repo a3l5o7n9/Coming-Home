@@ -557,9 +557,10 @@ namespace DAL
                                 break;
                             }
                     }
-
-                    jd = new JsonData(u, resMes);
                 }
+
+                jd = new JsonData(u, resMes);
+
             }
             catch (Exception e)
             {
@@ -625,9 +626,10 @@ namespace DAL
                                 break;
                             }
                     }
-
-                    jd = new JsonData(h, resMes);
                 }
+
+                jd = new JsonData(h, resMes);
+
             }
             catch (Exception e)
             {
@@ -709,9 +711,10 @@ namespace DAL
                                 break;
                             }
                     }
-
-                    jd = new JsonData(d, resMes);
                 }
+
+                jd = new JsonData(d, resMes);
+
             }
             catch (Exception e)
             {
@@ -786,8 +789,7 @@ namespace DAL
                                 resMes = "Data";
                                 break;
                             }
-                    }
-                   
+                    }                
                 }
 
                 jd = new JsonData(r, resMes);
@@ -857,7 +859,6 @@ namespace DAL
                                 break;
                             }
                     }
-
                 }
 
                 jd = new JsonData(lu, resMes);
@@ -926,8 +927,7 @@ namespace DAL
                                 resMes = "Data";
                                 break;
                             }
-                    }
-                   
+                    }                   
                 }
 
                 jd = new JsonData(lr, resMes);
@@ -996,8 +996,7 @@ namespace DAL
                                 resMes = "Data";
                                 break;
                             }
-                    }
-                    
+                    }                    
                 }
 
                 jd = new JsonData(ld, resMes);

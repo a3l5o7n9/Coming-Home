@@ -1,0 +1,2 @@
+ERROR in class:DBService function:GetDevice() - message=Is_Divided_Into_Rooms, on the 11/09/2018 15:33
+ERROR in class:DBService function:GetDevice() - message=Is_Divided_Into_Rooms, on the 11/09/2018 15:34
