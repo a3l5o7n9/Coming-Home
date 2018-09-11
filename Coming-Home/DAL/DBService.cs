@@ -788,8 +788,10 @@ namespace DAL
                             }
                     }
                    
-                    jd = new JsonData(r, resMes);
                 }
+
+                jd = new JsonData(r, resMes);
+
             }
             catch (Exception e)
             {
@@ -856,8 +858,10 @@ namespace DAL
                             }
                     }
 
-                    jd = new JsonData(lu, resMes);
                 }
+
+                jd = new JsonData(lu, resMes);
+
             }
             catch (Exception e)
             {
@@ -924,8 +928,10 @@ namespace DAL
                             }
                     }
                    
-                    jd = new JsonData(lr, resMes);
                 }
+
+                jd = new JsonData(lr, resMes);
+
             }
             catch (Exception e)
             {
@@ -992,8 +998,10 @@ namespace DAL
                             }
                     }
                     
-                    jd = new JsonData(ld, resMes);
                 }
+
+                jd = new JsonData(ld, resMes);
+
             }
             catch (Exception e)
             {
