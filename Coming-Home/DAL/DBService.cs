@@ -1018,5 +1018,66 @@ namespace DAL
 
             return jd;
         }
+
+        static public int ChangeDeviceStatus(int userId, int deviceId, int roomId, bool turnOn, int activationMethodCode, string statusDetails, string conditionId)
+        {
+            int res = -1;
+
+            com = new SqlCommand("Change_Device_Status", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+            com.Parameters.Add(new SqlParameter("@DeviceId", deviceId));
+            com.Parameters.Add(new SqlParameter("@RoomId", roomId));
+            com.Parameters.Add(new SqlParameter("@TurnOn", turnOn));
+            com.Parameters.Add(new SqlParameter("@ActivationMethodCode", activationMethodCode));
+
+            if (statusDetails == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@StatusDetails", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@StatusDetails", statusDetails));
+            }
+
+            if (conditionId == "null")
+            { 
+                com.Parameters.Add(new SqlParameter("@ConditionId", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@ConditionId", int.Parse(conditionId)));
+            }
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                if (sdr.Read())
+                {
+                    res = int.Parse(sdr[0].ToString());
+                }
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                  "ERROR in class:DBService function:ChangeDeviceStatus() - message=" + e.Message +
+                  ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return res;
+        }
     }
 }

@@ -229,4 +229,14 @@ public class ComingHomeWS : System.Web.Services.WebService
 
         return js.Serialize(jd);
     }
+
+    [WebMethod]
+    public string ChangeDeviceStatus(string userId, string deviceId, string roomId, string turnOn, string activationMethodCode, string statusDetails, string conditionId)
+    {
+        int res = -1;
+
+        res = BLService.ChangeDeviceStatus(int.Parse(userId), int.Parse(deviceId), int.Parse(roomId), bool.Parse(turnOn), int.Parse(activationMethodCode), statusDetails, conditionId);
+
+        return js.Serialize(res);
+    }
 }
