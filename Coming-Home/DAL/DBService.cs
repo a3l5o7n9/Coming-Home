@@ -168,9 +168,12 @@ namespace DAL
             return homeId;
         }
 
-        static public int JoinHome(int userId, string homeName, string address)
+        static public JsonData JoinHome(int userId, string homeName, string address)
         {
+            string resMes = "No Data";
             int homeId = -1;
+            JsonData jd = null;
+            Home h = null;
             com = new SqlCommand("Join_Existing_Home", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -186,11 +189,31 @@ namespace DAL
 
                 if (sdr.Read())
                 {
-                    homeId = int.Parse(sdr[0].ToString());
-                    return homeId;
+                    homeId = int.Parse(sdr["Home_Id"].ToString());
+                    
+                    switch(homeId)
+                    {
+                        case -1:
+                            {
+                                resMes = "Home Not Found";
+                                break;
+                            }
+                        case 0:
+                            {
+                                resMes = "User is already registered as a member of this home";
+                                break;
+                            }
+                        default:
+                            {
+                                resMes = "Data";
+                                h = new Home(homeId, homeName, int.Parse(sdr["Number_Of_Users"].ToString()), address);
+                                break;
+                            }
+                    }
                 }
 
-                return homeId;
+                jd = new JsonData(h, resMes);
+                return jd;
             }
             catch (Exception e)
             {
@@ -206,7 +229,7 @@ namespace DAL
                 }
             }
 
-            return homeId;
+            return jd;
         }
 
         static public int CreateRoom(string roomName, int homeId, string roomTypeName, bool isShared, int userId)

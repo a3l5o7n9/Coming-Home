@@ -25,7 +25,7 @@ namespace BAL
             return DBService.CreateHome(userId, homeName, address);
         }
 
-        static public int JoinHome(int userId, string homeName, string address)
+        static public JsonData JoinHome(int userId, string homeName, string address)
         {
             return DBService.JoinHome(userId, homeName, address);
         }

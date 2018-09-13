@@ -61,9 +61,9 @@ public class ComingHomeWS : System.Web.Services.WebService
     [WebMethod]
     public string JoinHome(string userId, string homeName, string address)
     {
-        int homeId = BLService.JoinHome(int.Parse(userId), homeName, address);
+        JsonData jd = BLService.JoinHome(int.Parse(userId), homeName, address);
 
-        return js.Serialize(homeId);
+        return js.Serialize(jd);
     }
 
     [WebMethod]
