@@ -14,8 +14,9 @@ namespace BEL
         public int HomeId { get; set; }
         public bool IsDividedIntoRooms { get; set; }
         public int RoomId { get; set; }
+        public bool IsOn { get; set; }
 
-        public Device(int deviceId, string deviceName, string deviceTypeName, int homeId, bool isDividedIntoRooms, int roomId)
+        public Device(int deviceId, string deviceName, string deviceTypeName, int homeId, bool isDividedIntoRooms, int roomId, bool isOn)
         {
             DeviceId = deviceId;
             DeviceName = deviceName;
@@ -23,6 +24,7 @@ namespace BEL
             HomeId = homeId;
             IsDividedIntoRooms = isDividedIntoRooms;
             RoomId = roomId;
+            IsOn = isOn;
         }
 
         public Device(int deviceId)

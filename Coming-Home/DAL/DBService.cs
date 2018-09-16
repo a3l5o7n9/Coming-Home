@@ -723,7 +723,7 @@ namespace DAL
                             }
                         default:
                             {
-                                d = new Device(deviceId, sdr["Device_Name"].ToString(), sdr["Device_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Divided_Into_Rooms"].ToString()), roomId);
+                                d = new Device(deviceId, sdr["Device_Name"].ToString(), sdr["Device_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Divided_Into_Rooms"].ToString()), roomId, bool.Parse(sdr["Is_On"].ToString()));
                                 resMes = "Data";
                                 break;
                             }
@@ -1019,7 +1019,7 @@ namespace DAL
                             }
                         default:
                             {
-                                ld.Add(new Device(int.Parse(sdr["Device_Id"].ToString()), sdr["Device_Name"].ToString(), sdr["Device_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Divided_Into_Rooms"].ToString()), int.Parse(sdr["Room_Id"].ToString())));
+                                ld.Add(new Device(int.Parse(sdr["Device_Id"].ToString()), sdr["Device_Name"].ToString(), sdr["Device_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Divided_Into_Rooms"].ToString()), int.Parse(sdr["Room_Id"].ToString()), bool.Parse(sdr["Is_On"].ToString())));
                                 resMes = "Data";
                                 break;
                             }
