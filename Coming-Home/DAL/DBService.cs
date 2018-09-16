@@ -938,6 +938,11 @@ namespace DAL
                                 resMes = "Error! User not found";
                                 break;
                             }
+                        case 0:
+                            {
+                                resMes = "No Data";
+                                break;
+                            }
                         default:
                             {
                                 lr.Add(new Room(int.Parse(sdr["Room_Id"].ToString()), sdr["Room_Name"].ToString(), sdr["Room_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Shared"].ToString()), int.Parse(sdr["Number_Of_Devices"].ToString())));
@@ -1005,6 +1010,11 @@ namespace DAL
                         case -1:
                             {
                                 resMes = "Error! User not found";
+                                break;
+                            }
+                        case 0:
+                            {
+                                resMes = "No Data";
                                 break;
                             }
                         default:
