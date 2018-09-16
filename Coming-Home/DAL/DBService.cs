@@ -398,7 +398,7 @@ namespace DAL
             return res;
         }
 
-        static public int UpdateUserTypeInHome(int appUserId, int userToUpdateId, int homeId, string appUserTypeName, string currentUserTypeName, string updatedUserTypeName)
+        static public int UpdateUserTypeInHome(int appUserId, int userToUpdateId, int homeId, string updatedUserTypeName)
         {
             int res = -1;
 
@@ -409,8 +409,6 @@ namespace DAL
             com.Parameters.Add(new SqlParameter("@AppUserId", appUserId));
             com.Parameters.Add(new SqlParameter("@UserIdToUpdate", userToUpdateId));
             com.Parameters.Add(new SqlParameter("@HomeId", homeId));
-            com.Parameters.Add(new SqlParameter("@AppUserTypeName", appUserTypeName));
-            com.Parameters.Add(new SqlParameter("@CurrentUserTypeName", currentUserTypeName));
             com.Parameters.Add(new SqlParameter("@UpdatedUserTypeName", updatedUserTypeName));
 
             try
@@ -442,7 +440,7 @@ namespace DAL
             return res;
         }
 
-        static public int UpdateUserDevicePermissions(int appUserId, int userToUpdateId, int homeId, string appUserTypeName, string userToUpdateTypeName, int deviceId, int roomId, bool hasPermission)
+        static public int UpdateUserDevicePermissions(int appUserId, int userToUpdateId, int homeId, int deviceId, int roomId, bool hasPermission)
         {
             int res = -1;
 
@@ -453,8 +451,6 @@ namespace DAL
             com.Parameters.Add(new SqlParameter("@AppUserId", appUserId));
             com.Parameters.Add(new SqlParameter("@UserIdToUpdate", userToUpdateId));
             com.Parameters.Add(new SqlParameter("@HomeId", homeId));
-            com.Parameters.Add(new SqlParameter("@AppUserTypeName", appUserTypeName));
-            com.Parameters.Add(new SqlParameter("@UserToUpdateTypeName", userToUpdateTypeName));
             com.Parameters.Add(new SqlParameter("@DeviceId", deviceId));
             com.Parameters.Add(new SqlParameter("@RoomId", roomId));
             com.Parameters.Add(new SqlParameter("@HasPermission", hasPermission));
@@ -488,7 +484,7 @@ namespace DAL
             return res;
         }
 
-        static public int UpdateUserRoomPermissions(int appUserId, int userToUpdateId, int homeId, string appUserTypeName, string userToUpdateTypeName, int roomId, bool hasAccess)
+        static public int UpdateUserRoomPermissions(int appUserId, int userToUpdateId, int homeId, int roomId, bool hasAccess)
         {
             int res = -1;
 
@@ -499,8 +495,6 @@ namespace DAL
             com.Parameters.Add(new SqlParameter("@AppUserId", appUserId));
             com.Parameters.Add(new SqlParameter("@UserIdToUpdate", userToUpdateId));
             com.Parameters.Add(new SqlParameter("@HomeId", homeId));
-            com.Parameters.Add(new SqlParameter("@AppUserTypeName", appUserTypeName));
-            com.Parameters.Add(new SqlParameter("@UserToUpdateTypeName", userToUpdateTypeName));
             com.Parameters.Add(new SqlParameter("@RoomId", roomId));
             com.Parameters.Add(new SqlParameter("@HasAccess", hasAccess));
 

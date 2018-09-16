@@ -55,19 +55,19 @@ namespace BAL
             return DBService.BindDeviceToRoom(roomId, deviceId, userId);
         }
 
-        static public int UpdateUserTypeInHome(int appUserId, int userToUpdateId, int homeId, string appUserTypeName, string currentUserTypeName, string updatedUserTypeName)
+        static public int UpdateUserTypeInHome(int appUserId, int userToUpdateId, int homeId, string updatedUserTypeName)
         {
-            return DBService.UpdateUserTypeInHome(appUserId, userToUpdateId, homeId, appUserTypeName, currentUserTypeName, updatedUserTypeName);
+            return DBService.UpdateUserTypeInHome(appUserId, userToUpdateId, homeId, updatedUserTypeName);
         }
 
-        static public int UpdateUserDevicePermissions(int appUserId, int userToUpdateId, int homeId, string appUserTypeName, string userToUpdateTypeName, int deviceId, int roomId, bool hasPermission)
+        static public int UpdateUserDevicePermissions(int appUserId, int userToUpdateId, int homeId, int deviceId, int roomId, bool hasPermission)
         {
-            return DBService.UpdateUserDevicePermissions(appUserId, userToUpdateId, homeId, appUserTypeName, userToUpdateTypeName, deviceId, roomId, hasPermission);
+            return DBService.UpdateUserDevicePermissions(appUserId, userToUpdateId, homeId, deviceId, roomId, hasPermission);
         }
 
-        static public int UpdateUserRoomPermissions(int appUserId, int userToUpdateId, int homeId, string appUserTypeName, string userToUpdateTypeName, int roomId, bool hasAccess)
+        static public int UpdateUserRoomPermissions(int appUserId, int userToUpdateId, int homeId, int roomId, bool hasAccess)
         {
-            return DBService.UpdateUserRoomPermissions(appUserId, userToUpdateId, homeId, appUserTypeName, userToUpdateTypeName, roomId, hasAccess);
+            return DBService.UpdateUserRoomPermissions(appUserId, userToUpdateId, homeId, roomId, hasAccess);
         }
 
         static public JsonData GetUser(int userId, int homeId)

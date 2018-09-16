@@ -151,25 +151,25 @@ public class ComingHomeWS : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string UpdateUserTypeInHome(string appUserId, string userToUpdateId, string homeId, string appUserTypeName, string currentUserTypeName, string updatedUserTypeName)
+    public string UpdateUserTypeInHome(string appUserId, string userToUpdateId, string homeId, string updatedUserTypeName)
     {
-        int res = BLService.UpdateUserTypeInHome(int.Parse(appUserId), int.Parse(userToUpdateId), int.Parse(homeId), appUserTypeName, currentUserTypeName, updatedUserTypeName);
+        int res = BLService.UpdateUserTypeInHome(int.Parse(appUserId), int.Parse(userToUpdateId), int.Parse(homeId), updatedUserTypeName);
 
         return js.Serialize(res);
     }
 
     [WebMethod]
-    public string UpdateUserDevicePermissions(string appUserId, string userToUpdateId, string homeId, string appUserTypeName, string userToUpdateTypeName, string deviceId, string roomId, string hasPermission)
+    public string UpdateUserDevicePermissions(string appUserId, string userToUpdateId, string homeId, string deviceId, string roomId, string hasPermission)
     {
-        int res = BLService.UpdateUserDevicePermissions(int.Parse(appUserId), int.Parse(userToUpdateId), int.Parse(homeId), appUserTypeName, userToUpdateTypeName, int.Parse(deviceId), int.Parse(roomId), bool.Parse(hasPermission));
+        int res = BLService.UpdateUserDevicePermissions(int.Parse(appUserId), int.Parse(userToUpdateId), int.Parse(homeId), int.Parse(deviceId), int.Parse(roomId), bool.Parse(hasPermission));
 
         return js.Serialize(res);
     }
 
     [WebMethod]
-    public string UpdateUserRoomPermissions(string appUserId, string userToUpdateId, string homeId, string appUserTypeName, string userToUpdateTypeName, string roomId, string hasAccess)
+    public string UpdateUserRoomPermissions(string appUserId, string userToUpdateId, string homeId, string roomId, string hasAccess)
     {
-        int res = BLService.UpdateUserRoomPermissions(int.Parse(appUserId), int.Parse(userToUpdateId), int.Parse(homeId), appUserTypeName, userToUpdateTypeName, int.Parse(roomId), bool.Parse(hasAccess));
+        int res = BLService.UpdateUserRoomPermissions(int.Parse(appUserId), int.Parse(userToUpdateId), int.Parse(homeId), int.Parse(roomId), bool.Parse(hasAccess));
 
         return js.Serialize(res);
     }
