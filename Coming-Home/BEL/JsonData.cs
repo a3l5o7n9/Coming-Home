@@ -34,20 +34,6 @@ namespace BEL
             ResultMessage = resMes;
         }
 
-        public JsonData(AppUser au, List<User> lu, string resMes)
-        {
-            AU = au;
-            LU = lu;
-            ResultMessage = resMes;
-        }
-
-        public JsonData(AppUser au, List<Home> lh, string resMes)
-        {
-            AU = au;
-            LH = lh;
-            ResultMessage = resMes;
-        }
-
         public JsonData(List<User> lu, string resMes)
         {
             LU = lu;
@@ -72,80 +58,85 @@ namespace BEL
             ResultMessage = resMes;
         }
 
-        public JsonData(AppUser au, List<User> lu, List<Home> lh, List<Room> lr, string resMes)
+        public JsonData(List<User> lu, List<Home> lh, List<Room> lr, string resMes)
         {
-            AU = au;
             LU = lu;
             LH = lh;
             LR = lr;
             ResultMessage = resMes;
         }
 
-        public JsonData(AppUser au, List<User> lu, List<Home> lh, List<Device> ld, string resMes)
+        public JsonData(List<User> lu, List<Home> lh, List<Device> ld, string resMes)
         {
-            AU = au;
             LU = lu;
             LH = lh;
             LD = ld;
             ResultMessage = resMes;
         }
 
-        public JsonData(AppUser au, List<User> lu, List<Home> lh, List<Room> lr, List<Device> ld, string resMes)
+        public JsonData(List<User> lu, List<Room> lr, List<Device> ld, string resMes)
         {
-            AU = au;
             LU = lu;
-            LH = lh;
             LR = lr;
             LD = ld;
             ResultMessage = resMes;
         }
+
+        //public JsonData(List<User> lu, List<Home> lh, List<Room> lr, List<Device> ld, string resMes)
+        //{
+        //    LU = lu;
+        //    LH = lh;
+        //    LR = lr;
+        //    LD = ld;
+        //    ResultMessage = resMes;
+        //}
 
         public JsonData(string resMes)
         {
             ResultMessage = resMes;
         }
 
-        public JsonData(AppUser au, User u, Home h, string resMes)
-        {
-            AU = au;
-            U = u;
-            H = h;
-            ResultMessage = resMes;
-        }
+        //public JsonData(AppUser au, User u, Home h, string resMes)
+        //{
+        //    AU = au;
+        //    U = u;
+        //    H = h;
+        //    ResultMessage = resMes;
+        //}
 
-        public JsonData(AppUser au, User u, Home h, Room r, string resMes)
-        {
-            AU = au;
-            U = u;
-            H = h;
-            R = r;
-            ResultMessage = resMes;
-        }
+        //public JsonData(AppUser au, User u, Home h, Room r, string resMes)
+        //{
+        //    AU = au;
+        //    U = u;
+        //    H = h;
+        //    R = r;
+        //    ResultMessage = resMes;
+        //}
 
-        public JsonData(AppUser au, User u, Room r, string resMes)
-        {
-            AU = au;
-            U = u;
-            R = r;
-            ResultMessage = resMes;
-        }
+        //public JsonData(AppUser au, User u, Room r, string resMes)
+        //{
+        //    AU = au;
+        //    U = u;
+        //    R = r;
+        //    ResultMessage = resMes;
+        //}
 
-        public JsonData(AppUser au, User u, Home h, Device d, string resMes)
-        {
-            AU = au;
-            U = u;
-            H = h;
-            D = d;
-            ResultMessage = resMes;
-        }
+        //public JsonData(AppUser au, User u, Home h, Device d, string resMes)
+        //{
+        //    AU = au;
+        //    U = u;
+        //    H = h;
+        //    D = d;
+        //    ResultMessage = resMes;
+        //}
 
-        public JsonData(AppUser au, User u, Device d, string resMes)
-        {
-            AU = au;
-            U = u;
-            D = d;
-            ResultMessage = resMes;
-        }
+        //public JsonData(AppUser au, User u, Device d, string resMes)
+        //{
+        //    AU = au;
+        //    U = u;
+        //    D = d;
+        //    ResultMessage = resMes;
+        //}
 
         public JsonData(User u, string resMes)
         {

@@ -231,6 +231,14 @@ public class ComingHomeWS : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GetUserHomeDetails(string userId, string homeId)
+    {
+        JsonData jd = BLService.GetUserHomeDetails(int.Parse(userId), int.Parse(homeId));
+
+        return js.Serialize(jd);
+    }
+
+    [WebMethod]
     public string ChangeDeviceStatus(string userId, string deviceId, string roomId, string turnOn, string activationMethodCode, string statusDetails, string conditionId)
     {
         int res = -1;

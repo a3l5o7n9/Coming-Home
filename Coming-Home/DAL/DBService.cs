@@ -1046,6 +1046,43 @@ namespace DAL
             return jd;
         }
 
+        static public JsonData GetUserHomeDetails(int userId, int homeId)
+        {
+            JsonData jd = null;
+            string resMes = "No Data";
+            List<User> lu = null;
+            List<Room> lr = null;
+            List<Device> ld = null;
+
+            JsonData usersData = GetUsersInHome(userId, homeId);
+
+            if (usersData.ResultMessage == "Data")
+            {
+                lu = usersData.LU;
+                resMes = "Data";
+            }
+
+            JsonData roomsData = GetUserRoomsInHome(userId, homeId);
+
+            if (roomsData.ResultMessage == "Data")
+            {
+                lr = roomsData.LR;
+                resMes = "Data";
+            }
+
+            JsonData devicesData = GetUserDevicesInHome(userId, homeId);
+
+            if (devicesData.ResultMessage == "Data")
+            {
+                ld = roomsData.LD;
+                resMes = "Data";
+            }
+
+            jd = new JsonData(lu, lr, ld, resMes);
+
+            return jd;
+        }
+
         static public int ChangeDeviceStatus(int userId, int deviceId, int roomId, bool turnOn, int activationMethodCode, string statusDetails, string conditionId)
         {
             int res = -1;
