@@ -1074,7 +1074,7 @@ namespace DAL
 
             if (devicesData.ResultMessage == "Data")
             {
-                ld = roomsData.LD;
+                ld = devicesData.LD;
                 resMes = "Data";
             }
 
