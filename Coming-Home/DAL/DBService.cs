@@ -925,6 +925,17 @@ namespace DAL
                         default:
                             {
                                 actCon = new ActivationCondition(int.Parse(sdr["Condition_Id"].ToString()), sdr["Condition_Name"].ToString(), int.Parse(sdr["Created_By_User_Id"].ToString()), int.Parse(sdr["Home_Id"].ToString()), int.Parse(sdr["Device_Id"].ToString()), int.Parse(sdr["Room_Id"].ToString()), sdr["Activation_Method_Name"].ToString(), bool.Parse(sdr["Is_Active"].ToString()));
+
+                                if (sdr["Distance_Or_Time_Param"] != null)
+                                {
+                                    actCon.DistanceOrTimeParam = sdr["Distance_Or_Time_Param"].ToString();
+                                }
+
+                                if (sdr["Activation_Param"] != null)
+                                {
+                                    actCon.ActivationParam = sdr["Activation_Param"].ToString();
+                                }
+
                                 resMes = "Data";
                                 break;
                             }
@@ -1215,7 +1226,19 @@ namespace DAL
                             }
                         default:
                             {
-                                lActCon.Add(new ActivationCondition(int.Parse(sdr["Condition_Id"].ToString()), sdr["Condition_Name"].ToString(), int.Parse(sdr["Created_By_User_Id"].ToString()), int.Parse(sdr["Home_Id"].ToString()), int.Parse(sdr["Device_Id"].ToString()), int.Parse(sdr["Room_Id"].ToString()), sdr["Activation_Method_Name"].ToString(), bool.Parse(sdr["Is_Active"].ToString())));
+                                ActivationCondition actCon = new ActivationCondition(int.Parse(sdr["Condition_Id"].ToString()), sdr["Condition_Name"].ToString(), int.Parse(sdr["Created_By_User_Id"].ToString()), int.Parse(sdr["Home_Id"].ToString()), int.Parse(sdr["Device_Id"].ToString()), int.Parse(sdr["Room_Id"].ToString()), sdr["Activation_Method_Name"].ToString(), bool.Parse(sdr["Is_Active"].ToString()));
+
+                                if (sdr["Distance_Or_Time_Param"] != null)
+                                {
+                                    actCon.DistanceOrTimeParam = sdr["Distance_Or_Time_Param"].ToString();
+                                }
+
+                                if (sdr["Activation_Param"] != null)
+                                {
+                                    actCon.ActivationParam = sdr["Activation_Param"].ToString();
+                                }
+
+                                lActCon.Add(actCon);
                                 resMes = "Data";
                                 break;
                             }
