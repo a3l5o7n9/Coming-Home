@@ -1168,6 +1168,80 @@ namespace DAL
             return jd;
         }
 
+        static public JsonData GetUserActivationConditionsInHome(int userId, int homeId)
+        {
+            JsonData jd = null;
+            string resMes = "No Data";
+            int actConId = 0;
+
+            com = new SqlCommand("Get_User_Activation_Conditions_In_Home", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+                List<ActivationCondition> lActCon = new List<ActivationCondition>();
+
+                while (sdr.Read())
+                {
+                    actConId = int.Parse(sdr["Condition_Id"].ToString());
+
+                    switch (actConId)
+                    {
+                        case -3:
+                            {
+                                resMes = "Error! You are not registered as a member of this home";
+                                break;
+                            }
+                        case -2:
+                            {
+                                resMes = "Error! Home not found";
+                                break;
+                            }
+                        case -1:
+                            {
+                                resMes = "Error! User not found";
+                                break;
+                            }
+                        case 0:
+                            {
+                                resMes = "No Data";
+                                break;
+                            }
+                        default:
+                            {
+                                lActCon.Add(new ActivationCondition(int.Parse(sdr["Condition_Id"].ToString()), sdr["Condition_Name"].ToString(), int.Parse(sdr["Created_By_User_Id"].ToString()), int.Parse(sdr["Home_Id"].ToString()), int.Parse(sdr["Device_Id"].ToString()), int.Parse(sdr["Room_Id"].ToString()), sdr["Activation_Method_Name"].ToString(), bool.Parse(sdr["Is_Active"].ToString())));
+                                resMes = "Data";
+                                break;
+                            }
+                    }
+                }
+
+                jd = new JsonData(lActCon, resMes);
+
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                 "ERROR in class:DBService function:GetUserActivationConditionsInHome() - message=" + e.Message +
+                 ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return jd;
+        }
+
         static public JsonData GetUserHomeDetails(int userId, int homeId)
         {
             JsonData jd = null;
@@ -1175,6 +1249,7 @@ namespace DAL
             List<User> lu = null;
             List<Room> lr = null;
             List<Device> ld = null;
+            List<ActivationCondition> lActCon = null;
 
             JsonData usersData = GetUsersInHome(userId, homeId);
 
@@ -1200,7 +1275,15 @@ namespace DAL
                 resMes = "Data";
             }
 
-            jd = new JsonData(lu, lr, ld, resMes);
+            JsonData activationConditionsData = GetUserActivationConditionsInHome(userId, homeId);
+
+            if (activationConditionsData.ResultMessage == "Data")
+            {
+                lActCon = activationConditionsData.LActCon;
+                resMes = "Data";
+            }
+
+            jd = new JsonData(lu, lr, ld, lActCon, resMes);
 
             return jd;
         }

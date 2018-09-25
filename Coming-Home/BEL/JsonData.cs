@@ -90,6 +90,15 @@ namespace BEL
             ResultMessage = resMes;
         }
 
+        public JsonData(List<User> lu, List<Room> lr, List<Device> ld, List<ActivationCondition> lActCon, string resMes)
+        {
+            LU = lu;
+            LR = lr;
+            LD = ld;
+            LActCon = lActCon;
+            ResultMessage = resMes;
+        }
+
         //public JsonData(List<User> lu, List<Home> lh, List<Room> lr, List<Device> ld, string resMes)
         //{
         //    LU = lu;

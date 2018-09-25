@@ -115,6 +115,11 @@ namespace BAL
             return DBService.GetUserDevicesInHome(userId, homeId);
         }
 
+        static public JsonData GetUserActivationConditionsInHome(int userId, int homeId)
+        {
+            return DBService.GetUserActivationConditionsInHome(userId, homeId);
+        }
+
         static public JsonData GetUserHomeDetails(int userId, int homeId)
         {
             return DBService.GetUserHomeDetails(userId, homeId);

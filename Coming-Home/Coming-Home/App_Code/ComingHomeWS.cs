@@ -249,6 +249,14 @@ public class ComingHomeWS : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GetUserActivationConditionsInHome(string userId, string homeId)
+    {
+        JsonData jd = BLService.GetUserActivationConditionsInHome(int.Parse(userId), int.Parse(homeId));
+
+        return js.Serialize(jd);
+    }
+
+    [WebMethod]
     public string GetUserHomeDetails(string userId, string homeId)
     {
         JsonData jd = BLService.GetUserHomeDetails(int.Parse(userId), int.Parse(homeId));
