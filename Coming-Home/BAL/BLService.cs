@@ -40,6 +40,11 @@ namespace BAL
             return DBService.CreateDevice(deviceName, homeId, deviceTypeName, isDividedIntoRooms, userId, roomId);
         }
 
+        static public int CreateActivationCondition(string conditionName, int userId, int homeId, int deviceId, int roomId, string activationMethodName, string distanceOrTimeParam, string activationParam)
+        {
+            return DBService.CreateActivationCondition(conditionName, userId, homeId, deviceId, roomId, activationMethodName, distanceOrTimeParam, activationParam);
+        }
+
         public static void InitErrorLogPath(string v)
         {
             DBService.InitErrorLogPath(v);
@@ -88,6 +93,11 @@ namespace BAL
         static public JsonData GetRoom(int userId, int homeId, int roomId)
         {
             return DBService.GetRoom(userId, homeId, roomId);
+        }
+
+        static public JsonData GetActivationCondition(int conditionId, int userId, int homeId, int deviceId, int roomId)
+        {
+            return DBService.GetActivationCondition(conditionId, userId, homeId, deviceId, roomId);
         }
 
         static public JsonData GetUsersInHome(int userId, int homeId)

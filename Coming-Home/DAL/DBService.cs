@@ -317,6 +317,67 @@ namespace DAL
             return deviceId;
         }
 
+        static public int CreateActivationCondition(string conditionName, int userId, int homeId, int deviceId, int roomId, string activationMethodName, string distanceOrTimeParam, string activationParam)
+        {
+            int conditionId = -1;
+            com = new SqlCommand("New_Activation_Condition", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@ConditionName", conditionName));
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+            com.Parameters.Add(new SqlParameter("@DeviceId", deviceId));
+            com.Parameters.Add(new SqlParameter("@RoomId", roomId));
+            com.Parameters.Add(new SqlParameter("@ActivationMethodName", activationMethodName));
+            
+            if (distanceOrTimeParam == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@DistanceOrTimeParam", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@DistanceOrTimeParam", distanceOrTimeParam));
+            }
+
+            if (activationParam == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@ActivationParam", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@ActivationParam", activationParam));
+            }
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                if (sdr.Read())
+                {
+                    conditionId = int.Parse(sdr[0].ToString());
+                }
+
+                return conditionId;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                   "ERROR in class:DBService function:CreateActivationCondition() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return conditionId;
+        }
+
         static public int UpdateTokenForUserId(string token, int userId)
         {
             int res = -1;
@@ -816,6 +877,67 @@ namespace DAL
             {
                 File.AppendAllText(Globals.LogFileName,
                  "ERROR in class:DBService function:GetRoom() - message=" + e.Message +
+                 ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return jd;
+        }
+
+        static public JsonData GetActivationCondition(int conditionId, int userId, int homeId, int deviceId, int roomId)
+        {
+            JsonData jd = null;
+            string resMes = "No Data";
+            int actConId = 0;
+
+            com = new SqlCommand("Get_Activation_Condition", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@ConditionId", conditionId));
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+            com.Parameters.Add(new SqlParameter("@DeviceId", deviceId));
+            com.Parameters.Add(new SqlParameter("@RoomId", roomId));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+                ActivationCondition actCon = null;
+
+                if (sdr.Read())
+                {
+                    actConId = int.Parse(sdr["Condition_Id"].ToString());
+                    switch (actConId)
+                    {
+                        case -1:
+                            {
+                                resMes = "Error! Condition not found!";
+                                break;
+                            }
+                        default:
+                            {
+                                actCon = new ActivationCondition(int.Parse(sdr["Condition_Id"].ToString()), sdr["Condition_Name"].ToString(), int.Parse(sdr["Created_By_User_Id"].ToString()), int.Parse(sdr["Home_Id"].ToString()), int.Parse(sdr["Device_Id"].ToString()), int.Parse(sdr["Room_Id"].ToString()), sdr["Activation_Method_Name"].ToString(), bool.Parse(sdr["Is_Active"].ToString()));
+                                resMes = "Data";
+                                break;
+                            }
+                    }
+                }
+
+                jd = new JsonData(actCon, resMes);
+
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                 "ERROR in class:DBService function:GetActivationCondition() - message=" + e.Message +
                  ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
             }
             finally

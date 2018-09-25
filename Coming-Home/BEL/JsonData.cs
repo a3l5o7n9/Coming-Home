@@ -17,6 +17,8 @@ namespace BEL
         public List<Room> LR { get; set; }
         public Device D { get; set; }
         public List<Device> LD { get; set; }
+        public ActivationCondition ActCon { get; set; }
+        public List<ActivationCondition> LActCon { get; set; }
         public string ResultMessage { get; set; }
 
         public JsonData(AppUser au, string resMes)
@@ -55,6 +57,12 @@ namespace BEL
         public JsonData(List<Device> ld, string resMes)
         {
             LD = ld;
+            ResultMessage = resMes;
+        }
+
+        public JsonData(List<ActivationCondition> lActCon, string resMes)
+        {
+            LActCon = lActCon;
             ResultMessage = resMes;
         }
 
@@ -159,6 +167,12 @@ namespace BEL
         public JsonData(Device d, string resMes)
         {
             D = d;
+            ResultMessage = resMes;
+        }
+
+        public JsonData(ActivationCondition actCon, string resMes)
+        {
+            ActCon = actCon;
             ResultMessage = resMes;
         }
     }

@@ -83,6 +83,16 @@ public class ComingHomeWS : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string CreateActivationCondition(string conditionName, string userId, string homeId, string deviceId, string roomId, string activationMethodName, string distanceOrTimeParam, string activationParam)
+    {
+        int res = -1;
+
+        res = BLService.CreateActivationCondition(conditionName, int.Parse(userId), int.Parse(homeId), int.Parse(deviceId), int.Parse(roomId), activationMethodName, distanceOrTimeParam, activationParam);
+
+        return js.Serialize(res);
+    }
+
+    [WebMethod]
     public int UpdateTokenForUserId(string token, string userId)
     {
         return BLService.UpdateTokenForUserId(token, int.Parse(userId));
@@ -202,6 +212,14 @@ public class ComingHomeWS : System.Web.Services.WebService
     public string GetRoom(string userId, string homeId, string roomId)
     {
         JsonData jd = BLService.GetRoom(int.Parse(userId), int.Parse(homeId), int.Parse(roomId));
+
+        return js.Serialize(jd);
+    }
+
+    [WebMethod]
+    public string GetActivationCondition(string conditionId, string userId, string homeId, string deviceId, string roomId)
+    {
+        JsonData jd = BLService.GetActivationCondition(int.Parse(conditionId), int.Parse(userId), int.Parse(homeId), int.Parse(deviceId), int.Parse(roomId));
 
         return js.Serialize(jd);
     }
