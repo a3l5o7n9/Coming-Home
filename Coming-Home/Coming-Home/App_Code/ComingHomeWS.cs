@@ -273,4 +273,38 @@ public class ComingHomeWS : System.Web.Services.WebService
 
         return js.Serialize(res);
     }
+
+    [WebMethod]
+    public string ChangeConditionStatus(string userId, string homeId, string deviceId, string roomId, string conditionId, string newStatus)
+    {
+        int res = -1;
+        
+        res = BLService.ChangeConditionStatus(int.Parse(userId), int.Parse(homeId), int.Parse(deviceId), int.Parse(roomId), int.Parse(conditionId), bool.Parse(newStatus));
+
+        return js.Serialize(res);
+    }
+
+    [WebMethod]
+    public string GetUserTypes()
+    {
+        return js.Serialize(BLService.GetUserTypes());
+    }
+
+    [WebMethod]
+    public string GetRoomTypes()
+    {
+        return js.Serialize(BLService.GetRoomTypes());
+    }
+
+    [WebMethod]
+    public string GetDeviceTypes()
+    {
+        return js.Serialize(BLService.GetDeviceTypes());
+    }
+
+    [WebMethod]
+    public string GetActivationMethods()
+    {
+        return js.Serialize(BLService.GetActivationMethods());
+    }
 }

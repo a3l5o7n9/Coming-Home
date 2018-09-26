@@ -190,8 +190,8 @@ namespace DAL
                 if (sdr.Read())
                 {
                     homeId = int.Parse(sdr["Home_Id"].ToString());
-                    
-                    switch(homeId)
+
+                    switch (homeId)
                     {
                         case -1:
                             {
@@ -330,7 +330,7 @@ namespace DAL
             com.Parameters.Add(new SqlParameter("@DeviceId", deviceId));
             com.Parameters.Add(new SqlParameter("@RoomId", roomId));
             com.Parameters.Add(new SqlParameter("@ActivationMethodName", activationMethodName));
-            
+
             if (distanceOrTimeParam == "null")
             {
                 com.Parameters.Add(new SqlParameter("@DistanceOrTimeParam", DBNull.Value));
@@ -607,11 +607,11 @@ namespace DAL
                 sdr = com.ExecuteReader();
                 User u = null;
 
-                if(sdr.Read())
+                if (sdr.Read())
                 {
                     uId = int.Parse(sdr["User_Id"].ToString());
 
-                    switch(uId)
+                    switch (uId)
                     {
                         case -3:
                             {
@@ -680,7 +680,7 @@ namespace DAL
                 {
                     hId = int.Parse(sdr["Home_Id"].ToString());
 
-                    switch(hId)
+                    switch (hId)
                     {
                         case -3:
                             {
@@ -750,7 +750,7 @@ namespace DAL
                 if (sdr.Read())
                 {
                     dId = int.Parse(sdr["Device_Id"].ToString());
-                    switch(dId)
+                    switch (dId)
                     {
                         case -6:
                             {
@@ -834,7 +834,7 @@ namespace DAL
                 if (sdr.Read())
                 {
                     rId = int.Parse(sdr["Room_Id"].ToString());
-                    switch(rId)
+                    switch (rId)
                     {
                         case -5:
                             {
@@ -867,7 +867,7 @@ namespace DAL
                                 resMes = "Data";
                                 break;
                             }
-                    }                
+                    }
                 }
 
                 jd = new JsonData(r, resMes);
@@ -985,7 +985,7 @@ namespace DAL
                 {
                     uId = int.Parse(sdr["User_Id"].ToString());
 
-                    switch(uId)
+                    switch (uId)
                     {
                         case -3:
                             {
@@ -1054,7 +1054,7 @@ namespace DAL
                 {
                     rId = int.Parse(sdr["Room_Id"].ToString());
 
-                    switch(rId)
+                    switch (rId)
                     {
                         case -3:
                             {
@@ -1082,7 +1082,7 @@ namespace DAL
                                 resMes = "Data";
                                 break;
                             }
-                    }                   
+                    }
                 }
 
                 jd = new JsonData(lr, resMes);
@@ -1128,7 +1128,7 @@ namespace DAL
                 {
                     dId = int.Parse(sdr["Device_Id"].ToString());
 
-                    switch(dId)
+                    switch (dId)
                     {
                         case -3:
                             {
@@ -1156,7 +1156,7 @@ namespace DAL
                                 resMes = "Data";
                                 break;
                             }
-                    }                    
+                    }
                 }
 
                 jd = new JsonData(ld, resMes);
@@ -1335,7 +1335,7 @@ namespace DAL
             }
 
             if (conditionId == "null")
-            { 
+            {
                 com.Parameters.Add(new SqlParameter("@ConditionId", DBNull.Value));
             }
             else
@@ -1370,6 +1370,206 @@ namespace DAL
             }
 
             return res;
+        }
+
+        static public int ChangeConditionStatus(int userId, int homeId, int deviceId, int roomId, int conditionId, bool newStatus)
+        {
+            int res = -1;
+
+            com = new SqlCommand("Change_Condition_Status", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+            com.Parameters.Add(new SqlParameter("@DeviceId", deviceId));
+            com.Parameters.Add(new SqlParameter("@RoomId", roomId));
+            com.Parameters.Add(new SqlParameter("@ConditionId", conditionId));
+            com.Parameters.Add(new SqlParameter("@NewStatus", newStatus));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                if (sdr.Read())
+                {
+                    res = int.Parse(sdr[0].ToString());
+                }
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                  "ERROR in class:DBService function:ChangeConditionStatus() - message=" + e.Message +
+                  ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return res;
+        }
+
+        static public List<string> GetUserTypes()
+        {
+            List<string> userTypes = new List<string>();
+
+            com = new SqlCommand("Get_User_Types", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+
+                while (sdr.Read())
+                {
+                    userTypes.Add(sdr["User_Type_Name"].ToString());
+                }
+
+                return userTypes;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                   "ERROR in class:DBService function:GetUserTypes() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return userTypes;
+        }
+
+        static public List<string> GetRoomTypes()
+        {
+            List<string> roomTypes = new List<string>();
+
+            com = new SqlCommand("Get_Room_Types", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+
+                while (sdr.Read())
+                {
+                    roomTypes.Add(sdr["Room_Type_Name"].ToString());
+                }
+
+                return roomTypes;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                   "ERROR in class:DBService function:GetRoomTypes() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return roomTypes;
+        }
+
+        static public List<string> GetDeviceTypes()
+        {
+            List<string> deviceTypes = new List<string>();
+
+            com = new SqlCommand("Get_Device_Types", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+
+                while (sdr.Read())
+                {
+                    deviceTypes.Add(sdr["Device_Type_Name"].ToString());
+                }
+
+                return deviceTypes;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                   "ERROR in class:DBService function:GetDeviceTypes() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return deviceTypes;
+        }
+
+        static public List<ActivationMethod> GetActivationMethods()
+        {
+            List<ActivationMethod> activationMethods = new List<ActivationMethod>();
+
+            com = new SqlCommand("Get_Activation_Methods", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+
+                while (sdr.Read())
+                {
+                    activationMethods.Add(new ActivationMethod(int.Parse(sdr["Activation_Method_Code"].ToString()), sdr["Activation_Method_Name"].ToString()));
+                }
+
+                return activationMethods;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                   "ERROR in class:DBService function:GetActivationMethods() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return activationMethods;
         }
     }
 }

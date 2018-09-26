@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivationCondition.cs" />
+    <Compile Include="ActivationMethod.cs" />
     <Compile Include="AppUser.cs" />
     <Compile Include="Device.cs" />
     <Compile Include="Home.cs" />

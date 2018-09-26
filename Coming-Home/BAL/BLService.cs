@@ -129,5 +129,30 @@ namespace BAL
         {
             return DBService.ChangeDeviceStatus(userId, deviceId, roomId, turnOn, activationMethodCode, statusDetails, conditionId);
         }
+
+        static public int ChangeConditionStatus(int userId, int homeId, int deviceId, int roomId, int conditionId, bool newStatus)
+        {
+            return DBService.ChangeConditionStatus(userId, homeId, deviceId, roomId, conditionId, newStatus);
+        }
+
+        static public List<string> GetUserTypes()
+        {
+            return DBService.GetUserTypes();
+        }
+
+        static public List<string> GetRoomTypes()
+        {
+            return DBService.GetRoomTypes();
+        }
+
+        static public List<string> GetDeviceTypes()
+        {
+            return DBService.GetDeviceTypes();
+        }
+
+        static public List<ActivationMethod> GetActivationMethods()
+        {
+            return DBService.GetActivationMethods();
+        }
     }
 }
