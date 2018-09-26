@@ -926,12 +926,12 @@ namespace DAL
                             {
                                 actCon = new ActivationCondition(int.Parse(sdr["Condition_Id"].ToString()), sdr["Condition_Name"].ToString(), int.Parse(sdr["Created_By_User_Id"].ToString()), int.Parse(sdr["Home_Id"].ToString()), int.Parse(sdr["Device_Id"].ToString()), int.Parse(sdr["Room_Id"].ToString()), sdr["Activation_Method_Name"].ToString(), bool.Parse(sdr["Is_Active"].ToString()));
 
-                                if (sdr["Distance_Or_Time_Param"] != null)
+                                if (sdr["Distance_Or_Time_Param"].ToString() != "")
                                 {
                                     actCon.DistanceOrTimeParam = sdr["Distance_Or_Time_Param"].ToString();
                                 }
 
-                                if (sdr["Activation_Param"] != null)
+                                if (sdr["Activation_Param"].ToString() != "")
                                 {
                                     actCon.ActivationParam = sdr["Activation_Param"].ToString();
                                 }
@@ -1228,12 +1228,12 @@ namespace DAL
                             {
                                 ActivationCondition actCon = new ActivationCondition(int.Parse(sdr["Condition_Id"].ToString()), sdr["Condition_Name"].ToString(), int.Parse(sdr["Created_By_User_Id"].ToString()), int.Parse(sdr["Home_Id"].ToString()), int.Parse(sdr["Device_Id"].ToString()), int.Parse(sdr["Room_Id"].ToString()), sdr["Activation_Method_Name"].ToString(), bool.Parse(sdr["Is_Active"].ToString()));
 
-                                if (sdr["Distance_Or_Time_Param"] != null)
+                                if (sdr["Distance_Or_Time_Param"].ToString() != "")
                                 {
                                     actCon.DistanceOrTimeParam = sdr["Distance_Or_Time_Param"].ToString();
                                 }
 
-                                if (sdr["Activation_Param"] != null)
+                                if (sdr["Activation_Param"].ToString() != "")
                                 {
                                     actCon.ActivationParam = sdr["Activation_Param"].ToString();
                                 }
