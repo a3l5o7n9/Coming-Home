@@ -44,11 +44,14 @@
     <Compile Include="ActivationMethod.cs" />
     <Compile Include="AppUser.cs" />
     <Compile Include="Device.cs" />
+    <Compile Include="DeviceType.cs" />
     <Compile Include="Home.cs" />
     <Compile Include="JsonData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Room.cs" />
+    <Compile Include="RoomType.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="UserType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

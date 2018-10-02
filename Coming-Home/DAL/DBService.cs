@@ -1416,9 +1416,9 @@ namespace DAL
             return res;
         }
 
-        static public List<string> GetUserTypes()
+        static public List<UserType> GetUserTypes()
         {
-            List<string> userTypes = new List<string>();
+            List<UserType> userTypes = new List<UserType>();
 
             com = new SqlCommand("Get_User_Types", con);
             com.CommandType = CommandType.StoredProcedure;
@@ -1433,7 +1433,7 @@ namespace DAL
 
                 while (sdr.Read())
                 {
-                    userTypes.Add(sdr["User_Type_Name"].ToString());
+                    userTypes.Add(new UserType(int.Parse(sdr["User_Type_Code"].ToString()),sdr["User_Type_Name"].ToString()));
                 }
 
                 return userTypes;
@@ -1455,9 +1455,9 @@ namespace DAL
             return userTypes;
         }
 
-        static public List<string> GetRoomTypes()
+        static public List<RoomType> GetRoomTypes()
         {
-            List<string> roomTypes = new List<string>();
+            List<RoomType> roomTypes = new List<RoomType>();
 
             com = new SqlCommand("Get_Room_Types", con);
             com.CommandType = CommandType.StoredProcedure;
@@ -1472,7 +1472,7 @@ namespace DAL
 
                 while (sdr.Read())
                 {
-                    roomTypes.Add(sdr["Room_Type_Name"].ToString());
+                    roomTypes.Add(new RoomType(int.Parse(sdr["Room_Type_Code"].ToString()),sdr["Room_Type_Name"].ToString()));
                 }
 
                 return roomTypes;
@@ -1494,9 +1494,9 @@ namespace DAL
             return roomTypes;
         }
 
-        static public List<string> GetDeviceTypes()
+        static public List<DeviceType> GetDeviceTypes()
         {
-            List<string> deviceTypes = new List<string>();
+            List<DeviceType> deviceTypes = new List<DeviceType>();
 
             com = new SqlCommand("Get_Device_Types", con);
             com.CommandType = CommandType.StoredProcedure;
@@ -1511,7 +1511,7 @@ namespace DAL
 
                 while (sdr.Read())
                 {
-                    deviceTypes.Add(sdr["Device_Type_Name"].ToString());
+                    deviceTypes.Add(new DeviceType(int.Parse(sdr["Device_Type_Code"].ToString()), sdr["Device_Type_Name"].ToString()));
                 }
 
                 return deviceTypes;

@@ -135,17 +135,17 @@ namespace BAL
             return DBService.ChangeConditionStatus(userId, homeId, deviceId, roomId, conditionId, newStatus);
         }
 
-        static public List<string> GetUserTypes()
+        static public List<UserType> GetUserTypes()
         {
             return DBService.GetUserTypes();
         }
 
-        static public List<string> GetRoomTypes()
+        static public List<RoomType> GetRoomTypes()
         {
             return DBService.GetRoomTypes();
         }
 
-        static public List<string> GetDeviceTypes()
+        static public List<DeviceType> GetDeviceTypes()
         {
             return DBService.GetDeviceTypes();
         }
