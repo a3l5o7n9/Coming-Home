@@ -307,4 +307,44 @@ public class ComingHomeWS : System.Web.Services.WebService
     {
         return js.Serialize(BLService.GetActivationMethods());
     }
+
+    [WebMethod]
+    public string DeleteUser(string userId)
+    {
+        int res = BLService.DeleteUser(int.Parse(userId));
+
+        return js.Serialize(res);
+    }
+
+    [WebMethod]
+    public string DeleteHome(string userId, string homeId)
+    {
+        int res = BLService.DeleteHome(int.Parse(userId), int.Parse(homeId));
+
+        return js.Serialize(res);
+    }
+
+    [WebMethod]
+    public string DeleteRoom(string userId, string homeId, string roomId)
+    {
+        int res = BLService.DeleteRoom(int.Parse(userId), int.Parse(homeId), int.Parse(roomId));
+
+        return js.Serialize(res);
+    }
+
+    [WebMethod]
+    public string DeleteDevice(string userId, string homeId, string deviceId)
+    {
+        int res = BLService.DeleteDevice(int.Parse(userId), int.Parse(homeId), int.Parse(deviceId));
+
+        return js.Serialize(res);
+    }
+
+    [WebMethod]
+    public string DeleteActivationCondition(string userId, string homeId, string conditionId)
+    {
+        int res = BLService.DeleteActivationCondition(int.Parse(userId), int.Parse(homeId), int.Parse(conditionId));
+
+        return js.Serialize(res);
+    }
 }

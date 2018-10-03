@@ -1420,6 +1420,7 @@ namespace DAL
         {
             List<UserType> userTypes = new List<UserType>();
 
+            /*Retrieve all rows from table "UserTypes" in DataBase*/
             com = new SqlCommand("Get_User_Types", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -1459,6 +1460,7 @@ namespace DAL
         {
             List<RoomType> roomTypes = new List<RoomType>();
 
+            /*Retrieve all rows from table "RoomTypes" in DataBase*/
             com = new SqlCommand("Get_Room_Types", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -1498,6 +1500,7 @@ namespace DAL
         {
             List<DeviceType> deviceTypes = new List<DeviceType>();
 
+            /*Retrieve all rows from table "DeviceTypes" in DataBase*/
             com = new SqlCommand("Get_Device_Types", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -1537,6 +1540,7 @@ namespace DAL
         {
             List<ActivationMethod> activationMethods = new List<ActivationMethod>();
 
+            /*Retrieve all rows from table "ActivationMethods" in DataBase*/
             com = new SqlCommand("Get_Activation_Methods", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -1570,6 +1574,208 @@ namespace DAL
             }
 
             return activationMethods;
+        }
+
+        static public int DeleteUser(int userId)
+        {
+            int res = -1;
+
+            com = new SqlCommand("Delete_User", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                if (sdr.Read())
+                {
+                    res = int.Parse(sdr[0].ToString());
+                }
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                   "ERROR in class:DBService function:DeleteUser() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return res;
+        }
+
+        static public int DeleteHome(int userId, int homeId)
+        {
+            int res = -1;
+
+            com = new SqlCommand("Delete_Home", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                if (sdr.Read())
+                {
+                    res = int.Parse(sdr[0].ToString());
+                }
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                   "ERROR in class:DBService function:DeleteHome() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return res;
+        }
+
+        static public int DeleteRoom(int userId, int homeId, int roomId)
+        {
+            int res = -1;
+
+            com = new SqlCommand("Delete_Room", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+            com.Parameters.Add(new SqlParameter("@RoomId", roomId));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                if (sdr.Read())
+                {
+                    res = int.Parse(sdr[0].ToString());
+                }
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                   "ERROR in class:DBService function:DeleteRoom() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return res;
+        }
+
+        static public int DeleteDevice(int userId, int homeId, int deviceId)
+        {
+            int res = -1;
+
+            com = new SqlCommand("Delete_Device", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+            com.Parameters.Add(new SqlParameter("@DeviceId", deviceId));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                if (sdr.Read())
+                {
+                    res = int.Parse(sdr[0].ToString());
+                }
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                   "ERROR in class:DBService function:DeleteDevice() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return res;
+        }
+
+        static public int DeleteActivationCondition(int userId, int homeId, int activationConditionId)
+        {
+            int res = -1;
+
+            com = new SqlCommand("Delete_Activation_Condition", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+            com.Parameters.Add(new SqlParameter("@ActivationConditionId", activationConditionId));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                if (sdr.Read())
+                {
+                    res = int.Parse(sdr[0].ToString());
+                }
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                   "ERROR in class:DBService function:DeleteActivationCondition() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return res;
         }
     }
 }

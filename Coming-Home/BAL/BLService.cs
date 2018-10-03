@@ -154,5 +154,30 @@ namespace BAL
         {
             return DBService.GetActivationMethods();
         }
+
+        static public int DeleteUser(int userId)
+        {
+            return DBService.DeleteUser(userId);
+        }
+
+        static public int DeleteHome(int userId, int homeId)
+        {
+            return DBService.DeleteHome(userId, homeId);
+        }
+
+        static public int DeleteRoom(int userId, int homeId, int roomId)
+        {
+            return DBService.DeleteRoom(userId, homeId, roomId);
+        }
+
+        static public int DeleteDevice(int userId, int homeId, int deviceId)
+        {
+            return DBService.DeleteDevice(userId, homeId, deviceId);
+        }
+
+        static public int DeleteActivationCondition(int userId, int homeId, int conditionId)
+        {
+            return DBService.DeleteActivationCondition(userId, homeId, conditionId);
+        }
     }
 }
