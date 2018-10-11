@@ -1311,6 +1311,55 @@ namespace DAL
             return jd;
         }
 
+        static public List<ActivationCondition> GetAllActivationConditions()
+        {
+            List<ActivationCondition> lActCon = new List<ActivationCondition>();
+            com = new SqlCommand("Get_All_Activation_Conditions", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                while (sdr.Read())
+                {
+                    ActivationCondition actCon = new ActivationCondition(int.Parse(sdr["Condition_Id"].ToString()), sdr["Condition_Name"].ToString(), int.Parse(sdr["Created_By_User_Id"].ToString()), int.Parse(sdr["Home_Id"].ToString()), int.Parse(sdr["Device_Id"].ToString()), int.Parse(sdr["Room_Id"].ToString()), sdr["Activation_Method_Name"].ToString(), bool.Parse(sdr["Is_Active"].ToString()));
+
+                    if (sdr["Distance_Or_Time_Param"].ToString() != "")
+                    {
+                        actCon.DistanceOrTimeParam = sdr["Distance_Or_Time_Param"].ToString();
+                    }
+
+                    if (sdr["Activation_Param"].ToString() != "")
+                    {
+                        actCon.ActivationParam = sdr["Activation_Param"].ToString();
+                    }
+
+                    lActCon.Add(actCon);
+                }
+
+                return lActCon;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                 "ERROR in class:DBService function:GetAllActivationConditions() - message=" + e.Message +
+                 ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return lActCon;
+        }
+
         static public int ChangeDeviceStatus(int userId, int deviceId, int roomId, bool turnOn, int activationMethodCode, string statusDetails, string conditionId)
         {
             int res = -1;
@@ -1434,7 +1483,7 @@ namespace DAL
 
                 while (sdr.Read())
                 {
-                    userTypes.Add(new UserType(int.Parse(sdr["User_Type_Code"].ToString()),sdr["User_Type_Name"].ToString()));
+                    userTypes.Add(new UserType(int.Parse(sdr["User_Type_Code"].ToString()), sdr["User_Type_Name"].ToString()));
                 }
 
                 return userTypes;
@@ -1474,7 +1523,7 @@ namespace DAL
 
                 while (sdr.Read())
                 {
-                    roomTypes.Add(new RoomType(int.Parse(sdr["Room_Type_Code"].ToString()),sdr["Room_Type_Name"].ToString()));
+                    roomTypes.Add(new RoomType(int.Parse(sdr["Room_Type_Code"].ToString()), sdr["Room_Type_Name"].ToString()));
                 }
 
                 return roomTypes;

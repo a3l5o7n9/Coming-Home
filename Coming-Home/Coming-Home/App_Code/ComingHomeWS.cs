@@ -265,6 +265,12 @@ public class ComingHomeWS : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GetAllActivationConditions()
+    {
+        return js.Serialize(BLService.GetAllActivationConditions());
+    }
+
+    [WebMethod]
     public string ChangeDeviceStatus(string userId, string deviceId, string roomId, string turnOn, string activationMethodCode, string statusDetails, string conditionId)
     {
         int res = -1;

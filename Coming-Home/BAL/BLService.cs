@@ -125,6 +125,11 @@ namespace BAL
             return DBService.GetUserHomeDetails(userId, homeId);
         }
 
+        static public List<ActivationCondition> GetAllActivationConditions()
+        {
+            return DBService.GetAllActivationConditions();
+        }
+
         static public int ChangeDeviceStatus(int userId, int deviceId, int roomId, bool turnOn, int activationMethodCode, string statusDetails, string conditionId)
         {
             return DBService.ChangeDeviceStatus(userId, deviceId, roomId, turnOn, activationMethodCode, statusDetails, conditionId);
