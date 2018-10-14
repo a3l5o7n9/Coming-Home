@@ -109,7 +109,7 @@ public class ComingHomeWS : System.Web.Services.WebService
         // Create POST data and convert it to a byte array.  
         var objectToSend = new
         {
-            to = "ExponentPushToken[cUsRAzE11M_PB7v9MQIMhj]",
+            to = token,
             title = "Coming Home",
             body = "Condition " + conditionName + " has been activated: " + deviceName + " in " + roomName + "has been turned " + newStatus + ".",
             badge = 1,

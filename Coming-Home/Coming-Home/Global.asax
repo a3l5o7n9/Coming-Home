@@ -8,7 +8,7 @@
     void Application_Start(object sender, EventArgs e)
     {
         // Code that runs on application startup
-        timer.Interval = 6000;
+        timer.Interval = 60000;
         timer.Elapsed += checkConditions;
     }
 
