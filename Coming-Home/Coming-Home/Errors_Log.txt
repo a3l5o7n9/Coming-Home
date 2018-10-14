@@ -16,3 +16,5 @@ ERROR in class:DBService function:ChangeDeviceStatus() - message=Procedure or fu
 ERROR in class:DBService function:ChangeDeviceStatus() - message=Procedure or function 'Change_Device_Status' expects parameter '@ConditionId', which was not supplied., on the 12/09/2018 11:14
 ERROR in class:DBService function:ChangeDeviceStatus() - message=Procedure or function 'Change_Device_Status' expects parameter '@ConditionId', which was not supplied., on the 12/09/2018 11:19
 ERROR in class:DBService function:GetDeviceTypes() - message=Device_Type_Name, on the 26/09/2018 15:35
+ERROR in class:DBService function:CreateActivationCondition() - message=Input string was not in a correct format., on the 14/10/2018 9:57
+ERROR in class:DBService function:CreateActivationCondition() - message=Input string was not in a correct format., on the 14/10/2018 10:13

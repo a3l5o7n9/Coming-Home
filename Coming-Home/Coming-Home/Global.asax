@@ -14,7 +14,7 @@
 
     void checkConditions(object sender,  EventArgs e)
     {
-        Console.Beep(3000, 100);
+        ws.CheckActivationConditions();
     }
 
     public static void StartTimer()

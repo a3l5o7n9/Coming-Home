@@ -18,7 +18,9 @@ namespace DAL
 
         static public int Register(string userName, string userPassword, string firstName, string lastName)
         {
+            //Try to create a new user in the DB.
             int userId = -1;
+            //This procedure will first check if such a user exists. If not, it will add it to the DB
             com = new SqlCommand("New_User", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -66,6 +68,7 @@ namespace DAL
 
         static public JsonData Login(string userName, string userPassword)
         {
+            //Get From the DB the user and homes they belong to, if a user with these userName and password exists
             JsonData jd = null;
             com = new SqlCommand("Validate_Login", con);
             com.CommandType = CommandType.StoredProcedure;
@@ -130,6 +133,7 @@ namespace DAL
         static public int CreateHome(int userId, string homeName, string address)
         {
             int homeId = -1;
+            //This procedure will check whether a home with those name and address already exists. If not, the home will be added to the DB
             com = new SqlCommand("New_Home", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -174,6 +178,8 @@ namespace DAL
             int homeId = -1;
             JsonData jd = null;
             Home h = null;
+            //This procedure will search for a home matching the parameters. If found, the user will be registered as a member of that home
+            //and will be added to the tables managing permissions in this home
             com = new SqlCommand("Join_Existing_Home", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -212,6 +218,7 @@ namespace DAL
                     }
                 }
 
+                //Returns JsonData with a Home object
                 jd = new JsonData(h, resMes);
                 return jd;
             }
@@ -235,6 +242,7 @@ namespace DAL
         static public int CreateRoom(string roomName, int homeId, string roomTypeName, bool isShared, int userId)
         {
             int roomId = -1;
+            //Tries to add a room to the DB, if such a room dose not exist yet
             com = new SqlCommand("New_Room", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -276,6 +284,7 @@ namespace DAL
 
         static public int CreateDevice(string deviceName, int homeId, string deviceTypeName, bool isDividedIntoRooms, int userId, int roomId)
         {
+            //Tries to add a device to the DB, if such a device does not exist yet
             int deviceId = -1;
             com = new SqlCommand("New_Device", con);
             com.CommandType = CommandType.StoredProcedure;
@@ -317,14 +326,16 @@ namespace DAL
             return deviceId;
         }
 
-        static public int CreateActivationCondition(string conditionName, int userId, int homeId, int deviceId, int roomId, string activationMethodName, string distanceOrTimeParam, string activationParam)
+        static public int CreateActivationCondition(string conditionName, bool turnOn, int userId, int homeId, int deviceId, int roomId, string activationMethodName, string distanceOrTimeParam, string activationParam)
         {
+            //Tries to add an activation condition to the DB, if such a condition does not exist yet
             int conditionId = -1;
             com = new SqlCommand("New_Activation_Condition", con);
             com.CommandType = CommandType.StoredProcedure;
 
             com.Parameters.Clear();
             com.Parameters.Add(new SqlParameter("@ConditionName", conditionName));
+            com.Parameters.Add(new SqlParameter("@TurnOn", turnOn));
             com.Parameters.Add(new SqlParameter("@UserId", userId));
             com.Parameters.Add(new SqlParameter("@HomeId", homeId));
             com.Parameters.Add(new SqlParameter("@DeviceId", deviceId));
@@ -380,6 +391,7 @@ namespace DAL
 
         static public int UpdateTokenForUserId(string token, int userId)
         {
+            //Updates the user's token in the database in order to send push notifications
             int res = -1;
 
             com = new SqlCommand("Update_User_Token", con);
@@ -420,6 +432,7 @@ namespace DAL
 
         static public int BindDeviceToRoom(int roomId, int deviceId, int userId)
         {
+            //Tries to associate between a room and a device, unless they are already linked to each other
             int res = -1;
 
             com = new SqlCommand("Bind_Device_To_Room", con);
@@ -463,6 +476,8 @@ namespace DAL
         {
             int res = -1;
 
+            //Checks whether the user has the authority to change the target user's type,
+            //and verifies that the home will always remain with at least 1 MainUser
             com = new SqlCommand("Update_User_Type_In_Home", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -505,6 +520,8 @@ namespace DAL
         {
             int res = -1;
 
+            //Checks if the user has the authority to change the target user's permissions
+            //before trying to change the requested permission
             com = new SqlCommand("Update_User_Device_Permissions", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -549,6 +566,8 @@ namespace DAL
         {
             int res = -1;
 
+            //Checks if the user has the authority to change the target user's permissions
+            //before trying to change the requested permission
             com = new SqlCommand("Update_User_Room_Permissions", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -594,6 +613,7 @@ namespace DAL
             string resMes = "No Data";
             int uId = 0;
 
+            //Retrieves the requested User from the DB, if suach a user exists
             com = new SqlCommand("Get_User", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -663,6 +683,8 @@ namespace DAL
             string resMes = "No Data";
             int hId = 0;
 
+            //Retrieves the requested Home from the DB, if such a home exists 
+            //and if the uesr is associated with it
             com = new SqlCommand("Get_Home", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -732,6 +754,7 @@ namespace DAL
             string resMes = "No Data";
             int dId = 0;
 
+            //Retrieves the requested Device from the DB, if the user has permission to it
             com = new SqlCommand("Get_Device", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -817,6 +840,7 @@ namespace DAL
             string resMes = "No Data";
             int rId = 0;
 
+            //Retrieves the requested Room, if the user has access to it
             com = new SqlCommand("Get_Room", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -896,6 +920,8 @@ namespace DAL
             string resMes = "No Data";
             int actConId = 0;
 
+            //Retrieves the requested Condition from the DB, if the user has permission
+            //to the device and access to the room
             com = new SqlCommand("Get_Activation_Condition", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -924,7 +950,7 @@ namespace DAL
                             }
                         default:
                             {
-                                actCon = new ActivationCondition(int.Parse(sdr["Condition_Id"].ToString()), sdr["Condition_Name"].ToString(), int.Parse(sdr["Created_By_User_Id"].ToString()), int.Parse(sdr["Home_Id"].ToString()), int.Parse(sdr["Device_Id"].ToString()), int.Parse(sdr["Room_Id"].ToString()), sdr["Activation_Method_Name"].ToString(), bool.Parse(sdr["Is_Active"].ToString()));
+                                actCon = new ActivationCondition(int.Parse(sdr["Condition_Id"].ToString()), sdr["Condition_Name"].ToString(), bool.Parse(sdr["Turn_On"].ToString()), int.Parse(sdr["Created_By_User_Id"].ToString()), int.Parse(sdr["Home_Id"].ToString()), int.Parse(sdr["Device_Id"].ToString()), int.Parse(sdr["Room_Id"].ToString()), sdr["Activation_Method_Name"].ToString(), bool.Parse(sdr["Is_Active"].ToString()));
 
                                 if (sdr["Distance_Or_Time_Param"].ToString() != "")
                                 {
@@ -962,11 +988,39 @@ namespace DAL
             return jd;
         }
 
+        static public JsonData GetActivationConditionDetails(ActivationCondition actCon)
+        {
+            JsonData jd = new JsonData(actCon, "Data");
+
+            JsonData temp = GetUser(actCon.CreatedByUserId, actCon.HomeId);
+
+            jd.U = temp.U;
+            jd.ResultMessage = temp.ResultMessage;
+
+            temp = GetHome(actCon.CreatedByUserId, actCon.HomeId);
+
+            jd.H = temp.H;
+            jd.ResultMessage = temp.ResultMessage;
+
+            temp = GetRoom(actCon.CreatedByUserId, actCon.HomeId, actCon.RoomId);
+
+            jd.R = temp.R;
+            jd.ResultMessage = temp.ResultMessage;
+
+            temp = GetDevice(actCon.CreatedByUserId, actCon.HomeId, actCon.DeviceId, actCon.RoomId);
+
+            jd.D = temp.D;
+            jd.ResultMessage = temp.ResultMessage;
+
+            return jd;
+        }
+
         static public JsonData GetUsersInHome(int userId, int homeId)
         {
             JsonData jd = null;
             string resMes = "No Data";
 
+            //Retrieves all the users in that home, if the user belongs to it
             com = new SqlCommand("Get_Users_In_Home", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -1037,6 +1091,7 @@ namespace DAL
             string resMes = "No Data";
             int rId = 0;
 
+            //Retrieves all the rooms in that home the user has access to
             com = new SqlCommand("Get_User_Rooms_In_Home", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -1111,6 +1166,8 @@ namespace DAL
             string resMes = "No Data";
             int dId = 0;
 
+            //Retrieves all the devices in that home in the rooms that the user has permission 
+            //and access to
             com = new SqlCommand("Get_User_Devices_In_Home", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -1226,7 +1283,7 @@ namespace DAL
                             }
                         default:
                             {
-                                ActivationCondition actCon = new ActivationCondition(int.Parse(sdr["Condition_Id"].ToString()), sdr["Condition_Name"].ToString(), int.Parse(sdr["Created_By_User_Id"].ToString()), int.Parse(sdr["Home_Id"].ToString()), int.Parse(sdr["Device_Id"].ToString()), int.Parse(sdr["Room_Id"].ToString()), sdr["Activation_Method_Name"].ToString(), bool.Parse(sdr["Is_Active"].ToString()));
+                                ActivationCondition actCon = new ActivationCondition(int.Parse(sdr["Condition_Id"].ToString()), sdr["Condition_Name"].ToString(), bool.Parse(sdr["Turn_On"].ToString()), int.Parse(sdr["Created_By_User_Id"].ToString()), int.Parse(sdr["Home_Id"].ToString()), int.Parse(sdr["Device_Id"].ToString()), int.Parse(sdr["Room_Id"].ToString()), sdr["Activation_Method_Name"].ToString(), bool.Parse(sdr["Is_Active"].ToString()));
 
                                 if (sdr["Distance_Or_Time_Param"].ToString() != "")
                                 {
@@ -1267,6 +1324,9 @@ namespace DAL
 
         static public JsonData GetUserHomeDetails(int userId, int homeId)
         {
+            //Returns a JsonData object consisting of the values returned by
+            //GetUsersInHome, GetUserRoomsInHome, GetUserDevicesInHome and
+            //GetUserActivationConditionsInHome
             JsonData jd = null;
             string resMes = "No Data";
             List<User> lu = null;
@@ -1314,6 +1374,8 @@ namespace DAL
         static public List<ActivationCondition> GetAllActivationConditions()
         {
             List<ActivationCondition> lActCon = new List<ActivationCondition>();
+
+            //Retrieves all activation conditions from the DB
             com = new SqlCommand("Get_All_Activation_Conditions", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -1326,7 +1388,7 @@ namespace DAL
 
                 while (sdr.Read())
                 {
-                    ActivationCondition actCon = new ActivationCondition(int.Parse(sdr["Condition_Id"].ToString()), sdr["Condition_Name"].ToString(), int.Parse(sdr["Created_By_User_Id"].ToString()), int.Parse(sdr["Home_Id"].ToString()), int.Parse(sdr["Device_Id"].ToString()), int.Parse(sdr["Room_Id"].ToString()), sdr["Activation_Method_Name"].ToString(), bool.Parse(sdr["Is_Active"].ToString()));
+                    ActivationCondition actCon = new ActivationCondition(int.Parse(sdr["Condition_Id"].ToString()), sdr["Condition_Name"].ToString(), bool.Parse(sdr["Turn_On"].ToString()), int.Parse(sdr["Created_By_User_Id"].ToString()), int.Parse(sdr["Home_Id"].ToString()), int.Parse(sdr["Device_Id"].ToString()), int.Parse(sdr["Room_Id"].ToString()), sdr["Activation_Method_Name"].ToString(), bool.Parse(sdr["Is_Active"].ToString()));
 
                     if (sdr["Distance_Or_Time_Param"].ToString() != "")
                     {
@@ -1364,6 +1426,8 @@ namespace DAL
         {
             int res = -1;
 
+            //Tries to turn device On or Off according to turnOn
+            //and updates Table DevicesStatusLog if successful
             com = new SqlCommand("Change_Device_Status", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -1425,6 +1489,7 @@ namespace DAL
         {
             int res = -1;
 
+            //Tries to change whether the condition is active in accordance with newStatus
             com = new SqlCommand("Change_Condition_Status", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -1629,6 +1694,7 @@ namespace DAL
         {
             int res = -1;
 
+            //Tries to delete the user and all related records in the DB
             com = new SqlCommand("Delete_User", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -1668,6 +1734,8 @@ namespace DAL
         {
             int res = -1;
 
+            //Tries to delete all records of that home in the DB 
+            //only if the user is a main user in that home or a system administrator 
             com = new SqlCommand("Delete_Home", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -1708,6 +1776,8 @@ namespace DAL
         {
             int res = -1;
 
+            //Tries to delete all records of that room in the DB 
+            //only if the user is a main user in that home or a system administrator 
             com = new SqlCommand("Delete_Room", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -1749,6 +1819,8 @@ namespace DAL
         {
             int res = -1;
 
+            //Tries to delete all records of that device in the DB 
+            //only if the user is a main user in that home or a system administrator 
             com = new SqlCommand("Delete_Device", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -1790,6 +1862,8 @@ namespace DAL
         {
             int res = -1;
 
+            //Tries to delete all records of that condition in the DB 
+            //only if the user is a main user in that home or a system administrator 
             com = new SqlCommand("Delete_Activation_Condition", con);
             com.CommandType = CommandType.StoredProcedure;
 

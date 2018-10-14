@@ -83,11 +83,11 @@ public class ComingHomeWS : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string CreateActivationCondition(string conditionName, string userId, string homeId, string deviceId, string roomId, string activationMethodName, string distanceOrTimeParam, string activationParam)
+    public string CreateActivationCondition(string conditionName, string turnOn, string userId, string homeId, string deviceId, string roomId, string activationMethodName, string distanceOrTimeParam, string activationParam)
     {
         int res = -1;
 
-        res = BLService.CreateActivationCondition(conditionName, int.Parse(userId), int.Parse(homeId), int.Parse(deviceId), int.Parse(roomId), activationMethodName, distanceOrTimeParam, activationParam);
+        res = BLService.CreateActivationCondition(conditionName, bool.Parse(turnOn), int.Parse(userId), int.Parse(homeId), int.Parse(deviceId), int.Parse(roomId), activationMethodName, distanceOrTimeParam, activationParam);
 
         return js.Serialize(res);
     }
@@ -99,11 +99,9 @@ public class ComingHomeWS : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string SendPushNotification(/*JsonData jd*/)
+    public string SendPushNotification(string token, string userId, string userName, string homeId, string homeName, string roomId, string roomName, string deviceId, string deviceName, string conditionId, string conditionName, string turnOn)
     {
-        //if (jd != null ) {
-
-        //}
+        string newStatus = bool.Parse(turnOn) ? "On" : "Off"; 
         // Create a request using a URL that can receive a post.   
         WebRequest request = WebRequest.Create("https://exp.host/--/api/v2/push/send");
         // Set the Method property of the request to POST.  
@@ -112,10 +110,10 @@ public class ComingHomeWS : System.Web.Services.WebService
         var objectToSend = new
         {
             to = "ExponentPushToken[cUsRAzE11M_PB7v9MQIMhj]",
-            title = "my title",
-            body = "body from WSC#",
+            title = "Coming Home",
+            body = "Condition " + conditionName + " has been activated: " + deviceName + " in " + roomName + "has been turned " + newStatus + ".",
             badge = 1,
-            data = new { name = "alon", grade = 80 }
+            data = new { userId, homeId, roomId, deviceId, conditionId }
         };
 
         string postData = new JavaScriptSerializer().Serialize(objectToSend);
@@ -151,6 +149,50 @@ public class ComingHomeWS : System.Web.Services.WebService
 
         return "success:) --- " + responseFromServer + ", " + returnStatus;
     }
+
+    [WebMethod]
+    public void CheckActivationConditions()
+    {
+        List<ActivationCondition> lActCon = BLService.GetAllActivationConditions();
+
+        foreach (ActivationCondition actCon in lActCon)
+        {
+            int res = BLService.CheckActivationCondition(actCon);
+
+            if (res == 1)
+            {
+                JsonData jd = BLService.GetActivationConditionDetails(actCon);
+                User u = jd.U;
+                Home h = jd.H;
+                Room r = jd.R;
+                Device d = jd.D;
+
+                if (u.Token != null)
+                {
+                    SendPushNotification(u.Token, u.UserId.ToString(), u.UserName, h.HomeId.ToString(), h.HomeName, r.RoomId.ToString(), r.RoomName, d.DeviceId.ToString(), d.DeviceName, actCon.ConditionId.ToString(), actCon.ConditionName, actCon.TurnOn.ToString());
+                }
+            }
+        }
+    }
+
+    //[WebMethod]
+    //public void CheckActivationCondition(ActivationCondition actCon)
+    //{
+    //    int res = -1;
+
+    //    if (actCon.ActivationMethodName == "מתוזמנת")
+    //    {
+    //        if (actCon.DistanceOrTimeParam == DateTime.Now.ToShortTimeString())
+    //        {
+    //            res = BLService.ChangeDeviceStatus(actCon.CreatedByUserId, actCon.DeviceId, actCon.RoomId, actCon.TurnOn, 2, actCon.ActivationParam.ToString(), actCon.ConditionId.ToString());
+    //        }
+    //    }
+
+    //    if (res == 1)
+    //    {
+    //        SendPushNotification(actCon);
+    //    }
+    //}
 
     [WebMethod]
     public string BindDeviceToRoom(string roomId, string deviceId, string userId)
@@ -262,12 +304,6 @@ public class ComingHomeWS : System.Web.Services.WebService
         JsonData jd = BLService.GetUserHomeDetails(int.Parse(userId), int.Parse(homeId));
 
         return js.Serialize(jd);
-    }
-
-    [WebMethod]
-    public string GetAllActivationConditions()
-    {
-        return js.Serialize(BLService.GetAllActivationConditions());
     }
 
     [WebMethod]

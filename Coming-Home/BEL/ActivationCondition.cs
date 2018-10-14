@@ -10,6 +10,7 @@ namespace BEL
     {
         public int ConditionId { get; set; }
         public string ConditionName { get; set; }
+        public bool TurnOn { get; set; }
         public int CreatedByUserId { get; set; }
         public int HomeId { get; set; }
         public int DeviceId { get; set; }
@@ -19,10 +20,11 @@ namespace BEL
         public string DistanceOrTimeParam { get; set; }
         public string ActivationParam { get; set; }
 
-        public ActivationCondition(int conditionId, string conditionName, int createdByUserId, int homeId, int deviceId, int roomId, string activationMethodName, bool isActive)
+        public ActivationCondition(int conditionId, string conditionName, bool turnOn, int createdByUserId, int homeId, int deviceId, int roomId, string activationMethodName, bool isActive)
         {
             ConditionId = conditionId;
             ConditionName = conditionName;
+            TurnOn = turnOn;
             CreatedByUserId = createdByUserId;
             HomeId = homeId;
             DeviceId = deviceId;
@@ -31,12 +33,12 @@ namespace BEL
             IsActive = isActive;
         }
 
-        public ActivationCondition(int conditionId, string conditionName, int createdByUserId, int homeId, int deviceId, int roomId, string activationMethodName, bool isActive, string distanceOrTimeParam) : this(conditionId, conditionName, createdByUserId, homeId, deviceId, roomId, activationMethodName, isActive)
+        public ActivationCondition(int conditionId, string conditionName, bool turnOn, int createdByUserId, int homeId, int deviceId, int roomId, string activationMethodName, bool isActive, string distanceOrTimeParam) : this(conditionId, conditionName, turnOn, createdByUserId, homeId, deviceId, roomId, activationMethodName, isActive)
         {
             DistanceOrTimeParam = distanceOrTimeParam;
         }
 
-        public ActivationCondition(int conditionId, string conditionName, int createdByUserId, int homeId, int deviceId, int roomId, string activationMethodName, bool isActive, string distanceOrTimeParam, string activationParam) : this(conditionId, conditionName, createdByUserId, homeId, deviceId, roomId, activationMethodName, isActive, distanceOrTimeParam)
+        public ActivationCondition(int conditionId, string conditionName, bool turnOn, int createdByUserId, int homeId, int deviceId, int roomId, string activationMethodName, bool isActive, string distanceOrTimeParam, string activationParam) : this(conditionId, conditionName, turnOn, createdByUserId, homeId, deviceId, roomId, activationMethodName, isActive, distanceOrTimeParam)
         {
             ActivationParam = activationParam;
         }

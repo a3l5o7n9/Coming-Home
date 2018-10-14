@@ -40,9 +40,9 @@ namespace BAL
             return DBService.CreateDevice(deviceName, homeId, deviceTypeName, isDividedIntoRooms, userId, roomId);
         }
 
-        static public int CreateActivationCondition(string conditionName, int userId, int homeId, int deviceId, int roomId, string activationMethodName, string distanceOrTimeParam, string activationParam)
+        static public int CreateActivationCondition(string conditionName, bool turnOn, int userId, int homeId, int deviceId, int roomId, string activationMethodName, string distanceOrTimeParam, string activationParam)
         {
-            return DBService.CreateActivationCondition(conditionName, userId, homeId, deviceId, roomId, activationMethodName, distanceOrTimeParam, activationParam);
+            return DBService.CreateActivationCondition(conditionName, turnOn, userId, homeId, deviceId, roomId, activationMethodName, distanceOrTimeParam, activationParam);
         }
 
         public static void InitErrorLogPath(string v)
@@ -100,6 +100,11 @@ namespace BAL
             return DBService.GetActivationCondition(conditionId, userId, homeId, deviceId, roomId);
         }
 
+        static public JsonData GetActivationConditionDetails(ActivationCondition actCon)
+        {
+            return DBService.GetActivationConditionDetails(actCon);
+        }
+
         static public JsonData GetUsersInHome(int userId, int homeId)
         {
             return DBService.GetUsersInHome(userId, homeId);
@@ -128,6 +133,21 @@ namespace BAL
         static public List<ActivationCondition> GetAllActivationConditions()
         {
             return DBService.GetAllActivationConditions();
+        }
+
+        static public int CheckActivationCondition(ActivationCondition actCon)
+        {
+            int res = -1;
+
+            if (actCon.ActivationMethodName == "מתוזמנת")
+            {
+                if (actCon.DistanceOrTimeParam == DateTime.Now.ToShortTimeString())
+                {
+                    res = ChangeDeviceStatus(actCon.CreatedByUserId, actCon.DeviceId, actCon.RoomId, actCon.TurnOn, 2, actCon.ActivationParam.ToString(), actCon.ConditionId.ToString());
+                }
+            }
+
+            return res;
         }
 
         static public int ChangeDeviceStatus(int userId, int deviceId, int roomId, bool turnOn, int activationMethodCode, string statusDetails, string conditionId)
