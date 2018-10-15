@@ -111,7 +111,7 @@ public class ComingHomeWS : System.Web.Services.WebService
         {
             to = token,
             title = "Coming Home",
-            body = "Condition " + conditionName + " has been activated: " + deviceName + " in " + roomName + "has been turned " + newStatus + ".",
+            body = "Condition " + conditionName + " has been activated: " + deviceName + " in " + roomName + " has been turned " + newStatus + ".",
             badge = 1,
             data = new { userId, homeId, roomId, deviceId, conditionId }
         };
@@ -175,29 +175,50 @@ public class ComingHomeWS : System.Web.Services.WebService
         }
     }
 
-    //[WebMethod]
-    //public void CheckActivationCondition(ActivationCondition actCon)
-    //{
-    //    int res = -1;
-
-    //    if (actCon.ActivationMethodName == "מתוזמנת")
-    //    {
-    //        if (actCon.DistanceOrTimeParam == DateTime.Now.ToShortTimeString())
-    //        {
-    //            res = BLService.ChangeDeviceStatus(actCon.CreatedByUserId, actCon.DeviceId, actCon.RoomId, actCon.TurnOn, 2, actCon.ActivationParam.ToString(), actCon.ConditionId.ToString());
-    //        }
-    //    }
-
-    //    if (res == 1)
-    //    {
-    //        SendPushNotification(actCon);
-    //    }
-    //}
-
     [WebMethod]
     public string BindDeviceToRoom(string roomId, string deviceId, string userId)
     {
         int res = BLService.BindDeviceToRoom(int.Parse(roomId), int.Parse(deviceId), int.Parse(userId));
+
+        return js.Serialize(res);
+    }
+
+    [WebMethod]
+    public string UpdateUserDetails(string appUserId, string userToUpdateId, string newUserName, string newUserPassword, string newFirstName, string newLastName)
+    {
+        string res = BLService.UpdateUserDetails(int.Parse(appUserId), int.Parse(userToUpdateId), newUserName, newUserPassword, newFirstName, newLastName);
+
+        return js.Serialize(res);
+    }
+
+    [WebMethod]
+    public string UpdateHomeDetails(string appUserId, string homeId, string newHomeName, string newAddress)
+    {
+        string res = BLService.UpdateHomeDetails(int.Parse(appUserId), int.Parse(homeId), newHomeName, newAddress);
+
+        return js.Serialize(res);
+    }
+
+    [WebMethod]
+    public string UpdateRoomDetails(string appUserId, string homeId, string roomId, string newRoomName, string newRoomTypeCode, string newShareStatus)
+    {
+        string res = BLService.UpdateRoomDetails(int.Parse(appUserId), int.Parse(homeId), int.Parse(roomId), newRoomName, newRoomTypeCode, newShareStatus);
+
+        return js.Serialize(res);
+    }
+
+    [WebMethod]
+    public string UpdateDeviceDetails(string appUserId, string homeId, string deviceId, string newDeviceName, string newDeviceTypeCode, string newDivideStatus)
+    {
+        string res = BLService.UpdateDeviceDetails(int.Parse(appUserId), int.Parse(homeId), int.Parse(deviceId), newDeviceName, newDeviceTypeCode, newDivideStatus);
+
+        return js.Serialize(res);
+    }
+
+    [WebMethod]
+    public string UpdateActivationConditionDetails(string appUserId, string homeId, string conditionId, string newDeviceId, string newRoomId, string newConditionName, string newStatus, string newActivationMethodCode, string newDistanceOrTimeParam, string newActivationParam)
+    {
+        string res = BLService.UpdateActivationConditionDetails(int.Parse(appUserId), int.Parse(homeId), int.Parse(conditionId), newDeviceId, newRoomId, newConditionName, newStatus, newActivationMethodCode, newDistanceOrTimeParam, newActivationParam);
 
         return js.Serialize(res);
     }

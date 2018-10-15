@@ -60,6 +60,31 @@ namespace BAL
             return DBService.BindDeviceToRoom(roomId, deviceId, userId);
         }
 
+        static public string UpdateUserDetails(int appUserId, int userToUpdateId, string newUserName, string newUserPassword, string newFirstName, string newLastName)
+        {
+            return DBService.UpdateUserDetails(appUserId, userToUpdateId, newUserName, newUserPassword, newFirstName, newLastName);
+        }
+
+        static public string UpdateHomeDetails(int appUserId, int homeId, string newHomeName, string newAddress)
+        {
+            return DBService.UpdateHomeDetails(appUserId, homeId, newHomeName, newAddress);
+        }
+
+        static public string UpdateRoomDetails(int appUserId, int homeId, int roomId, string newRoomName, string newRoomTypeCode, string newShareStatus)
+        {
+            return DBService.UpdateRoomDetails(appUserId, homeId, roomId, newRoomName, newRoomTypeCode, newShareStatus);
+        }
+
+        static public string UpdateDeviceDetails(int appUserId, int homeId, int deviceId, string newDeviceName, string newDeviceTypeCode, string newDivideStatus)
+        {
+            return DBService.UpdateDeviceDetails(appUserId, homeId, deviceId, newDeviceName, newDeviceTypeCode, newDivideStatus);
+        }
+
+        static public string UpdateActivationConditionDetails(int appUserId, int homeId, int conditionId, string newDeviceId, string newRoomId, string newConditionName, string newStatus, string newActivationMethodCode, string newDistanceOrTimeParam, string newActivationParam)
+        {
+            return DBService.UpdateActivationConditionDetails(appUserId, homeId, conditionId, newDeviceId, newRoomId, newConditionName, newStatus, newActivationMethodCode, newDistanceOrTimeParam, newActivationParam);
+        }
+
         static public int UpdateUserTypeInHome(int appUserId, int userToUpdateId, int homeId, string updatedUserTypeName)
         {
             return DBService.UpdateUserTypeInHome(appUserId, userToUpdateId, homeId, updatedUserTypeName);

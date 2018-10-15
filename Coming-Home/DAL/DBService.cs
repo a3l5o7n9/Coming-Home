@@ -472,6 +472,386 @@ namespace DAL
             return res;
         }
 
+        static public string UpdateUserDetails(int appUserId, int userToUpdateId, string newUserName, string newUserPassword, string newFirstName, string newLastName)
+        {
+            string res = "Update Failed";
+            //Tries to update the user's log in the DB, only if the appUserId is equal to userToUpdateId
+            com = new SqlCommand("Update_User_Details", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@AppUserId", appUserId));
+            com.Parameters.Add(new SqlParameter("@UserToUpdateId", userToUpdateId));
+
+            if (newUserName == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewUserName", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewUserName", newUserName));
+            }
+
+            if (newUserPassword == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewUserPassword", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewUserPassword", newUserPassword));
+            }
+
+            if (newFirstName == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewFirstName", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewFirstName", newFirstName));
+            }
+
+            if (newLastName == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewLastName", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewLastName", newLastName));
+            }
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                if (sdr.Read())
+                {
+                    res = sdr[0].ToString();
+                }
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                   "ERROR in class:DBService function:UpdateUserDetails() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return res;
+        }
+
+        static public string UpdateHomeDetails(int appUserId, int homeId, string newHomeName, string newAddress)
+        {
+            string res = "Update Failed";
+
+            //Tries to update the home's log in the DB, only if the user is registered in it and is a main user there
+            com = new SqlCommand("Update_Home_Details", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@AppUserId", appUserId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+
+            if (newHomeName == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewHomeName", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewHomeName", newHomeName));
+            }
+
+            if (newAddress == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewAddress", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewAddress", newAddress));
+            }
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                if (sdr.Read())
+                {
+                    res = sdr[0].ToString();
+                }
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                   "ERROR in class:DBService function:UpdateHomeDetails() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return res;
+        }
+
+        static public string UpdateRoomDetails(int appUserId, int homeId, int roomId, string newRoomName, string newRoomTypeCode, string newShareStatus)
+        {
+            string res = "Update Failed";
+
+            //Tries to update the room's log in the DB, only if the user belongs to that home, has access to the room and is a main user there
+            com = new SqlCommand("Update_Room_Details", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@AppUserId", appUserId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+            com.Parameters.Add(new SqlParameter("@RoomId", roomId));
+
+            if (newRoomName == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewRoomName", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewRoomName", newRoomName));
+            }
+
+            if (newRoomTypeCode == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewRoomTypeCode", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewRoomTypeCode", int.Parse(newRoomTypeCode)));
+            }
+
+            if (newShareStatus == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewShareStatus", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewShareStatus", bool.Parse(newShareStatus)));
+            }
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                if (sdr.Read())
+                {
+                    res = sdr[0].ToString();
+                }
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                   "ERROR in class:DBService function:UpdateRoomDetails() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return res;
+        }
+
+        static public string UpdateDeviceDetails(int appUserId, int homeId, int deviceId, string newDeviceName, string newDeviceTypeCode, string newDivideStatus)
+        {
+            string res = "Update Failed";
+
+            //Tries to update the device's log in the DB, only if the user belongs to that home, has permission to modify the device and is a main user there
+            com = new SqlCommand("Update_Device_Details", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@AppUserId", appUserId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+            com.Parameters.Add(new SqlParameter("@DeviceId", deviceId));
+
+            if (newDeviceName == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewDeviceName", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewDeviceName", newDeviceName));
+            }
+
+            if (newDeviceTypeCode == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewDeviceTypeCode", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewDeviceTypeCode", int.Parse(newDeviceTypeCode)));
+            }
+
+            if (newDivideStatus == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewDivideStatus", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewDivideStatus", bool.Parse(newDivideStatus)));
+            }
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                if (sdr.Read())
+                {
+                    res = sdr[0].ToString();
+                }
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                   "ERROR in class:DBService function:UpdateDeviceDetails() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return res;
+        }
+
+        static public string UpdateActivationConditionDetails(int appUserId, int homeId, int conditionId, string newDeviceId, string newRoomId, string newConditionName, string newStatus, string newActivationMethodCode, string newDistanceOrTimeParam, string newActivationParam)
+        {
+            string res = "Update Failed";
+
+            //Tries to update the condition's log in the DB, only if the user is a member of that home,
+            //has permission to modify the target device in the target room, and was the same user to create
+            // the condition in the first place
+            com = new SqlCommand("Update_Activation_Condition_Details", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@AppUserId", appUserId));
+            com.Parameters.Add(new SqlParameter("@HomeId", homeId));
+            com.Parameters.Add(new SqlParameter("@ConditionId", conditionId));
+
+            if (newDeviceId == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewDeviceId", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewDeviceId", int.Parse(newDeviceId)));
+            }
+
+            if (newRoomId == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewRoomId", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewRoomId", int.Parse(newRoomId)));
+            }
+
+            if (newConditionName == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewConditionName", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewConditionName", newConditionName));
+            }
+
+            if (newStatus == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewStatus", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewStatus", bool.Parse(newStatus)));
+            }
+
+            if (newActivationMethodCode == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewActivationMethodCode", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewActivationMethodCode", int.Parse(newActivationMethodCode)));
+            }
+
+            if (newDistanceOrTimeParam == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewDistanceOrTimeParam", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewDistanceOrTimeParam", newDistanceOrTimeParam));
+            }
+
+            if (newActivationParam == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewActivationParam", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewActivationParam", newActivationParam));
+            }
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                if (sdr.Read())
+                {
+                    res = sdr[0].ToString();
+                }
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                   "ERROR in class:DBService function:UpdateActivationConditionDetails() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return res;
+        }
+
         static public int UpdateUserTypeInHome(int appUserId, int userToUpdateId, int homeId, string updatedUserTypeName)
         {
             int res = -1;
