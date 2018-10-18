@@ -160,6 +160,11 @@ namespace BAL
             return DBService.GetAllActivationConditions();
         }
 
+        static public List<ActivationCondition> GetAllUserActivationConditions(int userId)
+        {
+            return DBService.GetAllUserActivationConditions(userId);
+        }
+
         static public int CheckActivationCondition(ActivationCondition actCon)
         {
             int res = -1;

@@ -1702,55 +1702,6 @@ namespace DAL
             return jd;
         }
 
-        static public JsonData GetUserHomeDetails(int userId, int homeId)
-        {
-            //Returns a JsonData object consisting of the values returned by
-            //GetUsersInHome, GetUserRoomsInHome, GetUserDevicesInHome and
-            //GetUserActivationConditionsInHome
-            JsonData jd = null;
-            string resMes = "No Data";
-            List<User> lu = null;
-            List<Room> lr = null;
-            List<Device> ld = null;
-            List<ActivationCondition> lActCon = null;
-
-            JsonData usersData = GetUsersInHome(userId, homeId);
-
-            if (usersData.ResultMessage == "Data")
-            {
-                lu = usersData.LU;
-                resMes = "Data";
-            }
-
-            JsonData roomsData = GetUserRoomsInHome(userId, homeId);
-
-            if (roomsData.ResultMessage == "Data")
-            {
-                lr = roomsData.LR;
-                resMes = "Data";
-            }
-
-            JsonData devicesData = GetUserDevicesInHome(userId, homeId);
-
-            if (devicesData.ResultMessage == "Data")
-            {
-                ld = devicesData.LD;
-                resMes = "Data";
-            }
-
-            JsonData activationConditionsData = GetUserActivationConditionsInHome(userId, homeId);
-
-            if (activationConditionsData.ResultMessage == "Data")
-            {
-                lActCon = activationConditionsData.LActCon;
-                resMes = "Data";
-            }
-
-            jd = new JsonData(lu, lr, ld, lActCon, resMes);
-
-            return jd;
-        }
-
         static public List<ActivationCondition> GetAllActivationConditions()
         {
             List<ActivationCondition> lActCon = new List<ActivationCondition>();
@@ -1800,6 +1751,107 @@ namespace DAL
             }
 
             return lActCon;
+        }
+
+        static public List<ActivationCondition> GetAllUserActivationConditions(int userId)
+        {
+            List<ActivationCondition> lActCon = new List<ActivationCondition>();
+
+            //Retrieves all activation conditions created by that user from the DB
+            com = new SqlCommand("Get_All_User_Activation_Conditions", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                while (sdr.Read())
+                {
+                    ActivationCondition actCon = new ActivationCondition(int.Parse(sdr["Condition_Id"].ToString()), sdr["Condition_Name"].ToString(), bool.Parse(sdr["Turn_On"].ToString()), int.Parse(sdr["Created_By_User_Id"].ToString()), int.Parse(sdr["Home_Id"].ToString()), int.Parse(sdr["Device_Id"].ToString()), int.Parse(sdr["Room_Id"].ToString()), sdr["Activation_Method_Name"].ToString(), bool.Parse(sdr["Is_Active"].ToString()));
+
+                    if (sdr["Distance_Or_Time_Param"].ToString() != "")
+                    {
+                        actCon.DistanceOrTimeParam = sdr["Distance_Or_Time_Param"].ToString();
+                    }
+
+                    if (sdr["Activation_Param"].ToString() != "")
+                    {
+                        actCon.ActivationParam = sdr["Activation_Param"].ToString();
+                    }
+
+                    lActCon.Add(actCon);
+                }
+
+                return lActCon;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                 "ERROR in class:DBService function:GetAllUserActivationConditions() - message=" + e.Message +
+                 ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return lActCon;
+        }
+
+        static public JsonData GetUserHomeDetails(int userId, int homeId)
+        {
+            //Returns a JsonData object consisting of the values returned by
+            //GetUsersInHome, GetUserRoomsInHome, GetUserDevicesInHome and
+            //GetUserActivationConditionsInHome
+            JsonData jd = null;
+            string resMes = "No Data";
+            List<User> lu = null;
+            List<Room> lr = null;
+            List<Device> ld = null;
+            List<ActivationCondition> lActCon = null;
+
+            JsonData usersData = GetUsersInHome(userId, homeId);
+
+            if (usersData.ResultMessage == "Data")
+            {
+                lu = usersData.LU;
+                resMes = "Data";
+            }
+
+            JsonData roomsData = GetUserRoomsInHome(userId, homeId);
+
+            if (roomsData.ResultMessage == "Data")
+            {
+                lr = roomsData.LR;
+                resMes = "Data";
+            }
+
+            JsonData devicesData = GetUserDevicesInHome(userId, homeId);
+
+            if (devicesData.ResultMessage == "Data")
+            {
+                ld = devicesData.LD;
+                resMes = "Data";
+            }
+
+            JsonData activationConditionsData = GetUserActivationConditionsInHome(userId, homeId);
+
+            if (activationConditionsData.ResultMessage == "Data")
+            {
+                lActCon = activationConditionsData.LActCon;
+                resMes = "Data";
+            }
+
+            jd = new JsonData(lu, lr, ld, lActCon, resMes);
+
+            return jd;
         }
 
         static public int ChangeDeviceStatus(int userId, int deviceId, int roomId, bool turnOn, int activationMethodCode, string statusDetails, string conditionId)
