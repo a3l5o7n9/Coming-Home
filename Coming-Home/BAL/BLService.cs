@@ -20,14 +20,14 @@ namespace BAL
             return DBService.Login(userName, userPassword);
         }
 
-        static public int CreateHome(int userId, string homeName, string address)
+        static public int CreateHome(int userId, string homeName, string address, double latitude, double longitude, double altitude, double accuracy)
         {
-            return DBService.CreateHome(userId, homeName, address);
+            return DBService.CreateHome(userId, homeName, address, latitude, longitude, altitude, accuracy);
         }
 
-        static public JsonData JoinHome(int userId, string homeName, string address)
+        static public JsonData JoinHome(int userId, string homeName, string address, double latitude, double longitude, double altitude, double accuracy)
         {
-            return DBService.JoinHome(userId, homeName, address);
+            return DBService.JoinHome(userId, homeName, address, latitude, longitude, altitude, accuracy);
         }
 
         static public int CreateRoom(string roomName, int homeId, string roomTypeName, bool isShared, int userId)
@@ -65,9 +65,9 @@ namespace BAL
             return DBService.UpdateUserDetails(appUserId, userToUpdateId, newUserName, newUserPassword, newFirstName, newLastName);
         }
 
-        static public string UpdateHomeDetails(int appUserId, int homeId, string newHomeName, string newAddress)
+        static public string UpdateHomeDetails(int appUserId, int homeId, string newHomeName, string newAddress, string newLatitude, string newLongitude, string newAltitude, string newAccuracy)
         {
-            return DBService.UpdateHomeDetails(appUserId, homeId, newHomeName, newAddress);
+            return DBService.UpdateHomeDetails(appUserId, homeId, newHomeName, newAddress, newLatitude, newLongitude, newAltitude, newAccuracy);
         }
 
         static public string UpdateRoomDetails(int appUserId, int homeId, int roomId, string newRoomName, string newRoomTypeCode, string newShareStatus)

@@ -106,7 +106,7 @@ namespace DAL
                     }
 
                     lu.Add(new User(int.Parse(sdr["User_Id"].ToString()), userName, userPassword, sdr["First_Name"].ToString(), sdr["Last_Name"].ToString(), int.Parse(sdr["Home_Id"].ToString()), sdr["User_Type_Name"].ToString(), sdr["Token"].ToString()));
-                    lh.Add(new Home(int.Parse(sdr["Home_Id"].ToString()), sdr["Home_Name"].ToString(), int.Parse(sdr["Number_Of_Users"].ToString()), sdr["Address"].ToString()));
+                    lh.Add(new Home(int.Parse(sdr["Home_Id"].ToString()), sdr["Home_Name"].ToString(), int.Parse(sdr["Number_Of_Users"].ToString()), sdr["Address"].ToString(), double.Parse(sdr["Latitude"].ToString()), double.Parse(sdr["Longitude"].ToString()), double.Parse(sdr["Altitude"].ToString()), double.Parse(sdr["Accuracy"].ToString())));
                 }
 
                 jd = new JsonData(au, lu, lh, "Data");
@@ -130,7 +130,7 @@ namespace DAL
             return jd;
         }
 
-        static public int CreateHome(int userId, string homeName, string address)
+        static public int CreateHome(int userId, string homeName, string address, double latitude, double longitude, double altitude, double accuracy)
         {
             int homeId = -1;
             //This procedure will check whether a home with those name and address already exists. If not, the home will be added to the DB
@@ -141,6 +141,10 @@ namespace DAL
             com.Parameters.Add(new SqlParameter("@UserId", userId));
             com.Parameters.Add(new SqlParameter("@HomeName", homeName));
             com.Parameters.Add(new SqlParameter("@Address", address));
+            com.Parameters.Add(new SqlParameter("@Latitude", latitude));
+            com.Parameters.Add(new SqlParameter("@Longitude", longitude));
+            com.Parameters.Add(new SqlParameter("@Altitude", altitude));
+            com.Parameters.Add(new SqlParameter("@Accuracy", accuracy));
 
             try
             {
@@ -172,7 +176,7 @@ namespace DAL
             return homeId;
         }
 
-        static public JsonData JoinHome(int userId, string homeName, string address)
+        static public JsonData JoinHome(int userId, string homeName, string address, double latitude, double longitude, double altitude, double accuracy)
         {
             string resMes = "No Data";
             int homeId = -1;
@@ -187,6 +191,9 @@ namespace DAL
             com.Parameters.Add(new SqlParameter("@UserId", userId));
             com.Parameters.Add(new SqlParameter("@HomeName", homeName));
             com.Parameters.Add(new SqlParameter("@Address", address));
+            com.Parameters.Add(new SqlParameter("@Latitude", latitude));
+            com.Parameters.Add(new SqlParameter("@Altitude", altitude));
+            com.Parameters.Add(new SqlParameter("@Accuracy", accuracy));
 
             try
             {
@@ -212,7 +219,7 @@ namespace DAL
                         default:
                             {
                                 resMes = "Data";
-                                h = new Home(homeId, homeName, int.Parse(sdr["Number_Of_Users"].ToString()), address);
+                                h = new Home(homeId, homeName, int.Parse(sdr["Number_Of_Users"].ToString()), address, latitude, longitude, altitude, accuracy);
                                 break;
                             }
                     }
@@ -548,7 +555,7 @@ namespace DAL
             return res;
         }
 
-        static public string UpdateHomeDetails(int appUserId, int homeId, string newHomeName, string newAddress)
+        static public string UpdateHomeDetails(int appUserId, int homeId, string newHomeName, string newAddress, string newLatitude, string newLongitude, string newAltitude, string newAccuracy)
         {
             string res = "Update Failed";
 
@@ -576,6 +583,42 @@ namespace DAL
             else
             {
                 com.Parameters.Add(new SqlParameter("@NewAddress", newAddress));
+            }
+
+            if (newLatitude == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewLatitude", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewLatitude", double.Parse(newLatitude)));
+            }
+
+            if (newLongitude == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewLongitude", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewLongitude", double.Parse(newLongitude)));
+            }
+
+            if (newAltitude == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewAltitude", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewAltitude", double.Parse(newAltitude)));
+            }
+
+            if (newAccuracy == "null")
+            {
+                com.Parameters.Add(new SqlParameter("@NewAccuracy", DBNull.Value));
+            }
+            else
+            {
+                com.Parameters.Add(new SqlParameter("@NewAcuracy", double.Parse(newAccuracy)));
             }
 
             try
@@ -1101,7 +1144,7 @@ namespace DAL
                             }
                         default:
                             {
-                                h = new Home(homeId, sdr["Home_Name"].ToString(), int.Parse(sdr["Number_Of_Users"].ToString()), sdr["Address"].ToString());
+                                h = new Home(homeId, sdr["Home_Name"].ToString(), int.Parse(sdr["Number_Of_Users"].ToString()), sdr["Address"].ToString(), double.Parse(sdr["Latitude"].ToString()), double.Parse(sdr["Longitude"].ToString()), double.Parse(sdr["Altitude"].ToString()), double.Parse(sdr["Accuracy"].ToString()));
                                 resMes = "Data";
                                 break;
                             }

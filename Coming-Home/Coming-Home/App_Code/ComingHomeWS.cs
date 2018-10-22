@@ -51,17 +51,17 @@ public class ComingHomeWS : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string CreateHome(string userId, string homeName, string address)
+    public string CreateHome(string userId, string homeName, string address, string latitude, string longitude, string altitude, string accuracy)
     {
-        int homeId = BLService.CreateHome(int.Parse(userId), homeName, address);
+        int homeId = BLService.CreateHome(int.Parse(userId), homeName, address, double.Parse(latitude), double.Parse(longitude), double.Parse(altitude), double.Parse(accuracy));
 
         return js.Serialize(homeId);
     }
 
     [WebMethod]
-    public string JoinHome(string userId, string homeName, string address)
+    public string JoinHome(string userId, string homeName, string address, string latitude, string longitude, string altitude, string accuracy)
     {
-        JsonData jd = BLService.JoinHome(int.Parse(userId), homeName, address);
+        JsonData jd = BLService.JoinHome(int.Parse(userId), homeName, address, double.Parse(latitude), double.Parse(longitude), double.Parse(altitude), double.Parse(accuracy));
 
         return js.Serialize(jd);
     }
@@ -192,9 +192,9 @@ public class ComingHomeWS : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string UpdateHomeDetails(string appUserId, string homeId, string newHomeName, string newAddress)
+    public string UpdateHomeDetails(string appUserId, string homeId, string newHomeName, string newAddress, string newLatitude, string newLongitude, string newAltitude, string newAccuracy)
     {
-        string res = BLService.UpdateHomeDetails(int.Parse(appUserId), int.Parse(homeId), newHomeName, newAddress);
+        string res = BLService.UpdateHomeDetails(int.Parse(appUserId), int.Parse(homeId), newHomeName, newAddress, newLatitude, newLongitude, newAltitude, newAccuracy);
 
         return js.Serialize(res);
     }
