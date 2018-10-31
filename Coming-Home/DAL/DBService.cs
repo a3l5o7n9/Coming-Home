@@ -126,6 +126,16 @@ namespace DAL
 
                 if (jd.AU != null)
                 {
+                    List<Room> lr = new List<Room>();
+                    lr = GetAllUserRooms(jd.AU.UserId);
+
+                    jd.LR = lr;
+
+                    List<Device> ld = new List<Device>();
+                    ld = GetAllUserDevices(jd.AU.UserId);
+
+                    jd.LD = ld;
+
                     List<ActivationCondition> lActCon = new List<ActivationCondition>();
                     lActCon = GetAllUserActivationConditions(jd.AU.UserId);
 
@@ -1800,6 +1810,104 @@ namespace DAL
             }
 
             return lActCon;
+        }
+
+        static public List<Room> GetAllUserRooms(int userId)
+        {
+            List<Room> lr = new List<Room>();
+            int rId = -1;
+
+            //Retrieves all rooms this user has access to from the DB
+            com = new SqlCommand("Get_All_User_Rooms", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                while (sdr.Read())
+                {
+                    rId = int.Parse(sdr["Room_Id"].ToString());
+
+
+                    if (rId == 0)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        lr.Add(new Room(int.Parse(sdr["Room_Id"].ToString()), sdr["Room_Name"].ToString(), sdr["Room_Type_Name"].ToString(), int.Parse(sdr["Home_Id"].ToString()), bool.Parse(sdr["Is_Shared"].ToString()), int.Parse(sdr["Number_Of_Devices"].ToString())));
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                 "ERROR in class:DBService function:GetAllUserRooms() - message=" + e.Message +
+                 ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return lr;
+        }
+
+        static public List<Device> GetAllUserDevices(int userId)
+        {
+            List<Device> ld = new List<Device>();
+            int dId = -1;
+
+            //Retrieves all the devices with the rooms in which this user has permissions to 
+            //them from the DB
+            com = new SqlCommand("Get_All_User_Devices", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@UserId", userId));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+                while (sdr.Read())
+                {
+                    dId = int.Parse(sdr["Device_Id"].ToString());
+
+                    if (dId == 0)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        ld.Add(new Device(int.Parse(sdr["Device_Id"].ToString()), sdr["Device_Name"].ToString(), sdr["Device_Type_Name"].ToString(), int.Parse(sdr["Home_Id"].ToString()), bool.Parse(sdr["Is_Divided_Into_Rooms"].ToString()), int.Parse(sdr["Room_Id"].ToString()), bool.Parse(sdr["Is_On"].ToString())));
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                 "ERROR in class:DBService function:GetAllUserDevices() - message=" + e.Message +
+                 ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return ld;
         }
 
         static public List<ActivationCondition> GetAllUserActivationConditions(int userId)

@@ -160,6 +160,16 @@ namespace BAL
             return DBService.GetAllActivationConditions();
         }
 
+        static public List<Room> GetAllUserRooms(int userId)
+        {
+            return DBService.GetAllUserRooms(userId);
+        }
+
+        static public List<Device> GetAllUserDevices(int userId)
+        {
+            return DBService.GetAllUserDevices(userId);
+        }
+
         static public List<ActivationCondition> GetAllUserActivationConditions(int userId)
         {
             return DBService.GetAllUserActivationConditions(userId);

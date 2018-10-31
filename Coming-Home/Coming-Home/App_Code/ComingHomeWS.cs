@@ -320,6 +320,22 @@ public class ComingHomeWS : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GetAllUserRooms(string userId)
+    {
+        List<Room> lr = BLService.GetAllUserRooms(int.Parse(userId));
+
+        return js.Serialize(lr);
+    }
+
+    [WebMethod]
+    public string GetAllUserDevices(string userId)
+    {
+        List<Device> ld = BLService.GetAllUserDevices(int.Parse(userId));
+
+        return js.Serialize(ld);
+    }
+
+    [WebMethod]
     public string GetAllUserActivationConditions(string userId)
     {
         List<ActivationCondition> lActCon = BLService.GetAllUserActivationConditions(int.Parse(userId));
