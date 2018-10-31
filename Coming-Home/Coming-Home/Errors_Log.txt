@@ -39,3 +39,6 @@ ERROR in class:DBService function:Login() - message=The connection was not close
 ERROR in class:DBService function:Login() - message=The connection was not closed. The connection's current state is connecting., on the 17/10/2018 12:00
 ERROR in class:DBService function:Login() - message=The connection was not closed. The connection's current state is connecting., on the 17/10/2018 14:44
 ERROR in class:DBService function:UpdateTokenForUserId() - message=The connection was not closed. The connection's current state is connecting., on the 21/10/2018 10:30
+ERROR in class:DBService function:GetAllUserActivationConditions() - message=The connection was not closed. The connection's current state is open., on the 31/10/2018 10:15
+ERROR in class:DBService function:Login() - message=Object reference not set to an instance of an object., on the 31/10/2018 10:24
+ERROR in class:DBService function:Login() - message=Object reference not set to an instance of an object., on the 31/10/2018 10:24

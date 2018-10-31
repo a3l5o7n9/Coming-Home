@@ -110,8 +110,6 @@ namespace DAL
                 }
 
                 jd = new JsonData(au, lu, lh, "Data");
-
-                return jd;
             }
             catch (Exception e)
             {
@@ -124,6 +122,14 @@ namespace DAL
                 if (com.Connection.State == ConnectionState.Open)
                 {
                     com.Connection.Close();
+                }
+
+                if (jd.AU != null)
+                {
+                    List<ActivationCondition> lActCon = new List<ActivationCondition>();
+                    lActCon = GetAllUserActivationConditions(jd.AU.UserId);
+
+                    jd.LActCon = lActCon;
                 }
             }
 
