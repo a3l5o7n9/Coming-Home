@@ -244,5 +244,15 @@ namespace BAL
         {
             return DBService.DeleteActivationCondition(userId, homeId, conditionId);
         }
+
+        static public int LeaveHome(int userId, int homeId)
+        {
+            return DBService.LeaveHome(userId, homeId);
+        }
+
+        static public int UnbindDeviceFromRoom(int roomId, int deviceId, int userId, int homeId)
+        {
+            return DBService.UnbindDeviceFromRoom(roomId, deviceId, userId, homeId);
+        }
     }
 }

@@ -434,4 +434,20 @@ public class ComingHomeWS : System.Web.Services.WebService
 
         return js.Serialize(res);
     }
+
+    [WebMethod]
+    public string LeaveHome(string userId, string homeId)
+    {
+        int res = BLService.LeaveHome(int.Parse(userId), int.Parse(homeId));
+
+        return js.Serialize(res);
+    }
+
+    [WebMethod]
+    public string UnbindDeviceFromRoom(string roomId, string deviceId, string userId, string homeId)
+    {
+        int res = BLService.UnbindDeviceFromRoom(int.Parse(roomId), int.Parse(deviceId), int.Parse(userId), int.Parse(homeId));
+
+        return js.Serialize(res);
+    }
 }
