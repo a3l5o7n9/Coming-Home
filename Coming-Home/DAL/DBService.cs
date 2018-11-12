@@ -208,6 +208,7 @@ namespace DAL
             com.Parameters.Add(new SqlParameter("@HomeName", homeName));
             com.Parameters.Add(new SqlParameter("@Address", address));
             com.Parameters.Add(new SqlParameter("@Latitude", latitude));
+            com.Parameters.Add(new SqlParameter("@Longitude", longitude));
             com.Parameters.Add(new SqlParameter("@Altitude", altitude));
             com.Parameters.Add(new SqlParameter("@Accuracy", accuracy));
 
