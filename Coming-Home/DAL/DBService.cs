@@ -192,6 +192,52 @@ namespace DAL
             return homeId;
         }
 
+        static public int InviteUserToHome(string userName, string homeName, string address, double latitude, double longitude, double altitude, double accuracy)
+        {
+            int res = -1;
+            //This procedure will check whether a user with that userName exists, and if it does, it will be added to this home
+            com = new SqlCommand("Invite_User_To_Home", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Clear();
+            com.Parameters.Add(new SqlParameter("@UserName", userName));
+            com.Parameters.Add(new SqlParameter("@HomeName", homeName));
+            com.Parameters.Add(new SqlParameter("@Address", address));
+            com.Parameters.Add(new SqlParameter("@Latitude", latitude));
+            com.Parameters.Add(new SqlParameter("@Longitude", longitude));
+            com.Parameters.Add(new SqlParameter("@Altitude", altitude));
+            com.Parameters.Add(new SqlParameter("@Accuracy", accuracy));
+
+            try
+            {
+                com.Connection.Open();
+                sdr = com.ExecuteReader();
+
+
+                if (sdr.Read())
+                {
+                    res = int.Parse(sdr[0].ToString());
+                }
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                File.AppendAllText(Globals.LogFileName,
+                   "ERROR in class:DBService function:InviteUserToHome() - message=" + e.Message +
+                   ", on the " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine);
+            }
+            finally
+            {
+                if (com.Connection.State == ConnectionState.Open)
+                {
+                    com.Connection.Close();
+                }
+            }
+
+            return res;
+        }
+
         static public JsonData JoinHome(int userId, string homeName, string address, double latitude, double longitude, double altitude, double accuracy)
         {
             string resMes = "No Data";
