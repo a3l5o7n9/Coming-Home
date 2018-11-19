@@ -14,8 +14,9 @@ namespace BEL
         public int HomeId { get; set; }
         public bool IsShared { get; set; }
         public int NumOfDevices { get; set; }
+        public bool HasAccess { get; set; }
 
-        public Room(int roomId, string roomName, string roomTypeName, int homeId, bool isShared , int numOfDevices)
+        public Room(int roomId, string roomName, string roomTypeName, int homeId, bool isShared , int numOfDevices, bool hasAccess)
         {
             RoomId = roomId;
             RoomName = roomName;
@@ -23,6 +24,7 @@ namespace BEL
             HomeId = homeId;
             IsShared = isShared;
             NumOfDevices = numOfDevices;
+            HasAccess = hasAccess;
         }
 
         public Room(int roomId)

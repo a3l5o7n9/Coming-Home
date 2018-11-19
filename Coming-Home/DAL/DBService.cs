@@ -1247,7 +1247,7 @@ namespace DAL
                             }
                         default:
                             {
-                                d = new Device(deviceId, sdr["Device_Name"].ToString(), sdr["Device_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Divided_Into_Rooms"].ToString()), roomId, bool.Parse(sdr["Is_On"].ToString()));
+                                d = new Device(deviceId, sdr["Device_Name"].ToString(), sdr["Device_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Divided_Into_Rooms"].ToString()), roomId, bool.Parse(sdr["Is_On"].ToString()), bool.Parse(sdr["Has_Permission"].ToString()));
                                 resMes = "Data";
                                 break;
                             }
@@ -1327,7 +1327,7 @@ namespace DAL
                             }
                         default:
                             {
-                                r = new Room(roomId, sdr["Room_Name"].ToString(), sdr["Room_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Shared"].ToString()), int.Parse(sdr["Number_Of_Devices"].ToString()));
+                                r = new Room(roomId, sdr["Room_Name"].ToString(), sdr["Room_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Shared"].ToString()), int.Parse(sdr["Number_Of_Devices"].ToString()), bool.Parse(sdr["Has_Access"].ToString()));
                                 resMes = "Data";
                                 break;
                             }
@@ -1531,7 +1531,7 @@ namespace DAL
             string resMes = "No Data";
             int rId = 0;
 
-            //Retrieves all the rooms in that home the user has access to
+            //Retrieves all the rooms in that home
             com = new SqlCommand("Get_User_Rooms_In_Home", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -1573,7 +1573,7 @@ namespace DAL
                             }
                         default:
                             {
-                                lr.Add(new Room(int.Parse(sdr["Room_Id"].ToString()), sdr["Room_Name"].ToString(), sdr["Room_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Shared"].ToString()), int.Parse(sdr["Number_Of_Devices"].ToString())));
+                                lr.Add(new Room(int.Parse(sdr["Room_Id"].ToString()), sdr["Room_Name"].ToString(), sdr["Room_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Shared"].ToString()), int.Parse(sdr["Number_Of_Devices"].ToString()), bool.Parse(sdr["Has_Access"].ToString())));
                                 resMes = "Data";
                                 break;
                             }
@@ -1606,8 +1606,7 @@ namespace DAL
             string resMes = "No Data";
             int dId = 0;
 
-            //Retrieves all the devices in that home in the rooms that the user has permission 
-            //and access to
+            //Retrieves all the devices in that home and the rooms they are bound to
             com = new SqlCommand("Get_User_Devices_In_Home", con);
             com.CommandType = CommandType.StoredProcedure;
 
@@ -1649,7 +1648,7 @@ namespace DAL
                             }
                         default:
                             {
-                                ld.Add(new Device(int.Parse(sdr["Device_Id"].ToString()), sdr["Device_Name"].ToString(), sdr["Device_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Divided_Into_Rooms"].ToString()), int.Parse(sdr["Room_Id"].ToString()), bool.Parse(sdr["Is_On"].ToString())));
+                                ld.Add(new Device(int.Parse(sdr["Device_Id"].ToString()), sdr["Device_Name"].ToString(), sdr["Device_Type_Name"].ToString(), homeId, bool.Parse(sdr["Is_Divided_Into_Rooms"].ToString()), int.Parse(sdr["Room_Id"].ToString()), bool.Parse(sdr["Is_On"].ToString()), bool.Parse(sdr["Has_Permission"].ToString())));
                                 resMes = "Data";
                                 break;
                             }
@@ -1841,7 +1840,7 @@ namespace DAL
                     }
                     else
                     {
-                        lr.Add(new Room(int.Parse(sdr["Room_Id"].ToString()), sdr["Room_Name"].ToString(), sdr["Room_Type_Name"].ToString(), int.Parse(sdr["Home_Id"].ToString()), bool.Parse(sdr["Is_Shared"].ToString()), int.Parse(sdr["Number_Of_Devices"].ToString())));
+                        lr.Add(new Room(int.Parse(sdr["Room_Id"].ToString()), sdr["Room_Name"].ToString(), sdr["Room_Type_Name"].ToString(), int.Parse(sdr["Home_Id"].ToString()), bool.Parse(sdr["Is_Shared"].ToString()), int.Parse(sdr["Number_Of_Devices"].ToString()), bool.Parse(sdr["Has_Access"].ToString())));
                     }
                 }
             }
@@ -1890,7 +1889,7 @@ namespace DAL
                     }
                     else
                     {
-                        ld.Add(new Device(int.Parse(sdr["Device_Id"].ToString()), sdr["Device_Name"].ToString(), sdr["Device_Type_Name"].ToString(), int.Parse(sdr["Home_Id"].ToString()), bool.Parse(sdr["Is_Divided_Into_Rooms"].ToString()), int.Parse(sdr["Room_Id"].ToString()), bool.Parse(sdr["Is_On"].ToString())));
+                        ld.Add(new Device(int.Parse(sdr["Device_Id"].ToString()), sdr["Device_Name"].ToString(), sdr["Device_Type_Name"].ToString(), int.Parse(sdr["Home_Id"].ToString()), bool.Parse(sdr["Is_Divided_Into_Rooms"].ToString()), int.Parse(sdr["Room_Id"].ToString()), bool.Parse(sdr["Is_On"].ToString()), bool.Parse(sdr["Has_Permission"].ToString())));
                     }
                 }
             }
