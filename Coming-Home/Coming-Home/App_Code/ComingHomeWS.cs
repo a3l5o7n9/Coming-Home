@@ -61,9 +61,9 @@ public class ComingHomeWS : System.Web.Services.WebService
     [WebMethod]
     public string InviteUserToHome(string userName, string homeName, string address, string latitude, string longitude, string altitude, string accuracy)
     {
-        int res = BLService.InviteUserToHome(userName, homeName, address, double.Parse(latitude), double.Parse(longitude), double.Parse(altitude), double.Parse(accuracy));
+        User u = BLService.InviteUserToHome(userName, homeName, address, double.Parse(latitude), double.Parse(longitude), double.Parse(altitude), double.Parse(accuracy));
 
-        return js.Serialize(res);
+        return js.Serialize(u);
     }
 
     [WebMethod]

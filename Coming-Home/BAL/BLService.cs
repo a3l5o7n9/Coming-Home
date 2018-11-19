@@ -25,7 +25,7 @@ namespace BAL
             return DBService.CreateHome(userId, homeName, address, latitude, longitude, altitude, accuracy);
         }
 
-        static public int InviteUserToHome(string userName, string homeName, string address, double latitude, double longitude, double altitude, double accuracy)
+        static public User InviteUserToHome(string userName, string homeName, string address, double latitude, double longitude, double altitude, double accuracy)
         {
             return DBService.InviteUserToHome(userName, homeName, address, latitude, longitude, altitude, accuracy);
         }

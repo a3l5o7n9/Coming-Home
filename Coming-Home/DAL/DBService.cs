@@ -192,9 +192,9 @@ namespace DAL
             return homeId;
         }
 
-        static public int InviteUserToHome(string userName, string homeName, string address, double latitude, double longitude, double altitude, double accuracy)
+        static public User InviteUserToHome(string userName, string homeName, string address, double latitude, double longitude, double altitude, double accuracy)
         {
-            int res = -1;
+            User u = null;
             //This procedure will check whether a user with that userName exists, and if it does, it will be added to this home
             com = new SqlCommand("Invite_User_To_Home", con);
             com.CommandType = CommandType.StoredProcedure;
@@ -216,10 +216,13 @@ namespace DAL
 
                 if (sdr.Read())
                 {
-                    res = int.Parse(sdr[0].ToString());
+                    if (int.Parse(sdr["User_Id"].ToString()) != -2)
+                    {
+                        u = new User(int.Parse(sdr["User_Id"].ToString()), sdr["User_Name"].ToString(), sdr["User_Password"].ToString(), sdr["First_Name"].ToString(), sdr["Last_Name"].ToString());
+                    }
                 }
 
-                return res;
+                return u;
             }
             catch (Exception e)
             {
@@ -235,7 +238,7 @@ namespace DAL
                 }
             }
 
-            return res;
+            return u;
         }
 
         static public JsonData JoinHome(int userId, string homeName, string address, double latitude, double longitude, double altitude, double accuracy)
