@@ -1,11 +1,11 @@
-C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\obj\Debug\BAL.csproj.CoreCompileInputs.cache
 C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\bin\Debug\BAL.dll
 C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\bin\Debug\BAL.pdb
 C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\bin\Debug\BEL.dll
 C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\bin\Debug\DAL.dll
 C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\bin\Debug\BEL.pdb
 C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\bin\Debug\DAL.pdb
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\obj\Debug\BAL.csprojAssemblyReference.cache
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\obj\Debug\BAL.csproj.CoreCompileInputs.cache
 C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\obj\Debug\BAL.csproj.CopyComplete
 C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\obj\Debug\BAL.dll
 C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\obj\Debug\BAL.pdb
-C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\obj\Debug\BAL.csprojAssemblyReference.cache

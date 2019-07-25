@@ -1,0 +1,11 @@
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\bin\Release\BAL.dll
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\bin\Release\BAL.pdb
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\bin\Release\BEL.dll
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\bin\Release\DAL.dll
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\bin\Release\BEL.pdb
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\bin\Release\DAL.pdb
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\obj\Release\BAL.csprojAssemblyReference.cache
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\obj\Release\BAL.csproj.CoreCompileInputs.cache
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\obj\Release\BAL.csproj.CopyComplete
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\obj\Release\BAL.dll
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BAL\obj\Release\BAL.pdb

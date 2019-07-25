@@ -1,0 +1,5 @@
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BEL\bin\Release\BEL.dll
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BEL\bin\Release\BEL.pdb
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BEL\obj\Release\BEL.csproj.CoreCompileInputs.cache
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BEL\obj\Release\BEL.dll
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\BEL\obj\Release\BEL.pdb

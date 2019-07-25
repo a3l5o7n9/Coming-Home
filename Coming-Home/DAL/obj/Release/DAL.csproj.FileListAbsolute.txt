@@ -1,0 +1,9 @@
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\DAL\bin\Release\DAL.dll
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\DAL\bin\Release\DAL.pdb
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\DAL\bin\Release\BEL.dll
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\DAL\bin\Release\BEL.pdb
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\DAL\obj\Release\DAL.csprojAssemblyReference.cache
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\DAL\obj\Release\DAL.csproj.CoreCompileInputs.cache
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\DAL\obj\Release\DAL.csproj.CopyComplete
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\DAL\obj\Release\DAL.dll
+C:\Users\Alon\Documents\GitHub\Coming-Home\Coming-Home\DAL\obj\Release\DAL.pdb
